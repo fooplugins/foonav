@@ -1,0 +1,32 @@
+.fon-light,
+.fon-light .fon-buttons {
+	background-color: #e5e5e5;
+}
+
+.fon-border.fon-light,
+.fon-border.fon-light > .fon-buttons {
+	border-color: #616161;
+}
+
+.fon-light .fon-button {
+	color: #616161;
+}
+
+.fon-light .fon-button:hover {
+	color:#000;
+}
+
+.fon-light .fon-item {
+	color: #616161;
+	background-color: #f4f4f4;
+}
+
+.fon-light .fon-item:hover,
+.fon-light .fon-item.fon-current {
+	color:#000;
+	background-color: #FFF;
+}
+
+.fon-light .fon-item-link {
+	color: inherit;
+}

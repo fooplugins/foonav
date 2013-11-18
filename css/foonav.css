@@ -1,0 +1,217 @@
+.fon-nav,
+.fon-nav-size {
+	font-family: "Segoe UI", "Helvetica", "Arial", "Sans Serif";
+	font-size: 16px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	position: fixed;
+	overflow: visible;
+	min-height: 180px;
+	min-width: 150px;
+	padding: 10px;
+	z-index: 9999;
+}
+
+.fon-nav-size {
+	top: -3000px;
+	left: -3000px;
+	right: auto;
+	bottom: auto;
+}
+
+.fon-nav-inner {
+	overflow: hidden;
+}
+
+.fon-buttons {
+	position: absolute;
+}
+
+.fon-button {
+	display: block;
+	width: 48px;
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 16px;
+}
+
+.fon-menu {
+	position: relative;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.fon-item {
+	padding: 0;
+	margin: 3px;
+}
+.fon-border .fon-item {
+	border-style: solid;
+	border-width: 2px;
+	border-color: transparent;
+}
+
+.fon-menu > .fon-item > .fon-menu {
+	display: none;
+}
+
+.fon-item-link {
+	display: block;
+	padding: 8px;
+	position: relative;
+	text-decoration: none;
+	text-align: left;
+}
+
+.fon-icon-expand {
+	margin-left: -10px;
+	padding: 10px;
+}
+
+.fon-button,
+.fon-item {
+	-webkit-transition-property: color, background-color;
+	-moz-transition-property: color, background-color;
+	-o-transition-property: color, background-color;
+	transition-property: color, background-color;
+	-webkit-transition-duration: 0.2s, 0.2s;
+	-moz-transition-duration: 0.2s, 0.2s;
+	-o-transition-duration: 0.2s, 0.2s;
+	transition-duration: 0.2s, 0.2s;
+	-webkit-transition-timing-function: ease-in, ease-in;
+	-moz-transition-timing-function: ease-in, ease-in;
+	-o-transition-timing-function: ease-in, ease-in;
+	transition-timing-function: ease-in, ease-in;
+}
+
+/* Positional CSS */
+
+.fon-top-right,
+.fon-top-right > .fon-buttons {
+	top: 30px;
+}
+
+.fon-bottom-right,
+.fon-bottom-right > .fon-buttons {
+	bottom: 30px;
+}
+
+.fon-top-right,
+.fon-bottom-right {
+	right: -1000px;
+}
+
+.fon-top-right > .fon-buttons,
+.fon-bottom-right > .fon-buttons {
+	right: 99%;
+}
+
+.fon-border.fon-top-right,
+.fon-border.fon-top-right > .fon-buttons,
+.fon-border.fon-bottom-right,
+.fon-border.fon-bottom-right > .fon-buttons {
+	border-style: solid;
+	border-width: 2px;
+	border-color: transparent;
+	border-right: none;
+}
+
+.fon-shadow.fon-top-right,
+.fon-shadow.fon-top-right > .fon-buttons,
+.fon-shadow.fon-bottom-right,
+.fon-shadow.fon-bottom-right > .fon-buttons {
+	-webkit-box-shadow: -2px 2px 2px rgba(50, 50, 50, 0.3);
+	-moz-box-shadow:    -2px 2px 2px rgba(50, 50, 50, 0.3);
+	box-shadow:         -2px 2px 2px rgba(50, 50, 50, 0.3);
+}
+
+.fon-rounded.fon-top-right,
+.fon-rounded.fon-top-right > .fon-buttons,
+.fon-rounded.fon-bottom-right,
+.fon-rounded.fon-bottom-right > .fon-buttons {
+	-webkit-border-top-left-radius: 6px;
+	-webkit-border-bottom-left-radius: 6px;
+	-moz-border-radius-topleft: 6px;
+	-moz-border-radius-bottomleft: 6px;
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+.fon-rounded.fon-top-right .fon-item:first-child,
+.fon-rounded.fon-bottom-right .fon-item:first-child {
+	-webkit-border-top-left-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	border-top-left-radius: 3px;
+}
+.fon-rounded.fon-top-right .fon-item:last-child,
+.fon-rounded.fon-bottom-right .fon-item:last-child {
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+.fon-top-left,
+.fon-top-left > .fon-buttons {
+	top: 30px;
+}
+
+.fon-bottom-left,
+.fon-bottom-left > .fon-buttons {
+	bottom: 30px;
+}
+
+.fon-top-left,
+.fon-bottom-left {
+	left: -1000px;
+}
+
+.fon-top-left > .fon-buttons,
+.fon-bottom-left > .fon-buttons {
+	left: 99%;
+}
+
+.fon-border.fon-top-left,
+.fon-border.fon-top-left > .fon-buttons,
+.fon-border.fon-bottom-left,
+.fon-border.fon-bottom-left > .fon-buttons {
+	border-style: solid;
+	border-width: 2px;
+	border-color: transparent;
+	border-left: none;
+}
+
+.fon-shadow.fon-top-left,
+.fon-shadow.fon-top-left > .fon-buttons,
+.fon-shadow.fon-bottom-left,
+.fon-shadow.fon-bottom-left > .fon-buttons {
+	-webkit-box-shadow: 2px 2px 2px rgba(50, 50, 50, 0.3);
+	-moz-box-shadow:    2px 2px 2px rgba(50, 50, 50, 0.3);
+	box-shadow:         2px 2px 2px rgba(50, 50, 50, 0.3);
+}
+
+.fon-rounded.fon-top-left,
+.fon-rounded.fon-top-left > .fon-buttons,
+.fon-rounded.fon-bottom-left,
+.fon-rounded.fon-bottom-left > .fon-buttons {
+	-webkit-border-top-right-radius: 6px;
+	-webkit-border-bottom-right-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	-moz-border-radius-bottomright: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+.fon-rounded.fon-top-left .fon-item:first-child,
+.fon-rounded.fon-bottom-left .fon-item:first-child {
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-right-radius: 3px;
+}
+.fon-rounded.fon-top-left .fon-item:last-child,
+.fon-rounded.fon-bottom-left .fon-item:last-child {
+	-webkit-border-bottom-right-radius: 3px;
+	-moz-border-radius-bottomright: 3px;
+	border-bottom-right-radius: 3px;
+}

@@ -1,0 +1,36 @@
+@font-face {
+	font-family: 'foonav';
+	src:url('fonts/foonav.eot');
+	src:url('fonts/foonav.eot?#iefix') format('embedded-opentype'),
+	url('fonts/foonav.ttf') format('truetype'),
+	url('fonts/foonav.woff') format('woff'),
+	url('fonts/foonav.svg#foonav') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.fon-icon {
+	font-family: 'foonav';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.fon-icon-open:before {
+	content: "\e2ac";
+}
+.fon-icon-close:before {
+	content: "\e36b";
+}
+.fon-icon-expand:before {
+	content: "\e376";
+}
+.fon-icon-back:before {
+	content: "\e3bf";
+}

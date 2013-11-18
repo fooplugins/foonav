@@ -1,0 +1,27 @@
+.fon-blue,
+.fon-blue .fon-buttons {
+	background-color: #1b58b7;
+}
+
+.fon-border.fon-blue,
+.fon-border.fon-blue > .fon-buttons {
+	border-color: #2673ec;
+}
+
+.fon-blue .fon-button {
+	color: #FFF;
+}
+
+.fon-blue .fon-item {
+	color: #FFF;
+	background-color: #2673ec;
+}
+
+.fon-blue .fon-item:hover,
+.fon-blue .fon-item.fon-current {
+	background-color: #1faeff;
+}
+
+.fon-blue .fon-item-link {
+	color: inherit;
+}
