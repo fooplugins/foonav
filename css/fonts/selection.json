@@ -67,7 +67,7 @@
 				"id": 887,
 				"prevSize": 32,
 				"code": 58230,
-				"name": "plus",
+				"name": "expand",
 				"ligatures": ""
 			}
 		},
@@ -89,7 +89,51 @@
 				"id": 960,
 				"prevSize": 32,
 				"code": 58303,
-				"name": "arrow-left",
+				"name": "back",
+				"ligatures": ""
+			}
+		},
+		{
+			"icon": {
+				"paths": [
+					"M512.002 0l-512.002 512h320v511.998l384 0.002v-512h320z"
+				],
+				"tags": [
+					"arrow-up",
+					"upload",
+					"top"
+				],
+				"defaultCode": 58297,
+				"grid": 16
+			},
+			"properties": {
+				"order": 5,
+				"id": 954,
+				"prevSize": 32,
+				"code": 58297,
+				"name": "top",
+				"ligatures": ""
+			}
+		},
+		{
+			"icon": {
+				"paths": [
+					"M1024 608l-192-192v-288h-128v160l-192-192-512 512v32h128v320h320v-192h128v192h320v-320h128z"
+				],
+				"tags": [
+					"home",
+					"house",
+					"building"
+				],
+				"defaultCode": 57346,
+				"grid": 16
+			},
+			"properties": {
+				"order": 6,
+				"id": 3,
+				"prevSize": 32,
+				"code": 57346,
+				"name": "home",
 				"ligatures": ""
 			}
 		}
@@ -100,7 +144,7 @@
 	},
 	"preferences": {
 		"fontPref": {
-			"prefix": "fon-",
+			"prefix": "fon-icon-",
 			"metadata": {
 				"fontFamily": "foonav"
 			},

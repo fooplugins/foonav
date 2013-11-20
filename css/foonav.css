@@ -38,7 +38,10 @@
 	font-size: 16px;
 }
 
-.fon-closed {
+.fon-closed.fon-shadow.fon-top-left,
+.fon-closed.fon-shadow.fon-bottom-left,
+.fon-closed.fon-shadow.fon-top-right,
+.fon-closed.fon-shadow.fon-bottom-right {
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
@@ -220,4 +223,26 @@
 	-webkit-border-bottom-right-radius: 3px;
 	-moz-border-radius-bottomright: 3px;
 	border-bottom-right-radius: 3px;
+}
+
+.fon-full-height {
+	top: 0;
+	bottom: 0;
+}
+
+.fon-full-height.fon-border.fon-top-left,
+.fon-full-height.fon-border.fon-bottom-left,
+.fon-full-height.fon-border.fon-top-right,
+.fon-full-height.fon-border.fon-bottom-right {
+	border-top: none;
+	border-bottom: none;
+}
+
+.fon-full-height.fon-rounded.fon-top-left,
+.fon-full-height.fon-rounded.fon-bottom-left,
+.fon-full-height.fon-rounded.fon-top-right,
+.fon-full-height.fon-rounded.fon-bottom-right {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
 }
