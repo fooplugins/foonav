@@ -451,7 +451,6 @@
 				if ($item.hasClass('fon-current')){
 					e.preventDefault();
 					e.stopPropagation();
-					return;
 				}
 				_.inner.find('.fon-current').removeClass('fon-current');
 				$item.addClass('fon-current');
