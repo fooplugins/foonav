@@ -12,16 +12,22 @@
 	color: #FFF;
 }
 
-.fon-blue .fon-item {
+.fon-blue .fon-item-link {
 	color: #FFF;
 	background-color: #2673ec;
 }
 
-.fon-blue .fon-item:hover,
-.fon-blue .fon-item.fon-current {
+.fon-blue .fon-item-link:hover,
+.fon-blue .fon-item-link.fon-current {
 	background-color: #1faeff;
 }
 
-.fon-blue .fon-item-link {
-	color: inherit;
+.fon-blue .fon-item-title,
+.fon-blue .fon-item-back {
+	color: #FFF;
+	background-color: #5292F5;
+}
+
+.fon-blue .fon-item-back:hover {
+	background-color: #73AAFF;
 }

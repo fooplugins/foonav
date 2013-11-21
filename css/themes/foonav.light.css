@@ -16,17 +16,23 @@
 	color:#000;
 }
 
-.fon-light .fon-item {
+.fon-light .fon-item-link {
 	color: #616161;
 	background-color: #f4f4f4;
 }
 
-.fon-light .fon-item:hover,
-.fon-light .fon-item.fon-current {
+.fon-light .fon-item-link:hover,
+.fon-light .fon-item-link.fon-current {
 	color:#000;
 	background-color: #FFF;
 }
 
-.fon-light .fon-item-link {
-	color: inherit;
+.fon-light .fon-item-title,
+.fon-light .fon-item-back {
+	color: #FFF;
+	background-color: #ADADAD;
+}
+
+.fon-light .fon-item-back:hover {
+	background-color: #828282;
 }

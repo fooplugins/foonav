@@ -26,11 +26,14 @@
 
 .fon-buttons {
 	position: absolute;
+	min-width: 48px;
+	min-height: 48px;
 }
 
 .fon-button {
+	position: relative;
 	display: block;
-	width: 48px;
+	min-width: 48px;
 	height: 48px;
 	line-height: 48px;
 	text-align: center;
@@ -54,31 +57,29 @@
 	margin: 0;
 }
 
-.fon-item {
-	padding: 0;
-	margin: 3px;
-}
-.fon-border .fon-item {
-	border-style: solid;
-	border-width: 2px;
-	border-color: transparent;
-}
-
-.fon-menu > .fon-item > .fon-menu {
+.fon-menu > li > .fon-menu {
 	display: none;
 }
 
-.fon-item-link {
+.fon-item {
 	display: block;
 	padding: 8px;
+	margin: 3px;
 	position: relative;
 	text-decoration: none;
 	text-align: left;
 }
 
-.fon-icon-expand {
+.fon-item > .fon-icon-back,
+.fon-item > .fon-icon-expand {
 	margin-left: -10px;
-	padding: 10px;
+	padding: 12px;
+}
+
+.fon-border .fon-item {
+	border-style: solid;
+	border-width: 2px;
+	border-color: transparent;
 }
 
 .fon-button,
@@ -149,14 +150,14 @@
 	border-top-left-radius: 6px;
 	border-bottom-left-radius: 6px;
 }
-.fon-rounded.fon-top-right .fon-item:first-child,
-.fon-rounded.fon-bottom-right .fon-item:first-child {
+.fon-rounded.fon-top-right .fon-menu > li:first-child > .fon-item,
+.fon-rounded.fon-bottom-right .fon-menu > li:first-child > .fon-item {
 	-webkit-border-top-left-radius: 3px;
 	-moz-border-radius-topleft: 3px;
 	border-top-left-radius: 3px;
 }
-.fon-rounded.fon-top-right .fon-item:last-child,
-.fon-rounded.fon-bottom-right .fon-item:last-child {
+.fon-rounded.fon-top-right .fon-menu > li:last-child > .fon-item,
+.fon-rounded.fon-bottom-right .fon-menu > li:last-child > .fon-item {
 	-webkit-border-bottom-left-radius: 3px;
 	-moz-border-radius-bottomleft: 3px;
 	border-bottom-left-radius: 3px;
@@ -212,18 +213,20 @@
 	border-top-right-radius: 6px;
 	border-bottom-right-radius: 6px;
 }
-.fon-rounded.fon-top-left .fon-item:first-child,
-.fon-rounded.fon-bottom-left .fon-item:first-child {
+.fon-rounded.fon-top-left .fon-menu > li:first-child > .fon-item,
+.fon-rounded.fon-bottom-left .fon-menu > li:first-child > .fon-item {
 	-webkit-border-top-right-radius: 3px;
 	-moz-border-radius-topright: 3px;
 	border-top-right-radius: 3px;
 }
-.fon-rounded.fon-top-left .fon-item:last-child,
-.fon-rounded.fon-bottom-left .fon-item:last-child {
+.fon-rounded.fon-top-left .fon-menu > li:last-child > .fon-item,
+.fon-rounded.fon-bottom-left .fon-menu > li:last-child > .fon-item {
 	-webkit-border-bottom-right-radius: 3px;
 	-moz-border-radius-bottomright: 3px;
 	border-bottom-right-radius: 3px;
 }
+
+/* Full Height */
 
 .fon-full-height {
 	top: 0;
