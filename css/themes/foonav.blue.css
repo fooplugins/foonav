@@ -18,8 +18,8 @@
 	border-color: #1b58b7;
 }
 
-.fon-blue .fon-item:hover,
-.fon-blue .fon-item.fon-current {
+.fon-blue a.fon-item:hover,
+.fon-blue .fon-item.fon-active {
 	background-color: #3c89ec;
 }
 

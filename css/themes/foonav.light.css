@@ -23,8 +23,8 @@
 	border-color: #dcdcdc;
 }
 
-.fon-light .fon-item:hover,
-.fon-light .fon-item.fon-current {
+.fon-light a.fon-item:hover,
+.fon-light .fon-item.fon-active {
 	color: #000;
 	background-color: #FFFFFF;
 	border-color: #dddddd;
@@ -33,7 +33,7 @@
 .fon-light.fon-box-icon .fon-item > .fon-icon {
 	border-color: #dcdcdc;
 }
-.fon-light.fon-box-icon .fon-item:hover > .fon-icon,
-.fon-light.fon-box-icon .fon-item.fon-current > .fon-icon {
+.fon-light.fon-box-icon a.fon-item:hover > .fon-icon,
+.fon-light.fon-box-icon .fon-item.fon-active > .fon-icon {
 	border-color: #dddddd;
 }

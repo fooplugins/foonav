@@ -22,8 +22,8 @@
 	border-color: #1c1817;
 }
 
-.fon-dark .fon-item:hover,
-.fon-dark .fon-item.fon-current {
+.fon-dark a.fon-item:hover,
+.fon-dark .fon-item.fon-active {
 	color: #FFF;
 	background-color: #3b3735;
 }

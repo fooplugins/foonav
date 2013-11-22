@@ -13,6 +13,40 @@
 	<script>
 		$(function(){
 
+			var random = [{
+				text: 'Parent 1',
+				href: '#parent_1'
+			},{
+				text: 'Parent 2',
+				href: '#parent_2',
+				children: [{
+					text: 'Parent 2 - Child 1',
+					href: '#parent_2_child_1'
+				},{
+					text: 'Parent 2 - Child 2',
+					href: '#parent_2_child_2'
+				},{
+					text: 'Parent 2 - Child 3',
+					href: '#parent_2_child_3',
+					children: [{
+						text: 'Parent 2 - Child 3 - Child 1',
+						href: '#parent_2_child_3_child_1'
+					},{
+						text: 'Parent 2 - Child 3 - Child 2',
+						href: '#parent_2_child_3_child_2'
+					},{
+						text: 'Parent 2 - Child 3 - Child 3',
+						href: '#parent_2_child_3_child_3'
+					},{
+						text: 'Parent 2 - Child 3 - Child 4',
+						href: '#parent_2_child_3_child_4'
+					}]
+				},{
+					text: 'Parent 2 - Child 4',
+					href: '#parent_2_child_4'
+				}]
+			}];
+
 			var items = [{
 				text: 'Header 1',
 				href: '#header_1',
@@ -64,29 +98,29 @@
 			}];
 
 			FooNav.create({
-				classes: 'fon-rounded fon-full-height fon-box-icon',
+				classes: 'fon-full-height',
 				home: 'http://www.google.com',
 				position: 'fon-top-left',
 				theme: 'fon-light',
+				transition: 'fade',
 				items: items
 			});
 
 			FooNav.create({
-				classes: 'fon-rounded fon-full-height fon-box-icon',
+				classes: 'fon-rounded fon-box-icon fon-shadow fon-border fon-full-height',
 				position: 'fon-top-right',
 				theme: 'fon-blue',
-				items: items
+				items: random
 			});
 
 			FooNav.create({
-				classes: 'fon-rounded fon-box-icon',
+				classes: 'fon-rounded fon-box-icon fon-shadow fon-border',
 				position: 'fon-bottom-left',
 				theme: 'fon-green',
-				items: items
+				items: random
 			});
 
 			FooNav.create({
-				classes: 'fon-rounded fon-box-icon',
 				home: 'demo.html',
 				position: 'fon-bottom-right',
 				theme: 'fon-dark',

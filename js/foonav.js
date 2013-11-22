@@ -21,13 +21,13 @@
 				url: true
 			},
 			title: 'FooNav',
+			transition: 'slide',
 			icons: {
 				set: null,
 				back: 'fon-icon-back',
-				close: 'fon-icon-menu',
 				expand: 'fon-icon-expand',
 				home: 'fon-icon-home',
-				open: 'fon-icon-menu',
+				menu: 'fon-icon-menu',
 				top: 'fon-icon-top'
 			},
 			items: []
@@ -80,9 +80,12 @@
 		this.toggle = null;
 		this.home = null;
 		this.root = null;
-		this.history = [];
 
-		var _ = this;
+		var _ = this,
+			noop = function(){},
+			kill = function(e){
+				e.preventDefault();e.stopPropagation();
+			};
 
 		this.init = function(o){
 			_.o = $.extend(true, _.o, o);
@@ -112,11 +115,10 @@
 		};
 
 		this.destroy = function(partial){
-			partial = partial || true;
+			partial = partial || false;
 			_.nav.remove();
 			_.o = $.extend(true, {}, FooNav.defaults);
-			_.nav = _.inner = _.toggle = _.root = null;
-			_.history = [];
+			_.nav = _.inner = _.back = _.top = _.toggle = _.home = _.root = null;
 			$(window)
 				.off('scroll', _.a.check)
 				.off('scroll', _.w.scrolled)
@@ -132,20 +134,6 @@
 				_.u._a.href = url;
 				return _.u._a.href;
 			},
-			exists: function(url, parent, back){
-				parent = parent || _.root;
-				url = _.u.qualify(url);
-				back = back || false;
-				if (back){
-					var result = parent.find('a.fon-item-back').filter(function(){
-						return url == _.u.qualify($(this).attr('href'));
-					}).first();
-					if (result.length > 0){ return result; }
-				}
-				return parent.find('a.fon-item-link').filter(function(){
-					return url == _.u.qualify($(this).attr('href'));
-				}).first();
-			},
 			classes: function(className, classNameN){
 				var a = [], i;
 				for (i = 0; i < arguments.length; i++){ a.push(arguments[i]); }
@@ -154,6 +142,22 @@
 			position: function(){
 				var p = _.o.position.split('-');
 				return { v: p[1], h: p[2] };
+			},
+			exists: function(href, yes, no){
+				yes = yes || noop;
+				no = no || noop;
+				if (typeof href == 'string' && href.substring(0, 1) == '#'){
+					var $el = $(href);
+					if ($el.length > 0){
+						yes($el);
+						return true;
+					} else {
+						no();
+						return false;
+					}
+				}
+				no();
+				return false;
 			}
 		};
 
@@ -181,12 +185,13 @@
 					'class': 'fon-button',
 					href: '#toggle',
 					on: {	click: _.m.toggle }
-				}).append($('<span/>', { 'class': _.u.classes('fon-icon', _.o.icons.open) }));
+				}).append($('<span/>', { 'class': _.u.classes('fon-icon', _.o.icons.menu) }));
 
 				_.home = $('<a/>', {
 					'class': 'fon-button',
 					href: _.o.home
 				}).append($('<span/>', { 'class': _.u.classes('fon-icon', _.o.icons.home) }));
+
 				if (typeof _.o.home != 'string' || (typeof _.o.home == 'string' && _.u.qualify(_.o.home) == [location.protocol, '//', location.host, location.pathname].join(''))){
 					_.home.css('display','none');
 				}
@@ -196,23 +201,30 @@
 				}).append(_.top, _.toggle, _.home).appendTo(_.nav);
 			},
 			_menu: function(menu, parent, items){
-				var i, l = items.length, $menu, $li, $a, item;
+				var i, l = items.length, $menu, $li, $item, item;
 				if (parent != null){
 					$li = $('<li/>').appendTo(menu);
-					$('<a/>', { 'class': 'fon-item fon-item-back', href: parent.href, text: parent.text })
+					$item = $('<a/>', { 'class': 'fon-item fon-item-back', href: parent.href, text: parent.text })
 						.prepend($('<span/>', { 'class': _.u.classes('fon-icon', _.o.icons.back) }))
 						.appendTo($li);
+
+					_.u.exists(parent.href, function(){
+						$item.addClass('fon-anchored');
+					});
 				} else if (typeof _.o.title == 'string'){
 					$li = $('<li/>').appendTo(menu);
-					$('<span/>', { 'class': 'fon-item fon-item-title', text: _.o.title })
+					$item = $('<span/>', { 'class': 'fon-item fon-item-title fon-anchored', text: _.o.title })
 						.appendTo($li);
 				}
 				for (i = 0; i < l; i++){
 					item = items[i];
 					$li = $('<li/>').appendTo(menu);
-					$a = $('<a/>', { 'class': 'fon-item fon-item-link', href: item.href, text: item.text }).appendTo($li);
+					$item = $('<a/>', { 'class': 'fon-item fon-item-link', href: item.href, text: item.text }).appendTo($li);
+					_.u.exists(item.href, function(){
+						$item.addClass('fon-anchored');
+					});
 					if ($.isArray(item.children)){
-						$a.prepend($('<span/>', { 'class': 'fon-icon ' + _.o.icons.expand }));
+						$item.addClass('fon-has-menu').prepend($('<span/>', { 'class': 'fon-icon ' + _.o.icons.expand }));
 						$menu = $('<ul/>', { 'class': 'fon-menu' }).appendTo($li);
 						_.b._menu($menu, item, item.children);
 					}
@@ -221,7 +233,7 @@
 			menu: function(){
 				_.root = $('<ul/>', { 'class': 'fon-menu' });
 				_.b._menu(_.root, null, _.o.items);
-				_.root.clone().appendTo(_.inner);
+				_.inner.empty().append(_.root.clone());
 			},
 			extra: function(){
 				if (typeof _.o.after == 'string'){
@@ -236,23 +248,39 @@
 		this.m = {
 			position: function(visible){
 				visible = visible || false;
-
 				var pos = _.u.position();
-
-				_.nav.css(pos.h, visible ? 0 : -(_.nav.outerWidth(true)));
 				if (visible){
-					_.toggle.find('.fon-icon').removeClass(_.o.icons.open).addClass(_.o.icons.close);
+					_.nav.css(pos.h, 0);
 					_.nav.removeClass('fon-closed fon-user-closed').addClass('fon-open');
 				} else {
-					_.toggle.find('.fon-icon').removeClass(_.o.icons.close).addClass(_.o.icons.open);
+					_.nav.css(pos.h, -(_.nav.outerWidth(true)));
 					_.nav.removeClass('fon-open').addClass('fon-closed');
 				}
 			},
-			current: function(href, menu){
-				if (menu.find('> .fon-current').length != 0) { return; }
-				var $link = _.u.exists(href, menu);
+			exists: function(url, parent, back){
+				parent = parent || _.root;
+				back = back || false;
+				if (url == null && back){
+					return parent.find('li > .fon-item-title').first();
+				} else {
+					url = _.u.qualify(url);
+					if (back){
+						var result = parent.find('li > .fon-item-back').filter(function(){
+							return url == _.u.qualify($(this).attr('href'));
+						}).first();
+						if (result.length > 0){ return result; }
+					}
+					return parent.find('li > .fon-item-link').filter(function(){
+						return url == _.u.qualify($(this).attr('href'));
+					}).first();
+				}
+			},
+			active: function(href, menu, back){
+				back = back || false;
+				menu.find('li > .fon-active').removeClass('fon-active');
+				var $link = _.m.exists(href, menu, back);
 				if ($link.length == 0) { return; }
-				$link.addClass('fon-current');
+				$link.addClass('fon-active');
 			},
 			size: function(menu){
 				var $nav = $('.fon-nav-size');
@@ -267,155 +295,123 @@
 					width: $inner.width() + 10 //The reason for this is the negative margin-left in .fon-icon-expand (a child) causes IE & FireFox to miscalculate by the value of the margin...
 				};
 			},
-			get: function(href){
+			get: function(href, back){
 				if (typeof href == 'string'){
-					return _.u.exists(href, _.root, true).closest('.fon-menu');
+					return _.m.exists(href, _.root, back).closest('.fon-menu').clone();
 				}
-				return _.root;
+				return _.root.clone();
 			},
 			set: function(href, visible){
 				visible = visible || false;
-				var $menu = _.m.get(href), $back;
+				var $menu = _.m.get(href, true);
 				if ($menu.length == 0) { return; }
+				var ns = _.m.size($menu);
+				_.inner.empty().css(ns).append($menu);
+				_.m.active(href, $menu, true);
+				_.m.position(visible);
+			},
+			transition: function(current, next, back, complete){
+				complete = complete || noop;
 
-				_.history = [];
-				$back = $menu.parents('.fon-menu:first');
-				while ($back.length > 0){
-					_.history.unshift($back.clone());
-					$back = $back.parents('.fon-menu:first');
+				var ns = _.m.size(next),
+					cs = { height: _.inner.height(), width: _.inner.width() },
+					i = ns.width != cs.width || ns.height != cs.height ? _.o.speed : 0,
+					start = {}, prep = {}, end = {}, remove = {}, name;
+
+				switch(_.o.transition){
+					case 'fade':
+						name = 'opacity';
+						start[name] = prep[name] = 0;
+						end[name] = 1;
+						remove[name] = '';
+						break;
+					default:
+						name = 'left';
+						start[name] = back ? cs.width : -(cs.width);
+						prep[name] = back ? -(cs.width) : cs.width;
+						end[name] = 0;
+						remove[name] = '';
+						break;
 				}
 
-				var ns = _.m.size($menu),
-					$clone = $menu.clone();
-
-				_.inner.empty().css(ns).append($clone);
-				_.m.current(href, $clone);
-				_.m.position(visible);
+				_.inner.stop();
+				current.stop().animate(start, _.o.speed, function(){
+					current.remove();
+					_.inner.animate(ns, i, function(){
+						_.inner.empty().append(next.css(prep));
+						next.animate(end, _.o.speed, function(){
+							next.css(remove);
+							complete();
+						});
+					});
+				});
 			},
 			toggle: function(e){
 				if (!e.allow){
 					e.preventDefault();
 					e.stopPropagation();
 				}
-				var $icon = _.toggle.find('.fon-icon');
-				if ($icon.hasClass(_.o.icons.open)){
-					$icon.removeClass(_.o.icons.open).addClass(_.o.icons.close);
-				} else {
-					$icon.removeClass(_.o.icons.close).addClass(_.o.icons.open);
-				}
 				_.nav.toggleClass('fon-open');
-
-				var cw = _.nav.outerWidth(true),
+				var w = _.nav.outerWidth(true),
 					active = _.nav.hasClass('fon-open'),
-					start = 0, end = 0,
-					o = {},
-					dir;
+					pos = _.u.position(),
+					start = 0, end = 0,	o = {};
 
-				if (active){ start = -(cw); }
-				else { end = -(cw);	}
+				if (active){ start = -(w); }
+				else { end = -(w);	}
 
-				if (_.o.position.indexOf('right') !== -1){ dir = 'right'; }
-				else { dir = 'left'; }
+				o[pos.h] = end;
 
-				o[dir] = end;
-
-				if (active){
-					_.nav.removeClass('fon-closed fon-user-closed');
-				}
-				_.nav.css(dir, start).animate(o, _.o.speed, function(){
+				if (active){ _.nav.removeClass('fon-closed fon-user-closed'); }
+				_.nav.css(pos.h, start).animate(o, _.o.speed, function(){
 					if (!active){
 						if (_.o.smart.enable && !_.o.smart.remember){
-							var	$menu = _.inner.find('> .fon-menu'),
-								$next = _.history.shift();
-
-							if ($next instanceof jQuery){
-								$menu.remove();
-								var ns = _.m.size($next);
-								_.inner.css(ns).append($next);
-								_.m.position();
-							}
-						}
-						if (_.o.smart.enable && _.o.smart.url){
-							_.m.set(location.href);
+							var	$next = _.root.clone(),
+								ns = _.m.size($next);
+							_.inner.empty().css(ns).append($next);
+							_.m.position();
 						}
 						_.nav.addClass('fon-closed fon-user-closed');
 					}
 				});
 			},
-			forward: function(menu, complete){
-				var $menu = _.inner.find('> .fon-menu:last'),
-					$next = menu.clone();
-
-				var i = 0,
-					ns = _.m.size($next),
-					cs = { height: _.inner.height(), width: _.inner.width() };
-
-				if (ns.width != cs.width || ns.height != cs.height){ i = _.o.speed; }
-				_.inner.stop();
-				$menu.stop().animate({ left: -(cs.width) }, _.o.speed, function(){
-					_.history.push($menu.css('left','').remove());
-					_.inner.animate(ns, i, function(){
-						_.inner.empty().append($next.css('left', ns.width));
-						$next.animate({ left: 0 }, _.o.speed, function(){
-							$next.css('left', '');
-							if (_.o.smart.enable && _.o.smart.url){
-								_.m.current(location.href, $next);
-							}
-							if ($.isFunction(complete)){ complete(); }
-						});
-					});
-				});
-			},
 			back: function(e){
-				e.preventDefault();
-				e.stopPropagation();
+				var $link = $(this),
+					href = $link.attr('href'),
+					$menu = _.inner.find('> .fon-menu:last'),
+					$next = _.m.get(href),
+					anchored = $link.hasClass('fon-anchored');
 
-				var $menu = _.inner.find('> .fon-menu:last'),
-					$back = $menu.find('> li > .fon-item-back'),
-					$next = _.history.pop();
-
-				if (_.o.smart.enable && _.o.smart.scroll){
-					_.w.scroll($(this));
-				}
-
-				var i = 0,
-					ns = _.m.size($next),
-					cs = { height: _.inner.height(), width: _.inner.width() };
-
-				if (ns.width != cs.width || ns.height != cs.height){ i = _.o.speed; }
-				_.inner.stop();
-				$menu.stop().animate({ left: cs.width }, _.o.speed, function(){
-					$menu.remove();
-					_.inner.animate(ns, i, function(){
-						_.inner.empty().append($next.css('left', -(ns.width)));
-						$next.animate({ left: 0 }, _.o.speed, function(){
-							$next.css('left', '');
-							_.m.current($back.attr('href'), $next);
-						});
-					});
+				_.m.transition($menu, $next, true, function(){
+					_.m.active(href, $next);
 				});
+
+				if (anchored && _.o.smart.enable && _.o.smart.scroll){
+					e.preventDefault();
+					e.stopPropagation();
+					_.w.scroll(href);
+				}
 			},
 			clicked: function(e){
 				var $link = $(this),
-					$menu = $link.closest('li').find('> .fon-menu:first');
+					anchored = $link.hasClass('fon-anchored'),
+					parent = $link.hasClass('fon-has-menu'),
+					href = $link.attr('href');
 
-				if ($link.hasClass('fon-current')){
-					e.preventDefault();
-					e.stopPropagation();
+				$link.parents('.fon-menu:first').find('li > .fon-active').removeClass('fon-active');
+				$link.addClass('fon-active');
+
+				if (parent){
+					var $menu = _.inner.find('> .fon-menu:last'),
+						$next = _.m.get(href, true);
+					_.m.transition($menu, $next, false, function(){
+						_.m.active(href, $next, true);
+					});
 				}
-				_.inner.find('> .fon-menu > li > .fon-current').removeClass('fon-current');
-				$link.addClass('fon-current');
-				if (_.o.smart.enable && _.o.smart.scroll){
+				if (anchored && _.o.smart.enable && _.o.smart.scroll) {
 					e.preventDefault();
 					e.stopPropagation();
-					if ($menu.length > 0){
-						_.m.forward($menu);
-						_.w.scroll($link);
-					} else {
-						_.w.scroll($link);
-					}
-				} else if ($menu.length > 0){
-					_.m.forward($menu);
+					_.w.scroll(href);
 				}
 			}
 		};
@@ -434,7 +430,7 @@
 						if (typeof item.href == 'string' && item.href.substring(0,1) == '#'){
 							var $target = $(item.href);
 							if ($target.length == 0){ continue; }
-							_.a.tracked.elements.push($target);
+							_.a.tracked.elements.push($target.addClass('fon-tracked'));
 						}
 					}
 					return _.a.tracked.elements;
@@ -452,22 +448,27 @@
 			},
 			check: function(){
 				_.a._check.start(function(){
-					var tracked = _.a.tracked.get(), i, visible = [], top = 0, el, final = $(), offset, id;
-					for (i = 0; i < tracked.length; i++){
-						if (!_.a.visible(tracked[i].get(0))){ continue; }
-						visible.push(tracked[i]);
-					}
-					for (i = 0; i < visible.length; i++){
-						el = visible[i];
-						offset = el.offset();
-						if (top == 0 || offset.top < top){
-							top = offset.top;
-							final = el;
+					var st = $(window).scrollTop();
+					if (st <= _.o.scroll){
+						_.m.set(null, _.nav.hasClass('fon-open'));
+					} else {
+						var tracked = _.a.tracked.get(), i, visible = [], top = 0, el, final = $(), offset, id;
+						for (i = 0; i < tracked.length; i++){
+							if (!_.a.visible(tracked[i].get(0))){ continue; }
+							visible.push(tracked[i]);
 						}
+						for (i = 0; i < visible.length; i++){
+							el = visible[i];
+							offset = el.offset();
+							if (top == 0 || offset.top < top){
+								top = offset.top;
+								final = el;
+							}
+						}
+						if (final.length == 0){ return; }
+						id = final.attr('id');
+						_.m.set('#' + id, _.nav.hasClass('fon-open') || (!_.nav.hasClass('fon-user-closed') && _.o.smart.open));
 					}
-					if (final.length == 0){ return; }
-					id = final.attr('id');
-					_.m.set('#' + id, _.nav.hasClass('fon-open') || (!_.nav.hasClass('fon-user-closed') && _.o.smart.open));
 				}, 100);
 			}
 		};
@@ -475,26 +476,22 @@
 		this.w = {
 			_scroll: new FooNav.Timer(),
 			_scrolled: new FooNav.Timer(),
-			_to: null,
-			scroll: function(item, complete){
+			scroll: function(target){
 				_.a._check.stop();
-				var href = item.attr('href'), $target, top;
-				if (typeof href == 'string' && href.substring(0, 1) == '#' && href != _.w._to){
-					$target = $(href);
-					if ($target.length > 0){
-						_.w._to = href;
-						top = $target.offset().top;
-						$(window).off('scroll', _.a.check);
-						_.w._scroll.stop();
-						$('html, body').stop().animate({ scrollTop: top }, 800, function(){
-							_.w._scroll.start(function(){
-								_.w._to = null;
-								$(window).on('scroll', _.a.check);
-								if ($.isFunction(complete)){ complete(); }
-							}, 100);
-						});
-					}
-				} else if ($.isFunction(complete)){ complete(); }
+				var $target = $(target),
+					top = $target.offset().top;
+
+				$(window).off('scroll', _.a.check);
+				_.w._scroll.stop();
+				$('html, body').stop().animate({ scrollTop: top }, 800, function(){
+					_.w._scroll.start(function(){
+						_.w._to = null;
+						$(window).on('scroll', _.a.check);
+					}, 100);
+				});
+
+				if (_.o.smart.enable && _.o.smart.scroll){
+				}
 			},
 			scrolled: function(){
 				_.w._scrolled.start(function(){
