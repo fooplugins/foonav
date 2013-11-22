@@ -3,8 +3,8 @@
 	background-color: #1c1817;
 }
 
-.fon-border.fon-dark,
-.fon-border.fon-dark > .fon-buttons {
+.fon-dark.fon-border,
+.fon-dark.fon-border > .fon-buttons {
 	border-color: #252120;
 }
 
@@ -16,23 +16,18 @@
 	color:#FFF;
 }
 
-.fon-dark .fon-item-link {
+.fon-dark .fon-item {
 	color: #bebebe;
 	background-color: #2d2929;
+	border-color: #1c1817;
 }
 
-.fon-dark .fon-item-link:hover,
-.fon-dark .fon-item-link.fon-current {
-	color:#FFF;
+.fon-dark .fon-item:hover,
+.fon-dark .fon-item.fon-current {
+	color: #FFF;
 	background-color: #3b3735;
 }
 
-.fon-dark .fon-item-title,
-.fon-dark .fon-item-back {
-	color: #FFF;
-	background-color: #555555;
-}
-
-.fon-dark .fon-item-back:hover {
-	background-color: #828282;
+.fon-dark.fon-box-icon .fon-item > .fon-icon {
+	border-color: #1c1817;
 }

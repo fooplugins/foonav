@@ -9,7 +9,7 @@
 	overflow: visible;
 	min-height: 180px;
 	min-width: 150px;
-	padding: 10px;
+	padding: 7px;
 	z-index: 9999;
 }
 
@@ -63,39 +63,62 @@
 
 .fon-item {
 	display: block;
-	padding: 8px;
+	padding: 9px 10px;
 	margin: 3px;
 	position: relative;
 	text-decoration: none;
 	text-align: left;
-}
-
-.fon-item > .fon-icon-back,
-.fon-item > .fon-icon-expand {
-	margin-left: -10px;
-	padding: 12px;
-}
-
-.fon-border .fon-item {
+	overflow: hidden;
 	border-style: solid;
-	border-width: 2px;
+	border-width: 1px;
 	border-color: transparent;
+}
+
+.fon-item-back,
+.fon-item-title {
+	margin-bottom: 10px;
+}
+
+.fon-item > .fon-icon {
+	margin-left: -10px;
+	padding: 13px;
 }
 
 .fon-button,
 .fon-item {
-	-webkit-transition-property: color, background-color;
-	-moz-transition-property: color, background-color;
-	-o-transition-property: color, background-color;
-	transition-property: color, background-color;
-	-webkit-transition-duration: 0.2s, 0.2s;
-	-moz-transition-duration: 0.2s, 0.2s;
-	-o-transition-duration: 0.2s, 0.2s;
-	transition-duration: 0.2s, 0.2s;
-	-webkit-transition-timing-function: ease-in, ease-in;
-	-moz-transition-timing-function: ease-in, ease-in;
-	-o-transition-timing-function: ease-in, ease-in;
-	transition-timing-function: ease-in, ease-in;
+	-webkit-transition-property: color, background-color, border-color;
+	-moz-transition-property: color, background-color, border-color;
+	-o-transition-property: color, background-color, border-color;
+	transition-property: color, background-color, border-color;
+	-webkit-transition-duration: 0.2s, 0.2s, 0.2s;
+	-moz-transition-duration: 0.2s, 0.2s, 0.2s;
+	-o-transition-duration: 0.2s, 0.2s, 0.2s;
+	transition-duration: 0.2s, 0.2s, 0.2s;
+	-webkit-transition-timing-function: ease-in, ease-in, ease-in;
+	-moz-transition-timing-function: ease-in, ease-in, ease-in;
+	-o-transition-timing-function: ease-in, ease-in, ease-in;
+	transition-timing-function: ease-in, ease-in, ease-in;
+}
+.fon-light.fon-box-icon .fon-item > .fon-icon {
+	-webkit-transition-property: border-color;
+	-moz-transition-property: border-color;
+	-o-transition-property: border-color;
+	transition-property: border-color;
+	-webkit-transition-duration: 0.2s;
+	-moz-transition-duration: 0.2s;
+	-o-transition-duration: 0.2s;
+	transition-duration: 0.2s;
+	-webkit-transition-timing-function: ease-in;
+	-moz-transition-timing-function: ease-in;
+	-o-transition-timing-function: ease-in;
+	transition-timing-function: ease-in;
+}
+
+.fon-box-icon .fon-item > .fon-icon {
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-color: transparent;
+	margin-right: 10px;
 }
 
 /* Positional CSS */
@@ -120,14 +143,21 @@
 	right: 99%;
 }
 
+.fon-top-right,
+.fon-top-right > .fon-buttons,
+.fon-bottom-right,
+.fon-bottom-right > .fon-buttons {
+	border-style: solid;
+	border-width: 1px;
+	border-color: transparent;
+	border-right: none;
+}
+
 .fon-border.fon-top-right,
 .fon-border.fon-top-right > .fon-buttons,
 .fon-border.fon-bottom-right,
 .fon-border.fon-bottom-right > .fon-buttons {
-	border-style: solid;
 	border-width: 2px;
-	border-color: transparent;
-	border-right: none;
 }
 
 .fon-shadow.fon-top-right,
@@ -150,18 +180,6 @@
 	border-top-left-radius: 6px;
 	border-bottom-left-radius: 6px;
 }
-.fon-rounded.fon-top-right .fon-menu > li:first-child > .fon-item,
-.fon-rounded.fon-bottom-right .fon-menu > li:first-child > .fon-item {
-	-webkit-border-top-left-radius: 3px;
-	-moz-border-radius-topleft: 3px;
-	border-top-left-radius: 3px;
-}
-.fon-rounded.fon-top-right .fon-menu > li:last-child > .fon-item,
-.fon-rounded.fon-bottom-right .fon-menu > li:last-child > .fon-item {
-	-webkit-border-bottom-left-radius: 3px;
-	-moz-border-radius-bottomleft: 3px;
-	border-bottom-left-radius: 3px;
-}
 
 .fon-top-left,
 .fon-top-left > .fon-buttons {
@@ -183,14 +201,21 @@
 	left: 99%;
 }
 
+.fon-top-left,
+.fon-top-left > .fon-buttons,
+.fon-bottom-left,
+.fon-bottom-left > .fon-buttons {
+	border-style: solid;
+	border-width: 1px;
+	border-color: transparent;
+	border-left: none;
+}
+
 .fon-border.fon-top-left,
 .fon-border.fon-top-left > .fon-buttons,
 .fon-border.fon-bottom-left,
 .fon-border.fon-bottom-left > .fon-buttons {
-	border-style: solid;
 	border-width: 2px;
-	border-color: transparent;
-	border-left: none;
 }
 
 .fon-shadow.fon-top-left,
@@ -212,18 +237,6 @@
 	-moz-border-radius-bottomright: 6px;
 	border-top-right-radius: 6px;
 	border-bottom-right-radius: 6px;
-}
-.fon-rounded.fon-top-left .fon-menu > li:first-child > .fon-item,
-.fon-rounded.fon-bottom-left .fon-menu > li:first-child > .fon-item {
-	-webkit-border-top-right-radius: 3px;
-	-moz-border-radius-topright: 3px;
-	border-top-right-radius: 3px;
-}
-.fon-rounded.fon-top-left .fon-menu > li:last-child > .fon-item,
-.fon-rounded.fon-bottom-left .fon-menu > li:last-child > .fon-item {
-	-webkit-border-bottom-right-radius: 3px;
-	-moz-border-radius-bottomright: 3px;
-	border-bottom-right-radius: 3px;
 }
 
 /* Full Height */
