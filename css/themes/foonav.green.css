@@ -22,7 +22,3 @@
 .fon-green .fon-item.fon-active {
 	background-color: #60C560;
 }
-
-.fon-green.fon-box-icon .fon-item > .fon-icon {
-	border-color: #339933;
-}

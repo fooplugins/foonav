@@ -63,7 +63,7 @@
 
 .fon-item {
 	display: block;
-	padding: 9px 10px;
+	padding: 0 12px;
 	margin: 3px;
 	position: relative;
 	text-decoration: none;
@@ -72,6 +72,7 @@
 	border-style: solid;
 	border-width: 1px;
 	border-color: transparent;
+	line-height: 38px;
 }
 
 .fon-item-back,
@@ -79,9 +80,8 @@
 	margin-bottom: 10px;
 }
 
-.fon-item > .fon-icon {
-	margin-left: -10px;
-	padding: 12px;
+.fon-item-icon {
+	margin-right: 10px;
 }
 
 .fon-rounded .fon-item {
@@ -104,27 +104,6 @@
 	-moz-transition-timing-function: ease-in, ease-in, ease-in;
 	-o-transition-timing-function: ease-in, ease-in, ease-in;
 	transition-timing-function: ease-in, ease-in, ease-in;
-}
-.fon-light.fon-box-icon .fon-item > .fon-icon {
-	-webkit-transition-property: border-color;
-	-moz-transition-property: border-color;
-	-o-transition-property: border-color;
-	transition-property: border-color;
-	-webkit-transition-duration: 0.2s;
-	-moz-transition-duration: 0.2s;
-	-o-transition-duration: 0.2s;
-	transition-duration: 0.2s;
-	-webkit-transition-timing-function: ease-in;
-	-moz-transition-timing-function: ease-in;
-	-o-transition-timing-function: ease-in;
-	transition-timing-function: ease-in;
-}
-
-.fon-box-icon .fon-item > .fon-icon {
-	border-right-style: solid;
-	border-right-width: 1px;
-	border-color: transparent;
-	margin-right: 10px;
 }
 
 /* Positional CSS */
