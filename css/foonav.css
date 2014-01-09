@@ -63,16 +63,16 @@
 
 .fon-item {
 	display: block;
-	padding: 0 12px;
+	padding: 9px 12px;
 	margin: 3px;
 	position: relative;
 	text-decoration: none;
 	text-align: left;
 	overflow: hidden;
+	vertical-align: middle;
 	border-style: solid;
 	border-width: 1px;
 	border-color: transparent;
-	line-height: 38px;
 }
 
 .fon-item-back,
@@ -125,7 +125,7 @@
 
 .fon-top-right > .fon-buttons,
 .fon-bottom-right > .fon-buttons {
-	right: 99%;
+	right: 100%;
 }
 
 .fon-top-right,
@@ -183,7 +183,7 @@
 
 .fon-top-left > .fon-buttons,
 .fon-bottom-left > .fon-buttons {
-	left: 99%;
+	left: 100%;
 }
 
 .fon-top-left,
@@ -223,6 +223,12 @@
 	border-top-right-radius: 6px;
 	border-bottom-right-radius: 6px;
 }
+
+/* Shadow */
+
+
+/* Rounded */
+
 
 /* Full Height */
 

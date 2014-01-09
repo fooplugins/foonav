@@ -43,6 +43,7 @@
 			icons: {
 				back: { family: 'fon-icon', icon: 'fon-icon-back' },
 				expand: { family: 'fon-icon', icon: 'fon-icon-expand' },
+				home: { family: 'fon-icon', icon: 'fon-icon-home' },
 				menu: { family: 'fon-icon', icon: 'fon-icon-menu' },
 				top: { family: 'fon-icon', icon: 'fon-icon-top' }
 			},
@@ -97,17 +98,37 @@
 		return new FooNav.Instance(options);
 	};
 
+	/**
+	 * Reinitializes the instance of FooNav specified by the index with the given options.
+	 * @param {number} index - The index of the instance to reinitialize.
+	 * @param {object} options - The options to reinitialize FooNav with.
+	 */
 	FooNav.reinit = function(index, options){
 		FooNav.fetch(index).reinit(options);
 	};
 
+	/**
+	 * Destroys the instance of FooNav at the supplied index.
+	 * @param {number} index - The index of the instance to destroy.
+	 */
 	FooNav.destroy = function(index){
 		FooNav.fetch(index).destroy();
 	};
 
+	/**
+	 * A simple timer object built around timeouts.
+	 * @constructor
+	 */
 	FooNav.Timer = function(){
+		/** @type {number} - The id of the timeout being used. */
 		this.id = null;
+		/** @type {FooNav.Timer} - Reference to this instance to avoid scoping issues. */
 		var _t = this;
+		/**
+		 * Starts the timer
+		 * @param func
+		 * @param delay
+		 */
 		this.start = function(func, delay){
 			_t.stop();
 			_t.id = setTimeout(function(){

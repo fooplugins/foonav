@@ -22,8 +22,7 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.fon-icon-menu:before { content: "\e2ac"; }
-.fon-icon-close:before { content: "\e36b"; }
+.fon-icon-menu:before { content: "\e2af"; }
 .fon-icon-expand:before { content: "\e376"; }
 .fon-icon-back:before { content: "\e3bf"; }
 .fon-icon-top:before { content: "\e3b9"; }
