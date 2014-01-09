@@ -1,6 +1,16 @@
+/*!
+ * FooNav - A jQuery navigation menu.
+ * @version 0.0.1
+ * @link TODO
+ * @copyright Steven Usher & Brad Vincent 2014
+ * @license Released under the MIT license.
+ * You are free to use FooNav jQuery in personal projects (excluding WordPress plugins and themes) as long as this copyright header is left intact.
+ * Restriction 1: you may not create a WordPress plugin that bundles FooNav jQuery (rather use TODO).
+ * Restriction 2: you may only bundle FooNav jQuery within a WordPress theme if you have a developer license.
+ */
 .fon-nav,
 .fon-nav-size {
-	font-family: "Segoe UI", "Helvetica", "Arial", "Sans Serif";
+	font-family: "Segoe UI", "Helvetica", "Arial", sans-serif;
 	font-size: 16px;
 	font-style: normal;
 	font-variant: normal;
@@ -41,15 +51,6 @@
 	font-size: 16px;
 }
 
-.fon-closed.fon-shadow.fon-top-left,
-.fon-closed.fon-shadow.fon-bottom-left,
-.fon-closed.fon-shadow.fon-top-right,
-.fon-closed.fon-shadow.fon-bottom-right {
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-}
-
 .fon-menu {
 	position: relative;
 	list-style-type: none;
@@ -70,9 +71,6 @@
 	text-align: left;
 	overflow: hidden;
 	vertical-align: middle;
-	border-style: solid;
-	border-width: 1px;
-	border-color: transparent;
 }
 
 .fon-item-back,
@@ -84,38 +82,29 @@
 	margin-right: 10px;
 }
 
-.fon-rounded .fon-item {
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
-}
-
-.fon-button,
-.fon-item {
-	-webkit-transition-property: color, background-color, border-color;
-	-moz-transition-property: color, background-color, border-color;
-	-o-transition-property: color, background-color, border-color;
-	transition-property: color, background-color, border-color;
-	-webkit-transition-duration: 0.2s, 0.2s, 0.2s;
-	-moz-transition-duration: 0.2s, 0.2s, 0.2s;
-	-o-transition-duration: 0.2s, 0.2s, 0.2s;
-	transition-duration: 0.2s, 0.2s, 0.2s;
-	-webkit-transition-timing-function: ease-in, ease-in, ease-in;
-	-moz-transition-timing-function: ease-in, ease-in, ease-in;
-	-o-transition-timing-function: ease-in, ease-in, ease-in;
-	transition-timing-function: ease-in, ease-in, ease-in;
-}
-
-/* Positional CSS */
-
+/* Position */
+.fon-top-left,
+.fon-top-left > .fon-buttons,
 .fon-top-right,
 .fon-top-right > .fon-buttons {
 	top: 30px;
 }
 
+.fon-bottom-left,
+.fon-bottom-left > .fon-buttons,
 .fon-bottom-right,
 .fon-bottom-right > .fon-buttons {
 	bottom: 30px;
+}
+
+.fon-top-left,
+.fon-bottom-left {
+	left: -1000px;
+}
+
+.fon-top-left > .fon-buttons,
+.fon-bottom-left > .fon-buttons {
+	left: 100%;
 }
 
 .fon-top-right,
@@ -128,21 +117,14 @@
 	right: 100%;
 }
 
-.fon-top-right,
-.fon-top-right > .fon-buttons,
-.fon-bottom-right,
-.fon-bottom-right > .fon-buttons {
-	border-style: solid;
-	border-width: 1px;
-	border-color: transparent;
-	border-right: none;
-}
-
-.fon-border.fon-top-right,
-.fon-border.fon-top-right > .fon-buttons,
-.fon-border.fon-bottom-right,
-.fon-border.fon-bottom-right > .fon-buttons {
-	border-width: 2px;
+/* Shadow */
+.fon-closed.fon-shadow.fon-top-left,
+.fon-closed.fon-shadow.fon-bottom-left,
+.fon-closed.fon-shadow.fon-top-right,
+.fon-closed.fon-shadow.fon-bottom-right {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 
 .fon-shadow.fon-top-right,
@@ -152,6 +134,22 @@
 	-webkit-box-shadow: -2px 2px 2px rgba(50, 50, 50, 0.3);
 	-moz-box-shadow:    -2px 2px 2px rgba(50, 50, 50, 0.3);
 	box-shadow:         -2px 2px 2px rgba(50, 50, 50, 0.3);
+}
+
+.fon-shadow.fon-top-left,
+.fon-shadow.fon-top-left > .fon-buttons,
+.fon-shadow.fon-bottom-left,
+.fon-shadow.fon-bottom-left > .fon-buttons {
+	-webkit-box-shadow: 2px 2px 2px rgba(50, 50, 50, 0.3);
+	-moz-box-shadow:    2px 2px 2px rgba(50, 50, 50, 0.3);
+	box-shadow:         2px 2px 2px rgba(50, 50, 50, 0.3);
+}
+
+/* Rounded */
+.fon-rounded .fon-item {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
 }
 
 .fon-rounded.fon-top-right,
@@ -166,52 +164,6 @@
 	border-bottom-left-radius: 6px;
 }
 
-.fon-top-left,
-.fon-top-left > .fon-buttons {
-	top: 30px;
-}
-
-.fon-bottom-left,
-.fon-bottom-left > .fon-buttons {
-	bottom: 30px;
-}
-
-.fon-top-left,
-.fon-bottom-left {
-	left: -1000px;
-}
-
-.fon-top-left > .fon-buttons,
-.fon-bottom-left > .fon-buttons {
-	left: 100%;
-}
-
-.fon-top-left,
-.fon-top-left > .fon-buttons,
-.fon-bottom-left,
-.fon-bottom-left > .fon-buttons {
-	border-style: solid;
-	border-width: 1px;
-	border-color: transparent;
-	border-left: none;
-}
-
-.fon-border.fon-top-left,
-.fon-border.fon-top-left > .fon-buttons,
-.fon-border.fon-bottom-left,
-.fon-border.fon-bottom-left > .fon-buttons {
-	border-width: 2px;
-}
-
-.fon-shadow.fon-top-left,
-.fon-shadow.fon-top-left > .fon-buttons,
-.fon-shadow.fon-bottom-left,
-.fon-shadow.fon-bottom-left > .fon-buttons {
-	-webkit-box-shadow: 2px 2px 2px rgba(50, 50, 50, 0.3);
-	-moz-box-shadow:    2px 2px 2px rgba(50, 50, 50, 0.3);
-	box-shadow:         2px 2px 2px rgba(50, 50, 50, 0.3);
-}
-
 .fon-rounded.fon-top-left,
 .fon-rounded.fon-top-left > .fon-buttons,
 .fon-rounded.fon-bottom-left,
@@ -224,14 +176,36 @@
 	border-bottom-right-radius: 6px;
 }
 
-/* Shadow */
+/* Border */
+.fon-item,
+.fon-top-right,
+.fon-top-right > .fon-buttons,
+.fon-bottom-right,
+.fon-bottom-right > .fon-buttons,
+.fon-top-left,
+.fon-top-left > .fon-buttons,
+.fon-bottom-left,
+.fon-bottom-left > .fon-buttons {
+	border-style: solid;
+	border-width: 1px;
+	border-color: transparent;
+}
 
+.fon-top-right,
+.fon-top-right > .fon-buttons,
+.fon-bottom-right,
+.fon-bottom-right > .fon-buttons {
+	border-right: none;
+}
 
-/* Rounded */
-
+.fon-top-left,
+.fon-top-left > .fon-buttons,
+.fon-bottom-left,
+.fon-bottom-left > .fon-buttons {
+	border-left: none;
+}
 
 /* Full Height */
-
 .fon-full-height {
 	top: 0;
 	bottom: 0;
@@ -252,4 +226,21 @@
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
+}
+
+/* Transitions */
+.fon-button,
+.fon-item {
+	-webkit-transition-property: color, background-color, border-color;
+	-moz-transition-property: color, background-color, border-color;
+	-o-transition-property: color, background-color, border-color;
+	transition-property: color, background-color, border-color;
+	-webkit-transition-duration: 0.2s, 0.2s, 0.2s;
+	-moz-transition-duration: 0.2s, 0.2s, 0.2s;
+	-o-transition-duration: 0.2s, 0.2s, 0.2s;
+	transition-duration: 0.2s, 0.2s, 0.2s;
+	-webkit-transition-timing-function: ease-in, ease-in, ease-in;
+	-moz-transition-timing-function: ease-in, ease-in, ease-in;
+	-o-transition-timing-function: ease-in, ease-in, ease-in;
+	transition-timing-function: ease-in, ease-in, ease-in;
 }
