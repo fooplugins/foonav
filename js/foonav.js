@@ -90,6 +90,9 @@
 		instances: []
 	};
 
+	/** @property {boolean} - Extend the jQuery event with an allow property. */
+	jQuery.Event.prototype.allow = false;
+
 	/**
 	 * Retrieves an instance of FooNav by index. Indexes are assigned from zero in the order they were created.
 	 * @param {number} index - The index of the instance to retrieve.
@@ -128,17 +131,19 @@
 
 	/**
 	 * A simple timer object built around timeouts.
+	 * @returns {FooNav.Timer}
 	 * @constructor
 	 */
 	FooNav.Timer = function(){
-		/** @type {number} - The id of the timeout being used. */
+		/** @property {number} - The id of the timeout being used. */
 		this.id = null;
-		/** @type {FooNav.Timer} - Reference to this instance to avoid scoping issues. */
+		/** @field {FooNav.Timer} - Reference to this instance to avoid scoping issues. */
 		var _t = this;
 		/**
-		 * Starts the timer
-		 * @param func
-		 * @param delay
+		 * Starts the timer which will execute the supplied function after the specified delay. If start is called multiple
+		 * times for this timer any previous invocations will be stopped ensuring only a single execution of the function.
+		 * @param {function} func - The function to execute after the specified delay.
+		 * @param {number} delay - The delay in milliseconds to wait before executing the function.
 		 */
 		this.start = function(func, delay){
 			_t.stop();
@@ -147,30 +152,54 @@
 				func();
 			}, delay);
 		};
+		/**
+		 * Stops the timer if it is running preventing the execution of the function it was started with.
+		 */
 		this.stop = function(){
-			if (_t.id != null){
-				clearTimeout(_t.id);
-				_t.id = null;
-			}
+			if (_t.id == null){ return; }
+			clearTimeout(_t.id);
+			_t.id = null;
 		};
+		return this;
 	};
 
+	/**
+	 * Creates a new instance of the FooNav plugin using the supplied options. All instances of this object are stored in the global FooNav.instances array.
+	 * @param {object} options - The options to initialize the plugin with.
+	 * @returns {FooNav.Instance}
+	 * @constructor
+	 */
 	FooNav.Instance = function(options){
+		/** @property {number} - The id of this instance. */
 		this.id = FooNav.instances.push(this);
+		/** @property {number} - The index of this instance in the FooNav.instances array. */
+		this.index = this.id - 1;
+		/** @property {object} - The options this instance was instantiated with. */
 		this.o = $.extend(true, {}, FooNav.defaults);
+		/** @property {jQuery} - The jQuery object housing the entire FooNav plugin. */
 		this.nav = null;
+		/** @property {jQuery} - The jQuery object housing the menu structure. */
 		this.inner = null;
+		/** @property {jQuery} - The jQuery object housing the buttons. */
 		this.buttons = null;
+		/** @property {jQuery} - The back button jQuery object. */
 		this.back = null;
+		/** @property {jQuery} - The top button jQuery object. */
 		this.top = null;
+		/** @property {jQuery} - The menu/toggle button jQuery object. */
 		this.toggle = null;
-		this.root = null;
+		/** @property {jQuery} - The menu jQuery object. */
+		this.menu = null;
 
-		/** @type {FooNav.Instance} - Hold a reference to this object to use within functions to avoid scoping issues. */
+		/** @field {FooNav.Instance} - Hold a reference to this object to use within functions to avoid scoping issues. */
 		var _ = this,
-			/** @type {function} - An empty function used for to perform no operation. */
+			/** @field {function} - An empty function used for to perform no operation. */
 			noop = function(){};
 
+		/**
+		 * The initialize function for the plugin.
+		 * @param {object} o - The options to initialize the plugin with.
+		 */
 		this.init = function(o){
 			_.o = $.extend(true, _.o, o);
 
@@ -187,34 +216,45 @@
 			}
 
 			$(window).on('scroll', _.w.scrolled);
-			if (_.o.scroll == 0) {
-				_.nav.show();
-			}
+
+			//if the scroll position is set to zero show the nav
+			if (_.o.scroll != 0){ return; }
+			_.nav.show();
 		};
 
+		/**
+		 * Reinitializes the plugin with the supplied options.
+		 * @param {object} o - The options to reinitialize the plugin with.
+		 */
 		this.reinit = function(o){
 			_.destroy(true);
 			_.o = $.extend(true, _.o, o);
 			_.init(o);
 		};
 
+		/**
+		 * Destroys the plugin removing all DOM elements and unbinding any events.
+		 * @param {boolean} [partial] - Used internally when reinitializing the plugin.
+		 */
 		this.destroy = function(partial){
 			partial = partial || false;
 			_.nav.remove();
 			_.o = $.extend(true, {}, FooNav.defaults);
-			_.nav = _.inner = _.back = _.top = _.toggle = _.root = null;
+			_.nav = _.inner = _.back = _.top = _.toggle = _.menu = null;
 			$(window)
 				.off('scroll', _.a.check)
 				.off('scroll', _.w.scrolled)
 				.off('click', _.w.clicked);
-			if (!partial){
-				FooNav.instances[_.id - 1] = null;
-			}
+			if (partial){ return; }
+			FooNav.instances[_.id - 1] = null;
 		};
 
 		/** @namespace - Contains all util type functions. */
 		this.u = {
-			/** @type {HTMLAnchorElement} - An internal anchor element used to fully qualify urls. */
+			/**
+			 * @property {HTMLAnchorElement} - An internal anchor element used to fully qualify urls.
+			 * @private
+			 */
 			_a: document.createElement('a'),
 			/**
 			 * Turns a partial url into a fully qualified one.
@@ -276,7 +316,7 @@
 			}
 		};
 
-		/** @namespace - Contains all the functions used to build the menu. */
+		/** @namespace - Contains all the functions used to build the DOM elements. */
 		this.b = {
 			/**
 			 * Create the outer container for the plugin.
@@ -350,7 +390,7 @@
 			 */
 			menu: function(){
 				_.inner = $('<div></div>', { 'class': 'fon-nav-inner' }).appendTo(_.nav);
-				_.root = $('<ul></ul>', { 'class': 'fon-menu' });
+				_.menu = $('<ul></ul>', { 'class': 'fon-menu' });
 
 				function _icon(name){
 					var i = _.o.icons[name];
@@ -358,7 +398,7 @@
 					return $('<span></span>', { 'class': _.u.concat('fon-item-icon', i.family, i.icon) });
 				}
 
-				// iterates through all the items and their children building the root ul
+				// iterates through all the items and their children building the _.menu ul
 				function _build(menu, parent, items){
 					var i, l = items.length, $menu, $li, $item, item;
 
@@ -386,8 +426,8 @@
 						}
 					}
 				}
-				_build(_.root, null, _.o.items);
-				_.inner.append(_.root.clone());
+				_build(_.menu, null, _.o.items);
+				_.inner.append(_.menu.clone());
 			},
 			/**
 			 * Create the additional extras defined by the options.
@@ -402,7 +442,12 @@
 			}
 		};
 
+		/** @namespace - Contains all the functions used for the menu. */
 		this.m = {
+			/**
+			 * Positions the menu on the page in either the open or closed state depending on the supplied visible parameter.
+			 * @param {boolean} [visible] - Whether or not the menu is visible.
+			 */
 			position: function(visible){
 				visible = visible || false;
 				var pos = _.u.position();
@@ -414,8 +459,15 @@
 					_.nav.removeClass('fon-open').addClass('fon-closed');
 				}
 			},
+			/**
+			 * Checks if a url exists within the supplied parent menu and returns the anchor element associated with it.
+			 * @param {string} url - The url to search for.
+			 * @param {jQuery} parent -  The parent menu to search in.
+			 * @param {boolean} back - Whether or not to search for back button links.
+			 * @returns {jQuery}
+			 */
 			exists: function(url, parent, back){
-				parent = parent || _.root;
+				parent = parent || _.menu;
 				back = back || false;
 				if (url == null && back){
 					return parent.find('li > .fon-item-title').first();
@@ -432,6 +484,12 @@
 					}).first();
 				}
 			},
+			/**
+			 * Sets the active link within the supplied parent menu.
+			 * @param {string} href - The href to set to active.
+			 * @param {jQuery} menu - The parent menu to search in.
+			 * @param {boolean} [back] - Whether or not to search for back button links.
+			 */
 			active: function(href, menu, back){
 				back = back || false;
 				menu.find('li > .fon-active').removeClass('fon-active');
@@ -439,6 +497,11 @@
 				if ($link.length == 0) { return; }
 				$link.addClass('fon-active');
 			},
+			/**
+			 * Calculates the size of the supplied menu.
+			 * @param {jQuery} menu - The menu to size.
+			 * @returns {{height: number, width: number}}
+			 */
 			size: function(menu){
 				var $nav = $('.fon-nav-size');
 				if ($nav.length == 0){
@@ -452,12 +515,23 @@
 					width: $inner.width() + 10 //The reason for this is the negative margin-left in .fon-icon-expand (a child) causes IE & FireFox to miscalculate by the value of the margin...
 				};
 			},
+			/**
+			 * Gets the menu that contains the supplied href.
+			 * @param {string} href - The href to search for.
+			 * @param {boolean} [back] -  Whether or not to search back links.
+			 * @returns {jQuery}
+			 */
 			get: function(href, back){
 				if (typeof href == 'string'){
-					return _.m.exists(href, _.root, back).closest('.fon-menu').clone();
+					return _.m.exists(href, _.menu, back).closest('.fon-menu').clone();
 				}
-				return _.root.clone();
+				return _.menu.clone();
 			},
+			/**
+			 * Sets the menu to the supplied href and visibility.
+			 * @param {string} href - The href to set.
+			 * @param {boolean} [visible] - Whether or not the menu is open.
+			 */
 			set: function(href, visible){
 				visible = visible || false;
 				var $menu = _.m.get(href, true);
@@ -467,12 +541,19 @@
 				_.m.active(href, $menu, true);
 				_.m.position(visible);
 			},
+			/**
+			 * Transitions between two menus.
+			 * @param {jQuery} current - The current menu.
+			 * @param {jQuery} next - The menu to display next.
+			 * @param {boolean} back - Whether or not this is a back operation. This changes the direction of the slide transition but does not affect the fade transition.
+			 * @param {function} complete - the function to call once the transition is complete.
+			 */
 			transition: function(current, next, back, complete){
 				complete = complete || noop;
 
-				var ns = _.m.size(next),
-					cs = { height: _.inner.height(), width: _.inner.width() },
-					i = ns.width != cs.width || ns.height != cs.height ? _.o.speed : 0,
+				var ns = _.m.size(next), //new size
+					cs = { height: _.inner.height(), width: _.inner.width() }, //current size
+					s = ns.width != cs.width || ns.height != cs.height ? _.o.speed : 0,//if there's no change in size set the animation speed of the adjustment to zero, we don't need it.
 					start = {}, prep = {}, end = {}, remove = {}, name;
 
 				switch(_.o.transition){
@@ -494,7 +575,7 @@
 				_.inner.stop();
 				current.stop().animate(start, _.o.speed, function(){
 					current.remove();
-					_.inner.animate(ns, i, function(){
+					_.inner.animate(ns, s, function(){
 						_.inner.empty().append(next.css(prep));
 						next.animate(end, _.o.speed, function(){
 							next.css(remove);
@@ -503,6 +584,10 @@
 					});
 				});
 			},
+			/**
+			 * Handles the jQuery click event of the menu/toggle button.
+			 * @param {jQuery.Event} e - The jQuery event object.
+			 */
 			toggle: function(e){
 				if (!e.allow){
 					e.preventDefault();
@@ -523,7 +608,7 @@
 				_.nav.css(pos.h, start).animate(o, _.o.speed, function(){
 					if (!active){
 						if (_.o.smart.enable && !_.o.smart.remember){
-							var	$next = _.root.clone(),
+							var	$next = _.menu.clone(),
 								ns = _.m.size($next);
 							_.inner.empty().css(ns).append($next);
 							_.m.position();
@@ -532,6 +617,10 @@
 					}
 				});
 			},
+			/**
+			 * Handles the jQuery click event of the back button.
+			 * @param {jQuery.Event} e - The jQuery event object.
+			 */
 			back: function(e){
 				var $link = $(this),
 					href = $link.attr('href'),
@@ -549,6 +638,10 @@
 					_.w.scroll(href);
 				}
 			},
+			/**
+			 * Handles the jQuery click event of the menu items.
+			 * @param {jQuery.Event} e - The jQuery event object.
+			 */
 			clicked: function(e){
 				var $link = $(this),
 					anchored = $link.hasClass('fon-anchored'),
@@ -573,10 +666,21 @@
 			}
 		};
 
+		/** @namespace - Contains all the functions used for the tracking of anchors. */
 		this.a = {
+			/**
+			 * @property {FooNav.Timer} - An internal timer used to prevent excessive checks on anchors while scrolling.
+			 * @private
+			 */
 			_check: new FooNav.Timer(),
+			/** @namespace - Contains functions for building the array of tracked elements. */
 			tracked: {
+				/** @property {Array} - The array containing all tracked elements. */
 				elements: [],
+				/**
+				 * Recursively inspects each item and checks if the href points to an anchor in the page and if it does adds it to the elements array.
+				 * @param {Array} items - The items to check.
+				 */
 				build: function(items){
 					var i, item;
 					for(i = 0; i < items.length; i++){
@@ -590,8 +694,11 @@
 							_.a.tracked.elements.push($target.addClass('fon-tracked'));
 						}
 					}
-					return _.a.tracked.elements;
 				},
+				/**
+				 * Lazy loads the tracked elements from the items array and stores the result in the elements array.
+				 * @returns {Array}
+				 */
 				get: function(){
 					if (_.a.tracked.elements.length > 0){ return _.a.tracked.elements; }
 					_.a.tracked.elements = [];
@@ -599,10 +706,18 @@
 					return _.a.tracked.elements;
 				}
 			},
+			/**
+			 * Checks if the supplied element is visible within the viewport.
+			 * @param {HTMLElement} el - The element to check is visible.
+			 * @returns {boolean}
+			 */
 			visible: function(el){
 				var rect = el.getBoundingClientRect(), p = 20;
 				return rect.top >= -p && rect.left >= p && rect.bottom <= $(window).height() + p && rect.right <= $(window).width() + p;
 			},
+			/**
+			 * Performs the actual visibility check on any tracked anchors and updates the menu accordingly.
+			 */
 			check: function(){
 				_.a._check.start(function(){
 					var st = $(window).scrollTop();
@@ -610,10 +725,12 @@
 						_.m.set(null, _.nav.hasClass('fon-open'));
 					} else {
 						var tracked = _.a.tracked.get(), i, visible = [], top = 0, el, final = $(), offset, id;
+						//check all tracked anchors and push those that are visible into another array.
 						for (i = 0; i < tracked.length; i++){
 							if (!_.a.visible(tracked[i].get(0))){ continue; }
 							visible.push(tracked[i]);
 						}
+						//loop through all visible anchors and get the one closest to the top of the viewport.
 						for (i = 0; i < visible.length; i++){
 							el = visible[i];
 							offset = el.offset();
@@ -630,9 +747,22 @@
 			}
 		};
 
+		/** @namespace - Contains all the functions used with the window for scrolling and handling the close click event. */
 		this.w = {
+			/**
+			 * @property {FooNav.Timer} - An internal timer used to prevent rebinding the anchor check to early when scrolling to a specified target.
+			 * @private
+			 */
 			_scroll: new FooNav.Timer(),
+			/**
+			 * @property {FooNav.Timer} - An internal timer used to prevent excessive checks when scrolling.
+			 * @private
+			 */
 			_scrolled: new FooNav.Timer(),
+			/**
+			 * Scrolls to the specified target element.
+			 * @param {HTMLElement} target - The element to scroll into view.
+			 */
 			scroll: function(target){
 				_.a._check.stop();
 				var $target = $(target),
@@ -650,6 +780,9 @@
 				if (_.o.smart.enable && _.o.smart.scroll){
 				}
 			},
+			/**
+			 * Handles the jQuery scroll event of the window.
+			 */
 			scrolled: function(){
 				_.w._scrolled.start(function(){
 					var st = $(window).scrollTop();
@@ -667,12 +800,20 @@
 					}
 				}, 100);
 			},
+			/**
+			 * Handles the jQuery clicked event of the window.
+			 * @param {jQuery.Event} e - The jQuery event object.
+			 */
 			clicked: function(e){
 				if (_.nav.hasClass('fon-open') && !$(e.target).is('fon-nav') && $(e.target).closest('.fon-nav').length == 0){
 					e.allow = true;
 					_.m.toggle.call(_.toggle.get(0), e);
 				}
 			},
+			/**
+			 * Handles the jQuery clicked event of the top button.
+			 * @param {jQuery.Event} e - The jQuery event object.
+			 */
 			top: function(e){
 				e.preventDefault();
 				e.stopPropagation();
