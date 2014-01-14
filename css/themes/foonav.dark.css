@@ -3,11 +3,6 @@
 	background-color: #1c1817;
 }
 
-.fon-dark.fon-border,
-.fon-dark.fon-border > .fon-buttons {
-	border-color: #252120;
-}
-
 .fon-dark .fon-button {
 	color: #bebebe;
 }
@@ -19,11 +14,19 @@
 .fon-dark .fon-item {
 	color: #bebebe;
 	background-color: #2d2929;
-	border-color: #1c1817;
 }
 
 .fon-dark a.fon-item:hover,
 .fon-dark .fon-item.fon-active {
 	color: #FFF;
 	background-color: #3b3735;
+}
+
+.fon-dark.fon-border,
+.fon-dark.fon-border > .fon-buttons {
+	border-color: #252120;
+}
+
+.fon-dark.fon-border .fon-item {
+	border-color: #1c1817;
 }

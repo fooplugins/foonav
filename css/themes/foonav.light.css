@@ -1,12 +1,6 @@
 .fon-light,
 .fon-light .fon-buttons {
 	background-color: #f5f5f5;
-	border-color: #dcdcdc;
-}
-
-.fon-light.fon-border,
-.fon-light.fon-border > .fon-buttons {
-	border-color: #616161;
 }
 
 .fon-light .fon-button {
@@ -20,7 +14,6 @@
 .fon-light .fon-item {
 	color: #616161;
 	background-color: #FDFDFD;
-	border-color: #dcdcdc;
 }
 
 .fon-light a.fon-item:hover,
@@ -28,4 +21,18 @@
 	color: #000;
 	background-color: #FFFFFF;
 	border-color: #dddddd;
+}
+
+.fon-light.fon-border,
+.fon-light.fon-border > .fon-buttons {
+	border-color: #616161;
+}
+
+.fon-light.fon-border .fon-item {
+	border-color: #dcdcdc;
+}
+
+.fon-light.fon-border a.fon-item:hover,
+.fon-light.fon-border .fon-item.fon-active {
+	border-color: #cccccc;
 }
