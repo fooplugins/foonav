@@ -74,15 +74,22 @@
 			 */
 			buttons: null,
 			/**
-			 * An array of PlainObjects defining the items to display in the menu.
-			 * @example <caption>Example item object</caption>
+			 * Items can be either a PlainObject defining the container and item selector, just the container selector or an array of items.
+			 * @example <caption>Example PlainObject</caption>
+			 * items: {
+			 * 	container: [string],
+			 * 	selector: [string]
+			 * }
+			 * @example <caption>Example string</caption>
+			 * items: [string]
+			 * @example <caption>Example item array</caption>
 			 * items: [{
 			 * 	href: [string],
 			 * 	text: [string],
 			 * 	children: [array]
 			 * }]
 			 */
-			items: []
+			items: null
 		},
 		/**
 		 * Contains all instantiated instances of FooNav.
@@ -127,6 +134,69 @@
 	 */
 	FooNav.destroy = function(index){
 		FooNav.fetch(index).destroy();
+	};
+
+	/**
+	 * Generates FooNav items from the header elements within the element matched by the selector.
+	 * @param {string} [container] - The jQuery selector for the container of the items.
+	 * @param {string} [selector] - The jQuery selector for the items.
+	 * @returns {Array}
+	 */
+	FooNav.items = function(container, selector){
+		container = container || 'body';
+		selector = selector || 'h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]';
+		var items = [];
+		var structure = selector.split(',');
+		var item = null, el = null, pel = null, parentSelector = null;
+
+		//find the index of the el in the provided structure.
+		function _indexOf(el){
+			for(var i = 0; i < structure.length; i++){ if ($(el).is(structure[i])){ return i; } }
+			return -1;
+		}
+
+		//creates a parent selector using the supplied index.
+		function _parentSelector(index){
+			var tmp = [];
+			for(var i = 0; i < index; i++){ tmp.push(structure[i]); }
+			return tmp.join(',');
+		}
+
+		//find an item by it's id in the supplied items arr.
+		function _find(id, arr){
+			for(var i = 0; i < arr.length; i++){
+				if (arr[i].href == '#' + id){ return arr[i]; }
+				if (arr[i].children){
+					var result = _find(id, arr[i].children);
+					if (result != null){ return result; }
+				}
+			}
+			return null;
+		}
+
+		$(container).find(selector).each(function(){
+			el = this;
+			item = { text: el.innerText, href: '#' + el.id };
+			parentSelector = _parentSelector(_indexOf(el));
+			if (parentSelector != null && parentSelector != ''){
+				pel = $(el).prevAll(parentSelector).first();
+				if (pel.length > 0){
+					var parent = _find(pel.attr('id'), items);
+					if (parent != null){
+						parent.children = parent.children || [];
+						parent.children.push(item);
+					} else {
+						items.push(item);
+					}
+				} else {
+					items.push(item);
+				}
+			} else {
+				items.push(item);
+			}
+		});
+
+		return items;
 	};
 
 	/**
@@ -203,6 +273,7 @@
 		this.init = function(o){
 			_.o = $.extend(true, _.o, o);
 
+			_.b.items();
 			_.b.nav();
 			_.b.buttons();
 			_.b.menu();
@@ -228,7 +299,6 @@
 		 */
 		this.reinit = function(o){
 			_.destroy(true);
-			_.o = $.extend(true, _.o, o);
 			_.init(o);
 		};
 
@@ -246,7 +316,7 @@
 				.off('scroll', _.w.scrolled)
 				.off('click', _.w.clicked);
 			if (partial){ return; }
-			FooNav.instances[_.id - 1] = null;
+			FooNav.instances[_.index] = null;
 		};
 
 		/** @namespace - Contains all util type functions. */
@@ -318,6 +388,18 @@
 
 		/** @namespace - Contains all the functions used to build the DOM elements. */
 		this.b = {
+			/**
+			 * Checks the items option and builds the items if required.
+			 */
+			items: function(){
+				if ($.isArray(_.o.items)){ return; }
+				var type = typeof _.o.items;
+				if (type == 'string'){ //if just a string is provided assume it's the container selector.
+					_.o.items = FooNav.items(_.o.items);
+				} else if (type == 'object'){ //if an object is provided use the selectors in it.
+					_.o.items = FooNav.items(_.o.items.container, _.o.items.selector);
+				}
+			},
 			/**
 			 * Create the outer container for the plugin.
 			 */
@@ -713,7 +795,7 @@
 			 */
 			visible: function(el){
 				var rect = el.getBoundingClientRect(), p = 20;
-				return rect.top >= -p && rect.left >= p && rect.bottom <= $(window).height() + p && rect.right <= $(window).width() + p;
+				return rect.top >= -p && rect.left >= -p;
 			},
 			/**
 			 * Performs the actual visibility check on any tracked anchors and updates the menu accordingly.
