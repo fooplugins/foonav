@@ -8,130 +8,47 @@
 	<link type="text/css" rel="stylesheet" href="css/themes/foonav.dark.css" />
 	<link type="text/css" rel="stylesheet" href="css/themes/foonav.green.css" />
 	<link type="text/css" rel="stylesheet" href="css/themes/foonav.light.css" />
+	<link type="text/css" rel="stylesheet" href="css/themes/flat-ui/foonav.flat-ui.amethyst.css" />
+	<link type="text/css" rel="stylesheet" href="css/themes/flat-ui/foonav.flat-ui.asbestos.css" />
+	<link type="text/css" rel="stylesheet" href="css/themes/flat-ui/foonav.flat-ui.asphalt.css" />
+	<link type="text/css" rel="stylesheet" href="css/themes/flat-ui/foonav.flat-ui.blue.css" />
+	<link type="text/css" rel="stylesheet" href="css/themes/flat-ui/foonav.flat-ui.emerald.css" />
+	<link type="text/css" rel="stylesheet" href="css/themes/flat-ui/foonav.flat-ui.orange.css" />
+	<link type="text/css" rel="stylesheet" href="css/themes/flat-ui/foonav.flat-ui.pumpkin.css" />
+	<link type="text/css" rel="stylesheet" href="css/themes/flat-ui/foonav.flat-ui.red.css" />
+	<link type="text/css" rel="stylesheet" href="css/themes/flat-ui/foonav.flat-ui.silver.css" />
+	<link type="text/css" rel="stylesheet" href="css/themes/flat-ui/foonav.flat-ui.turquoise.css" />
 	<script src="js/libs/jquery-1.9.0.min.js"></script>
 	<script src="js/foonav.js"></script>
 	<script>
+		function init(theme, classes, position){
+
+			for(var i = 0; i < FooNav.instances.length; i++){
+				var instance = FooNav.instances[i];
+				if (instance != null) instance.destroy();
+			}
+
+			FooNav.init({
+				classes: classes,
+				position: position,
+				theme: theme,
+				items: '#content'
+			});
+		}
+
+		function getClasses(){
+			var tmp = [];
+			if ($('input[name=full_height]').is(':checked')){ tmp.push('fon-full-height'); }
+			if ($('input[name=border]').is(':checked')){ tmp.push('fon-border'); }
+			if ($('input[name=rounded]').is(':checked')){ tmp.push('fon-rounded'); }
+			if ($('input[name=shadow]').is(':checked')){ tmp.push('fon-shadow'); }
+			return tmp.join(' ');
+		}
+
 		$(function(){
-
-			var random = [{
-				text: 'Parent 1',
-				href: '#parent_1'
-			},{
-				text: 'Parent 2',
-				href: '#parent_2',
-				children: [{
-					text: 'Parent 2 - Child 1',
-					href: '#parent_2_child_1'
-				},{
-					text: 'Parent 2 - Child 2',
-					href: '#parent_2_child_2'
-				},{
-					text: 'Parent 2 - Child 3',
-					href: '#parent_2_child_3',
-					children: [{
-						text: 'Parent 2 - Child 3 - Child 1',
-						href: '#parent_2_child_3_child_1'
-					},{
-						text: 'Parent 2 - Child 3 - Child 2',
-						href: '#parent_2_child_3_child_2'
-					},{
-						text: 'Parent 2 - Child 3 - Child 3',
-						href: '#parent_2_child_3_child_3'
-					},{
-						text: 'Parent 2 - Child 3 - Child 4',
-						href: '#parent_2_child_3_child_4'
-					}]
-				},{
-					text: 'Parent 2 - Child 4',
-					href: '#parent_2_child_4'
-				}]
-			}];
-
-			var items = [{
-				text: 'Header 1',
-				href: '#header_1',
-				children: [{
-					text: 'Sub 1 Header 1',
-					href: '#sub_1_header_1'
-				},{
-					text: 'Sub 2 Header 1',
-					href: '#sub_2_header_1'
-				},{
-					text: 'Sub 3 Header 1',
-					href: '#sub_3_header_1'
-				},{
-					text: 'Sub 4 Header 1',
-					href: '#sub_4_header_1'
-				}]
-			},{
-				text: 'Header 2',
-				href: '#header_2',
-				children: [{
-					text: 'Sub 1 Header 2',
-					href: '#sub_1_header_2'
-				},{
-					text: 'Sub 2 Header 2',
-					href: '#sub_2_header_2'
-				},{
-					text: 'Sub 3 Header 2',
-					href: '#sub_3_header_2'
-				},{
-					text: 'Sub 4 Header 2',
-					href: '#sub_4_header_2'
-				}]
-			},{
-				text: 'Header 3',
-				href: '#header_3',
-				children: [{
-					text: 'Sub 1 Header 3',
-					href: '#sub_1_header_3'
-				},{
-					text: 'Sub 2 Header 3',
-					href: '#sub_2_header_3'
-				},{
-					text: 'Sub 3 Header 3',
-					href: '#sub_3_header_3'
-				},{
-					text: 'Sub 4 Header 3',
-					href: '#sub_4_header_3'
-				}]
-			}];
-
-			FooNav.init({
-				classes: 'fon-full-height',
-				position: 'fon-top-left',
-				theme: 'fon-light',
-				transition: 'fade',
-				items: items
-			});
-
-			FooNav.init({
-				classes: 'fon-rounded fon-shadow fon-border fon-full-height',
-				position: 'fon-top-right',
-				theme: 'fon-blue',
-				buttons: {
-					home: 'http://www.google.com'
-				},
-				items: random
-			});
-
-			FooNav.init({
-				classes: 'fon-rounded fon-shadow fon-border',
-				position: 'fon-bottom-left',
-				theme: 'fon-green',
-				buttons: {
-					home: 'http://www.google.com'
-				},
-				items: random
-			});
-
-			FooNav.init({
-				position: 'fon-bottom-right',
-				theme: 'fon-dark',
-				buttons: {
-					home: 'demo.html'
-				},
-				items: items
+			init($('#theme').val(), getClasses(), $('input[name=position]:checked').val());
+			$(':input').change(function(){
+				init($('#theme').val(), getClasses(), $('input[name=position]:checked').val());
 			});
 		});
 	</script>
@@ -146,13 +63,26 @@
 		body {
 			width: 100%;
 			height: 3000px;
-			font-family: "Segoe UI", "Helvetica", "Arial", "Sans Serif";
+			font-family: "Segoe UI", "Helvetica", "Arial", sans-serif;
 		}
 		#header {
 			background-color: #252120;
+			color: #FFF;
 			height: 400px;
 			width: 960px;
 			margin: auto;
+		}
+		#header fieldset {
+			margin: 10px;
+		}
+		#header label {
+			margin-left: 10px;
+		}
+		#header label > select {
+			margin-left: 10px;
+		}
+		#header label > input {
+			margin-right: 10px;
 		}
 		#content {
 			width: 960px;
@@ -162,7 +92,43 @@
 </head>
 <body>
 	<div id="header">
-
+		<fieldset>
+			<legend>Appearance</legend>
+			<label>
+				Theme
+				<select id="theme">
+					<optgroup label="Default"></optgroup>
+					<option value="fon-blue">Blue</option>
+					<option value="fon-dark">Dark</option>
+					<option value="fon-green">Green</option>
+					<option value="fon-light" selected="selected">Light</option>
+					<optgroup label="Flat UI"></optgroup>
+					<option value="fon-flat-ui-amethyst">Amethyst</option>
+					<option value="fon-flat-ui-asbestos">Asbestos</option>
+					<option value="fon-flat-ui-asphalt">Asphalt</option>
+					<option value="fon-flat-ui-blue">Blue</option>
+					<option value="fon-flat-ui-emerald">Emerald</option>
+					<option value="fon-flat-ui-orange">Orange</option>
+					<option value="fon-flat-ui-pumpkin">Pumpkin</option>
+					<option value="fon-flat-ui-red">Red</option>
+					<option value="fon-flat-ui-silver">Silver</option>
+					<option value="fon-flat-ui-turquoise">Turquoise</option>
+				</select>
+			</label>
+			<label><input type="checkbox" name="full_height" value="fon-full-height" />Full Height</label>
+			<label><input type="checkbox" name="border" value="fon-border" />Border</label>
+			<label><input type="checkbox" name="rounded" value="fon-rounded" />Rounded</label>
+			<label><input type="checkbox" name="shadow" value="fon-shadow" />Shadow</label>
+		</fieldset>
+		<fieldset>
+			<legend>Position</legend>
+			<label><input type="radio" name="position" value="fon-top-left" checked />Top Left</label>
+			<label><input type="radio" name="position" value="fon-top-right" />Top Right</label>
+			<label><input type="radio" name="position" value="fon-center-left" />Center Left</label>
+			<label><input type="radio" name="position" value="fon-center-right" />Center Right</label>
+			<label><input type="radio" name="position" value="fon-bottom-left" />Bottom Left</label>
+			<label><input type="radio" name="position" value="fon-bottom-right" />Bottom Right</label>
+		</fieldset>
 	</div>
 	<div id="content">
 

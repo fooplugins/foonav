@@ -1,0 +1,27 @@
+.fon-flat-ui-amethyst,
+.fon-flat-ui-amethyst .fon-buttons {
+	background-color: #8E44AD;
+}
+
+.fon-flat-ui-amethyst .fon-button {
+	color: #FFF;
+}
+
+.fon-flat-ui-amethyst .fon-item {
+	color: #FFF;
+	background-color: #9B59B6;
+}
+
+.fon-flat-ui-amethyst a.fon-item:hover,
+.fon-flat-ui-amethyst .fon-item.fon-active {
+	background-color: #ad59c8;
+}
+
+.fon-flat-ui-amethyst.fon-border,
+.fon-flat-ui-amethyst.fon-border > .fon-buttons {
+	border-color: #a65bc1;
+}
+
+.fon-flat-ui-amethyst.fon-border .fon-item {
+	border-color: #a65bc1;
+}

@@ -1,0 +1,27 @@
+.fon-flat-ui-blue,
+.fon-flat-ui-blue .fon-buttons {
+	background-color: #2980B9;
+}
+
+.fon-flat-ui-blue .fon-button {
+	color: #FFF;
+}
+
+.fon-flat-ui-blue .fon-item {
+	color: #FFF;
+	background-color: #3498DB;
+}
+
+.fon-flat-ui-blue a.fon-item:hover,
+.fon-flat-ui-blue .fon-item.fon-active {
+	background-color: #348cd0;
+}
+
+.fon-flat-ui-blue.fon-border,
+.fon-flat-ui-blue.fon-border > .fon-buttons {
+	border-color: #3477bb;
+}
+
+.fon-flat-ui-blue.fon-border .fon-item {
+	border-color: #3477bb;
+}

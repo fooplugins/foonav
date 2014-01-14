@@ -1,0 +1,27 @@
+.fon-flat-ui-silver,
+.fon-flat-ui-silver .fon-buttons {
+	background-color: #BDC3C7;
+}
+
+.fon-flat-ui-silver .fon-button {
+	color: #FFF;
+}
+
+.fon-flat-ui-silver .fon-item {
+	color: #a9afb3;
+	background-color: #ECF0F1;
+}
+
+.fon-flat-ui-silver a.fon-item:hover,
+.fon-flat-ui-silver .fon-item.fon-active {
+	background-color: #e6eaeb;
+}
+
+.fon-flat-ui-silver.fon-border,
+.fon-flat-ui-silver.fon-border > .fon-buttons {
+	border-color: #ECF0F1;
+}
+
+.fon-flat-ui-silver.fon-border .fon-item {
+	border-color: #ECF0F1;
+}
