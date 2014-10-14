@@ -1,0 +1,27 @@
+.fon-flat-ui-asphalt,
+.fon-flat-ui-asphalt .fon-buttons {
+	background-color: #2C3E50;
+}
+
+.fon-flat-ui-asphalt .fon-button {
+	color: #FFF;
+}
+
+.fon-flat-ui-asphalt .fon-item {
+	color: #FFF;
+	background-color: #34495E;
+}
+
+.fon-flat-ui-asphalt a.fon-item:hover,
+.fon-flat-ui-asphalt .fon-item.fon-active {
+	background-color: #3e5469;
+}
+
+.fon-flat-ui-asphalt.fon-border,
+.fon-flat-ui-asphalt.fon-border > .fon-buttons {
+	border-color: #34495E;
+}
+
+.fon-flat-ui-asphalt.fon-border .fon-item {
+	border-color: #34495E;
+}

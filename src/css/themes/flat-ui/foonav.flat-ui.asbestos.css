@@ -1,0 +1,27 @@
+.fon-flat-ui-asbestos,
+.fon-flat-ui-asbestos .fon-buttons {
+	background-color: #7F8C8D;
+}
+
+.fon-flat-ui-asbestos .fon-button {
+	color: #FFF;
+}
+
+.fon-flat-ui-asbestos .fon-item {
+	color: #FFF;
+	background-color: #95A5A6;
+}
+
+.fon-flat-ui-asbestos a.fon-item:hover,
+.fon-flat-ui-asbestos .fon-item.fon-active {
+	background-color: #8c9c9d;
+}
+
+.fon-flat-ui-asbestos.fon-border,
+.fon-flat-ui-asbestos.fon-border > .fon-buttons {
+	border-color: #95A5A6;
+}
+
+.fon-flat-ui-asbestos.fon-border .fon-item {
+	border-color: #95A5A6;
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="description" content="A simple menu to help users navigate either your site or a single pages content">
+	<title>FooNav.js - Simple Navigation Plugin</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+	<link href="http://fonts.googleapis.com/css?family=Merriweather:400,900|PT+Sans:700|PT+Sans+Narrow:700|Oswald:700|PT+Mono" rel="stylesheet" type="text/css">
+	<link href="docs/css/index.css" rel="stylesheet" type="text/css" />
+	<link href="dist/foonav.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+	<script src="dist/foonav.min.js"></script>
+	<script>
+		jQuery(function(){
+			FooNav.init({
+				classes: 'fon-shadow fon-full-height',
+				items: '#content',
+				position: 'fon-top-right',
+				theme: 'fon-dark'
+			});
+		});
+	</script>
+</head>
+<body>
+	<header id="links">
+
+	</header>
+	<header id="main">
+		<h1>FooNav.js</h1>
+		<h2>Simple Navigation Plugin</h2>
+		<h3>by FooPlugins</h3>
+	</header>
+	<article id="content">
+		<hr/>
+		<p>FooNav.js is a free plugin built on jQuery that let's you make a simple menu to help users navigate either your site or a single pages content. You can create your own custom menu links or let the plugin crawl your page for headers and build up a simple navigation menu itself. There are multiple themes to choose from to suite your site, or if you are so inclined you can create your own with a little custom CSS. There are also multiple demos to get you up and running in no time at all.</p>
+		<hr/>
+		<h1>Demos</h1>
+		<h2>Main</h2>
+		<ul>
+			<li><a href="docs/demo.html">A Demo Page Showing Most of the Features</a></li>
+		</ul>
+		<h2>Item Creation</h2>
+		<ul>
+			<li><a href="docs/demo.html">Auto-Generated Menu Items from Headers</a></li>
+			<li><a href="docs/demo.html">Custom Menu Items</a></li>
+		</ul>
+		<h2>Positioning</h2>
+		<p>The menu can be positioned at six different points around the window viewport, these are listed below and you can see them in action in <a href="docs/demo.html">this demo page</a> by selecting them from the drop down.</p>
+		<ul>
+			<li>Top Left</li>
+			<li>Top Right</li>
+			<li>Left Center</li>
+			<li>Right Center</li>
+			<li>Bottom Left</li>
+			<li>Bottom Right</li>
+		</ul>
+		<h2>Themes</h2>
+		<p>There are multiple themes available by default, the below lists them all individually however you can check them all out using <a href="docs/demo.html">this demo page</a> by simply selecting them from the drop down.</p>
+		<h3>Default</h3>
+		<ul>
+			<li>Blue</li>
+			<li>Dark</li>
+			<li>Green</li>
+			<li>Light</li>
+		</ul>
+		<h3>Flat UI</h3>
+		<ul>
+			<li>Amethyst</li>
+			<li>Asbestos</li>
+			<li>Asphalt</li>
+			<li>Blue</li>
+			<li>Emerald</li>
+			<li>Orange</li>
+			<li>Pumpkin</li>
+			<li>Red</li>
+			<li>Silver</li>
+			<li>Turquoise</li>
+		</ul>
+		<hr/>
+		<h1>Other Features</h1>
+		<p>There are a number of different ways to change to behaviour of the menu, from only showing it once a user has scrolled past a certain pixel value to adjusting whether or not to smooth scroll to anchors.</p>
+		<ul>
+			<li>Insert Custom Content Before or After the Menu</li>
+			<li>Show After X Pixels Scrolled</li>
+			<li>Change the Show/Hide Speed</li>
+			<li>Enable/Disable Auto Tracking of Anchors in the Menu</li>
+			<li>Enable/Disable the Smooth Scroll to Anchors</li>
+			<li>Enable/Disable Auto Parsing of the current URL for Hash Values (Anchors)</li>
+			<li>Enable/Disable Auto Showing of the Menu on Page Load</li>
+			<li>Switch Between a Simple Slide or Fade Animation in the Menu</li>
+			<li>Simple API for Developers to Use</li>
+			<li>Add Custom Buttons</li>
+		</ul>
+		<hr/>
+		<h1>Getting Started Simple</h1>
+		<h2>Step 1: Include the required files</h2>
+		<p>Include the foonav.min.css file.</p>
+		<pre><code class="language-markup">&lt;link href="http://example.com/css/foonav.min.css" rel="stylesheet" /&gt;</code></pre>
+		<p>After jQuery, add the foonav.min.js file.</p>
+		<pre><code class="language-markup">&lt;script src="http://example.com/js/foonav.min.js"&gt;&lt;/script&gt;</code></pre>
+		<h2>Step 2: Initialize and Configure</h2>
+		<p>In either a JavaScript file or inline, initalize FooNav. This has to be below the foonav.js file. Some of the following settings below are defaults, and are only added for demonstration purposes.</p>
+		<pre><code class="language-javascript">FooNav.init({
+	classes: 'fon-full-height fon-border fon-rounded fon-shadow', // Any additional classes to add to FooNav
+	items: '#content', // The selector where FooNav looks for the header elements
+	position: 'fon-top-right', // The position in the viewport
+	theme: 'fon-light' // The theme to use
+});</code></pre>
+		<hr/>
+		<h1>Getting Started Dev</h1>
+		<h2>Step 1: Include the required files</h2>
+		<p>Include the foonav.min.css file.</p>
+		<pre><code class="language-markup">&lt;link href="http://example.com/css/foonav.min.css" rel="stylesheet" /&gt;</code></pre>
+		<p>After jQuery, add the foonav.min.js file.</p>
+		<pre><code class="language-markup">&lt;script src="http://example.com/js/foonav.min.js"&gt;&lt;/script&gt;</code></pre>
+		<h2>Step 2: Initialize and Configure</h2>
+		<p>In either a JavaScript file or inline, initalize FooNav. This has to be below the foonav.js file. Some of the following settings below are defaults, and are only added for demonstration purposes.</p>
+		<pre><code class="language-javascript">var fnav = FooNav.init({
+	classes: 'fon-full-height fon-border fon-rounded fon-shadow', // Any additional classes to add to FooNav
+	items: '#content', // The selector where FooNav looks for the header elements
+	position: 'fon-top-right', // The position in the viewport
+	theme: 'fon-light' // The theme to use
+});</code></pre>
+		<h2>Step 3: Use the FooNav Instance</h2>
+		<p>You can now use the FooNav API to control the plugin, binding it to whatever events you want.</p>
+		<pre><code class="language-javascript">fnav.toggle(); // Toggles FooNav between open and closed states
+fnav.destroy(); // Completely destroys FooNav removing it from the DOM
+fnav.reinit({
+	classes: 'fon-shadow',
+	items: '#content',
+	position: 'fon-top-left',
+	theme: 'fon-dark'
+}); // Reinitializes FooNav with the new options</code></pre>
+	</article>
+</body>
+</html>

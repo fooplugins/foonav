@@ -1,0 +1,266 @@
+/*!
+ * FooNav - A jQuery navigation menu.
+ * @version 0.0.1
+ * @link TODO
+ * @copyright Steven Usher & Brad Vincent 2014
+ * @license Released under the MIT license.
+ * You are free to use FooNav jQuery in personal projects (excluding WordPress plugins and themes) as long as this copyright header is left intact.
+ * Restriction 1: you may not create a WordPress plugin that bundles FooNav jQuery (rather use TODO).
+ * Restriction 2: you may only bundle FooNav jQuery within a WordPress theme if you have a developer license.
+ */
+.fon-nav,
+.fon-nav-size {
+	font-family: "Segoe UI", "Helvetica", "Arial", sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	position: fixed;
+	overflow: visible;
+	min-height: 180px;
+	min-width: 150px;
+	padding: 7px;
+	z-index: 9999;
+}
+
+.fon-nav-size {
+	top: -3000px;
+	left: -3000px;
+	right: auto;
+	bottom: auto;
+}
+
+.fon-nav-inner {
+	overflow: hidden;
+}
+
+.fon-buttons {
+	position: absolute;
+	min-width: 48px;
+	min-height: 48px;
+}
+
+.fon-button {
+	position: relative;
+	display: block;
+	min-width: 48px;
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 16px;
+}
+
+.fon-menu {
+	position: relative;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.fon-menu > li > .fon-menu {
+	display: none;
+}
+
+.fon-item {
+	display: block;
+	padding: 9px 12px;
+	margin: 3px;
+	position: relative;
+	text-decoration: none;
+	text-align: left;
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+.fon-item-back,
+.fon-item-title {
+	margin-bottom: 10px;
+}
+
+.fon-item-icon {
+	margin-right: 10px;
+}
+
+/* Position */
+.fon-top-left,
+.fon-top-left > .fon-buttons,
+.fon-top-right,
+.fon-top-right > .fon-buttons {
+	top: 30px;
+}
+
+.fon-center-left,
+.fon-center-right {
+	top: 40%;
+}
+.fon-center-left > .fon-buttons,
+.fon-center-right > .fon-buttons {
+	top: 30px;
+}
+
+.fon-bottom-left,
+.fon-bottom-left > .fon-buttons,
+.fon-bottom-right,
+.fon-bottom-right > .fon-buttons {
+	bottom: 30px;
+}
+
+.fon-top-left,
+.fon-center-left,
+.fon-bottom-left {
+	left: -1000px;
+}
+
+.fon-top-left > .fon-buttons,
+.fon-center-left > .fon-buttons,
+.fon-bottom-left > .fon-buttons {
+	left: 100%;
+}
+
+.fon-top-right,
+.fon-center-right,
+.fon-bottom-right {
+	right: -1000px;
+}
+
+.fon-top-right > .fon-buttons,
+.fon-center-right > .fon-buttons,
+.fon-bottom-right > .fon-buttons {
+	right: 100%;
+}
+
+/* Shadow */
+.fon-closed.fon-shadow.fon-top-left,
+.fon-closed.fon-shadow.fon-center-left,
+.fon-closed.fon-shadow.fon-bottom-left,
+.fon-closed.fon-shadow.fon-top-right,
+.fon-closed.fon-shadow.fon-center-right,
+.fon-closed.fon-shadow.fon-bottom-right {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+.fon-shadow.fon-top-left,
+.fon-shadow.fon-top-left > .fon-buttons,
+.fon-shadow.fon-center-left,
+.fon-shadow.fon-center-left > .fon-buttons,
+.fon-shadow.fon-bottom-left,
+.fon-shadow.fon-bottom-left > .fon-buttons {
+	-webkit-box-shadow: 2px 2px 2px rgba(50, 50, 50, 0.3);
+	-moz-box-shadow:    2px 2px 2px rgba(50, 50, 50, 0.3);
+	box-shadow:         2px 2px 2px rgba(50, 50, 50, 0.3);
+}
+
+.fon-shadow.fon-top-right,
+.fon-shadow.fon-top-right > .fon-buttons,
+.fon-shadow.fon-center-right,
+.fon-shadow.fon-center-right > .fon-buttons,
+.fon-shadow.fon-bottom-right,
+.fon-shadow.fon-bottom-right > .fon-buttons {
+	-webkit-box-shadow: -2px 2px 2px rgba(50, 50, 50, 0.3);
+	-moz-box-shadow:    -2px 2px 2px rgba(50, 50, 50, 0.3);
+	box-shadow:         -2px 2px 2px rgba(50, 50, 50, 0.3);
+}
+
+/* Rounded */
+.fon-rounded .fon-item {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+
+.fon-rounded.fon-top-right,
+.fon-rounded.fon-top-right > .fon-buttons,
+.fon-rounded.fon-center-right,
+.fon-rounded.fon-center-right > .fon-buttons,
+.fon-rounded.fon-bottom-right,
+.fon-rounded.fon-bottom-right > .fon-buttons {
+	-webkit-border-top-left-radius: 6px;
+	-webkit-border-bottom-left-radius: 6px;
+	-moz-border-radius-topleft: 6px;
+	-moz-border-radius-bottomleft: 6px;
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+.fon-rounded.fon-top-left,
+.fon-rounded.fon-top-left > .fon-buttons,
+.fon-rounded.fon-center-left,
+.fon-rounded.fon-center-left > .fon-buttons,
+.fon-rounded.fon-bottom-left,
+.fon-rounded.fon-bottom-left > .fon-buttons {
+	-webkit-border-top-right-radius: 6px;
+	-webkit-border-bottom-right-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	-moz-border-radius-bottomright: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+/* Border */
+.fon-item,
+.fon-nav,
+.fon-nav > .fon-buttons {
+	border-style: solid;
+	border-width: 1px;
+	border-color: transparent;
+}
+
+.fon-top-right,
+.fon-top-right > .fon-buttons,
+.fon-center-right,
+.fon-center-right > .fon-buttons,
+.fon-bottom-right,
+.fon-bottom-right > .fon-buttons {
+	border-right: none;
+}
+
+.fon-top-left,
+.fon-top-left > .fon-buttons,
+.fon-center-left,
+.fon-center-left > .fon-buttons,
+.fon-bottom-left,
+.fon-bottom-left > .fon-buttons {
+	border-left: none;
+}
+
+/* Full Height */
+.fon-full-height {
+	top: 0;
+	bottom: 0;
+}
+
+.fon-full-height.fon-center-left > .fon-buttons,
+.fon-full-height.fon-center-right > .fon-buttons {
+	top: 45%;
+}
+
+.fon-full-height.fon-border.fon-nav {
+	border-top: none;
+	border-bottom: none;
+}
+
+.fon-full-height.fon-rounded.fon-nav {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}
+
+/* Transitions */
+.fon-button,
+.fon-item {
+	-webkit-transition-property: color, background-color, border-color;
+	-moz-transition-property: color, background-color, border-color;
+	-o-transition-property: color, background-color, border-color;
+	transition-property: color, background-color, border-color;
+	-webkit-transition-duration: 0.2s, 0.2s, 0.2s;
+	-moz-transition-duration: 0.2s, 0.2s, 0.2s;
+	-o-transition-duration: 0.2s, 0.2s, 0.2s;
+	transition-duration: 0.2s, 0.2s, 0.2s;
+	-webkit-transition-timing-function: ease-in, ease-in, ease-in;
+	-moz-transition-timing-function: ease-in, ease-in, ease-in;
+	-o-transition-timing-function: ease-in, ease-in, ease-in;
+	transition-timing-function: ease-in, ease-in, ease-in;
+}

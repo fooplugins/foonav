@@ -1,0 +1,27 @@
+.fon-green,
+.fon-green .fon-buttons {
+	background-color: #339933;
+}
+
+.fon-green .fon-button {
+	color: #FFF;
+}
+
+.fon-green .fon-item {
+	color: #FFF;
+	background-color: #42be42;
+}
+
+.fon-green a.fon-item:hover,
+.fon-green .fon-item.fon-active {
+	background-color: #60C560;
+}
+
+.fon-green.fon-border,
+.fon-green.fon-border > .fon-buttons {
+	border-color: #42be42;
+}
+
+.fon-green.fon-border .fon-item {
+	border-color: #339933;
+}

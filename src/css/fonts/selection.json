@@ -1,0 +1,144 @@
+{
+	"IcoMoonType": "selection",
+	"icons": [
+		{
+			"icon": {
+				"paths": [
+					"M992 384h-352v-352c0-17.672-14.328-32-32-32h-192c-17.672 0-32 14.328-32 32v352h-352c-17.672 0-32 14.328-32 32v192c0 17.672 14.328 32 32 32h352v352c0 17.672 14.328 32 32 32h192c17.672 0 32-14.328 32-32v-352h352c17.672 0 32-14.328 32-32v-192c0-17.672-14.328-32-32-32z"
+				],
+				"tags": [
+					"plus",
+					"add",
+					"sum"
+				],
+				"defaultCode": 58230,
+				"grid": 16
+			},
+			"properties": {
+				"order": 1,
+				"id": 887,
+				"prevSize": 32,
+				"code": 58230,
+				"name": "expand",
+				"ligatures": ""
+			}
+		},
+		{
+			"icon": {
+				"paths": [
+					"M0 512l512 512v-320h511.998l0.002-384h-512v-320z"
+				],
+				"tags": [
+					"arrow-left",
+					"left",
+					"previous"
+				],
+				"defaultCode": 58303,
+				"grid": 16
+			},
+			"properties": {
+				"order": 2,
+				"id": 960,
+				"prevSize": 32,
+				"code": 58303,
+				"name": "back",
+				"ligatures": ""
+			}
+		},
+		{
+			"icon": {
+				"paths": [
+					"M512.002 0l-512.002 512h320v511.998l384 0.002v-512h320z"
+				],
+				"tags": [
+					"arrow-up",
+					"upload",
+					"top"
+				],
+				"defaultCode": 58297,
+				"grid": 16
+			},
+			"properties": {
+				"order": 3,
+				"id": 954,
+				"prevSize": 32,
+				"code": 58297,
+				"name": "top",
+				"ligatures": ""
+			}
+		},
+		{
+			"icon": {
+				"paths": [
+					"M1024 608l-192-192v-288h-128v160l-192-192-512 512v32h128v320h320v-192h128v192h320v-320h128z"
+				],
+				"tags": [
+					"home",
+					"house",
+					"building"
+				],
+				"defaultCode": 57346,
+				"grid": 16
+			},
+			"properties": {
+				"order": 4,
+				"id": 3,
+				"prevSize": 32,
+				"code": 57346,
+				"name": "home",
+				"ligatures": ""
+			}
+		},
+		{
+			"icon": {
+				"paths": [
+					"M64 192h896v192h-896zM64 448h896v192h-896zM64 704h896v192h-896z"
+				],
+				"tags": [
+					"menu",
+					"list",
+					"items",
+					"lines",
+					"options"
+				],
+				"defaultCode": 58031,
+				"grid": 16
+			},
+			"properties": {
+				"order": 5,
+				"id": 688,
+				"prevSize": 16,
+				"code": 58031,
+				"name": "menu",
+				"ligatures": ""
+			}
+		}
+	],
+	"height": 1024,
+	"metadata": {
+		"name": "foonav"
+	},
+	"preferences": {
+		"fontPref": {
+			"prefix": "fon-icon-",
+			"metadata": {
+				"fontFamily": "foonav"
+			},
+			"showGlyphs": true,
+			"metrics": {
+				"emSize": 1024,
+				"baseline": 6.25,
+				"whitespace": 50
+			},
+			"resetPoint": 58880,
+			"showMetrics": true,
+			"showMetadata": true
+		},
+		"imagePref": {},
+		"historySize": 100,
+		"showCodes": true,
+		"gridSize": 16,
+		"showGlyphs": true,
+		"showQuickUse": true
+	}
+}

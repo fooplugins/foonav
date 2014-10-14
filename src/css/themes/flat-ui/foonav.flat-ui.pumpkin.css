@@ -1,0 +1,27 @@
+.fon-flat-ui-pumpkin,
+.fon-flat-ui-pumpkin .fon-buttons {
+	background-color: #D35400;
+}
+
+.fon-flat-ui-pumpkin .fon-button {
+	color: #FFF;
+}
+
+.fon-flat-ui-pumpkin .fon-item {
+	color: #FFF;
+	background-color: #E67E22;
+}
+
+.fon-flat-ui-pumpkin a.fon-item:hover,
+.fon-flat-ui-pumpkin .fon-item.fon-active {
+	background-color: #f08822;
+}
+
+.fon-flat-ui-pumpkin.fon-border,
+.fon-flat-ui-pumpkin.fon-border > .fon-buttons {
+	border-color: #E67E22;
+}
+
+.fon-flat-ui-pumpkin.fon-border .fon-item {
+	border-color: #E67E22;
+}
