@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="description" content="A playground allowing you to test most of the FooNav.js options">
+	<title>FooNav.js - Playground</title>
+	<link rel="stylesheet" href="css/prism.css">
+	<link href="http://fonts.googleapis.com/css?family=Merriweather:400,900|PT+Sans:700|PT+Sans+Narrow:700|Oswald:700|PT+Mono" rel="stylesheet" type="text/css">
+	<link href="css/demo.css" rel="stylesheet" type="text/css" />
+	<link href="../dist/foonav.min.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery.min.js"></script>
+	<script src="js/prism.js"></script>
+	<script src="../dist/foonav.min.js"></script>
+	<script>
+		function init(){
+
+			var classes = getClasses(),
+					position = $('input[name=position]:checked').val(),
+					theme = $('#theme').val(),
+					title = $('#title').val(),
+					top = $('#top').is(':checked'),
+					transition = $('input[name=transition]:checked').val(),
+					scroll = parseInt($('#scroll').val()),
+					speed = parseInt($('#speed').val()),
+					smart = {
+						enable: $('#smart_enable').is(':checked'),
+						anchors: $('#smart_anchors').is(':checked'),
+						close: $('#smart_close').is(':checked'),
+						open: $('#smart_open').is(':checked'),
+						remember: $('#smart_remember').is(':checked'),
+						scroll: $('#smart_scroll').is(':checked')
+					};
+
+			for(var i = 0; i < FooNav.instances.length; i++){
+				var instance = FooNav.instances[i];
+				if (instance != null) instance.destroy();
+			}
+
+			FooNav.init({
+				classes: classes,
+				items: '#content',
+				position: position,
+				theme: theme,
+				title: title,
+				top: top,
+				transition: transition,
+				scroll: scroll,
+				speed: speed,
+				smart: smart
+			});
+		}
+
+		function getClasses(){
+			var tmp = [];
+			if ($('input[name=full_height]').is(':checked')){ tmp.push('fon-full-height'); }
+			if ($('input[name=border]').is(':checked')){ tmp.push('fon-border'); }
+			if ($('input[name=rounded]').is(':checked')){ tmp.push('fon-rounded'); }
+			if ($('input[name=shadow]').is(':checked')){ tmp.push('fon-shadow'); }
+			return tmp.join(' ');
+		}
+
+		$(function(){
+			init();
+			$('#playground_options :input').change(function(){
+				init();
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="links">
+		<a href="http://fooplugins.com" target="_blank">FooPlugins</a>
+		<a href="https://github.com/fooplugins/foonav">GitHub Repo</a>
+		<a href="../index.html">Home</a>
+	</div>
+	<div id="header" class="demo">
+		<h1>Playground</h1>
+	</div>
+	<div id="content">
+		<hr/>
+		<p>Welcome to the FooNav.js playground. On this page you will be able to change the majority of FooNav.js' options so that you can see what they do for yourself. The options not available here are those that require some customization to work, like creating a CSS class or HTML markup.</p>
+		<hr/>
+		<h1>Options</h1>
+		<p>Simply select the available options from below and the menu on this page will change accordingly.</p>
+		<table id="playground_options">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Values</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>classes</td>
+					<td>
+						<label><input type="checkbox" name="full_height" value="fon-full-height" />Full Height</label>
+						<label><input type="checkbox" name="border" value="fon-border" />Border</label>
+						<label><input type="checkbox" name="rounded" value="fon-rounded" />Rounded</label>
+						<label><input type="checkbox" name="shadow" value="fon-shadow" />Shadow</label>
+					</td>
+				</tr>
+				<tr>
+					<td>position</td>
+					<td>
+						<label><input type="radio" name="position" value="fon-top-left" />Top Left</label>
+						<label><input type="radio" name="position" value="fon-top-right" checked />Top Right</label>
+						<label><input type="radio" name="position" value="fon-center-left" />Left Center</label>
+						<label><input type="radio" name="position" value="fon-center-right" />Right Center</label>
+						<label><input type="radio" name="position" value="fon-bottom-left" />Bottom Left</label>
+						<label><input type="radio" name="position" value="fon-bottom-right" />Bottom Right</label>
+					</td>
+				</tr>
+				<tr>
+					<td>theme</td>
+					<td>
+						<select id="theme">
+							<optgroup label="Default"></optgroup>
+							<option value="fon-blue">Blue</option>
+							<option value="fon-dark" selected="selected">Dark</option>
+							<option value="fon-green">Green</option>
+							<option value="fon-light">Light</option>
+							<optgroup label="Flat UI"></optgroup>
+							<option value="fon-flat-ui-amethyst">Amethyst</option>
+							<option value="fon-flat-ui-asbestos">Asbestos</option>
+							<option value="fon-flat-ui-asphalt">Asphalt</option>
+							<option value="fon-flat-ui-blue">Blue</option>
+							<option value="fon-flat-ui-emerald">Emerald</option>
+							<option value="fon-flat-ui-orange">Orange</option>
+							<option value="fon-flat-ui-pumpkin">Pumpkin</option>
+							<option value="fon-flat-ui-red">Red</option>
+							<option value="fon-flat-ui-silver">Silver</option>
+							<option value="fon-flat-ui-turquoise">Turquoise</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>title</td>
+					<td>
+						<label><input type="text" id="title" value="FooNav" />A string to display above the root menu items. This is replaced by the back button text on child menus.</label>
+					</td>
+				</tr>
+				<tr>
+					<td>top</td>
+					<td>
+						<label><input type="checkbox" id="top" checked />Whether or not to display the 'To Top' button.</label>
+					</td>
+				</tr>
+				<tr>
+					<td>transition</td>
+					<td>
+						<label><input type="radio" name="transition" value="fade" />Fade</label>
+						<label><input type="radio" name="transition" value="slide" checked />Slide</label>
+					</td>
+				</tr>
+				<tr>
+					<td>scroll</td>
+					<td>
+						<label><input type="range" id="scroll" min="0" max="1000" step="50" value="0" />The distance the vertical scroll bar must travel before displaying FooNav.</label>
+					</td>
+				</tr>
+				<tr>
+					<td>speed</td>
+					<td>
+						<label><input type="range" id="speed" min="0" max="3000" step="50" value="200" />The speed FooNav is shown/hidden and the speed the menus are transitioned between.</label>
+					</td>
+				</tr>
+				<tr>
+					<td>smart</td>
+					<td>Smart options provide additional functionality to FooNav enhancing the user experience.</td>
+				</tr>
+				<tr>
+					<td class="child">enable</td>
+					<td>
+						<label><input type="checkbox" id="smart_enable" checked />Whether or not to enable the smart options. This disables all smart options if set to false.</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="child">anchors</td>
+					<td>
+						<label><input type="checkbox" id="smart_anchors" checked />Whether or not to track anchors in the page. If set to true FooNav will automatically find the item corresponding to the current top most visible anchor and display it.</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="child">close</td>
+					<td>
+						<label><input type="checkbox" id="smart_close" checked />Whether or not to close the menu when losing focus. If set to true when a user clicks anywhere on the page that is not within FooNav, it will close.</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="child">open</td>
+					<td>
+						<label><input type="checkbox" id="smart_open" checked />Whether or not to auto open FooNav on page load. If set to true and the page is scrolled past the scroll option value and a tracked anchor is visible, FooNav will be displayed.</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="child">remember</td>
+					<td>
+						<label><input type="checkbox" id="smart_remember" checked />Whether or not to remember the displayed item on toggle. If set to false when FooNav is displayed or redisplayed it is reset to the root items.</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="child">scroll</td>
+					<td>
+						<label><input type="checkbox" id="smart_scroll" checked />Whether or not to enable smart scrolling. If set to true and a user clicks on an anchored item the page will smoothly scroll to the anchor from it's current position.</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr/>
+		<h1>Additional Content</h1>
+		<p>The below is just some additional content so FooNav can build up some items from the headers.</p>
+		<hr/>
+		<h2>Introduction</h2>
+		<p>Sed non tincidunt quam. Donec tempus placerat erat, sit amet ornare dui congue quis. Donec vel magna nec augue laoreet luctus vel non arcu. Donec sapien nisi, eleifend nec ornare et, molestie a quam. Suspendisse ultricies ipsum quis odio vestibulum, quis condimentum quam viverra. Mauris venenatis laoreet turpis. Duis in nisi aliquam, laoreet tellus porta, posuere enim. Pellentesque dignissim orci a ligula ullamcorper, non rutrum libero gravida. Curabitur vehicula consequat orci nec adipiscing. Suspendisse sem mauris, aliquam vel facilisis vel, fermentum sit amet tortor. Donec eget aliquam mauris, a elementum arcu. Maecenas condimentum sapien sed fringilla aliquet. Sed sapien lectus, mollis at elementum vel, dignissim mollis purus. Ut et suscipit urna. Fusce mollis elit et felis pellentesque, nec fringilla nulla convallis.</p>
+		<p>Sed posuere purus eleifend lobortis accumsan. Nulla vel sapien nec lacus scelerisque venenatis. Duis lacinia volutpat ante eu tempus. In nec lectus dui. Fusce ultricies sem eu ante mollis malesuada. In quis risus vulputate, cursus diam ac, fermentum eros. Ut nulla mauris, tempus vitae quam at, sodales luctus nulla. Quisque molestie lobortis nisi vel lacinia.</p>
+		<p>Vivamus convallis porta purus at placerat. Cras at dapibus enim, quis hendrerit orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ac sem congue, volutpat leo quis, commodo nibh. Sed volutpat cursus dui, ac vehicula metus sodales eu. Nam iaculis molestie felis, et convallis turpis aliquam ac. Ut scelerisque a leo at rhoncus. Nunc egestas, justo non eleifend ultrices, magna orci pretium augue, a suscipit arcu nisi ac elit. Phasellus feugiat adipiscing lacinia. Integer tempus mi eget mauris tincidunt, quis pretium arcu luctus. Sed et dignissim risus. Etiam at justo vel justo tempor vulputate.</p>
+		<p>Cras et sollicitudin arcu. Maecenas non faucibus neque. Sed ut diam tellus. Sed feugiat posuere nisi, eu ornare nulla varius id. Sed leo odio, pulvinar a placerat ut, dapibus sit amet turpis. Integer ultrices sem in ipsum cursus fermentum. Curabitur bibendum, risus tempor vulputate aliquam, felis enim eleifend ipsum, ac mattis magna tellus quis velit. Quisque blandit, libero ut volutpat egestas, risus nisl varius nulla, sit amet pellentesque felis tellus adipiscing felis. Phasellus dictum tortor sapien, nec iaculis orci semper et.</p>
+		<hr/>
+		<h2>Guide</h2>
+		<p>Sed posuere purus eleifend lobortis accumsan. Nulla vel sapien nec lacus scelerisque venenatis. Duis lacinia volutpat ante eu tempus. In nec lectus dui. Fusce ultricies sem eu ante mollis malesuada. In quis risus vulputate, cursus diam ac, fermentum eros. Ut nulla mauris, tempus vitae quam at, sodales luctus nulla. Quisque molestie lobortis nisi vel lacinia.</p>
+		<h3>Step 1: Start Something</h3>
+		<p>Vivamus convallis porta purus at placerat. Cras at dapibus enim, quis hendrerit orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ac sem congue, volutpat leo quis, commodo nibh. Sed volutpat cursus dui, ac vehicula metus sodales eu. Nam iaculis molestie felis, et convallis turpis aliquam ac. Ut scelerisque a leo at rhoncus. Nunc egestas, justo non eleifend ultrices, magna orci pretium augue, a suscipit arcu nisi ac elit. Phasellus feugiat adipiscing lacinia. Integer tempus mi eget mauris tincidunt, quis pretium arcu luctus. Sed et dignissim risus. Etiam at justo vel justo tempor vulputate.</p>
+		<p>Cras et sollicitudin arcu. Maecenas non faucibus neque. Sed ut diam tellus. Sed feugiat posuere nisi, eu ornare nulla varius id. Sed leo odio, pulvinar a placerat ut, dapibus sit amet turpis. Integer ultrices sem in ipsum cursus fermentum. Curabitur bibendum, risus tempor vulputate aliquam, felis enim eleifend ipsum, ac mattis magna tellus quis velit. Quisque blandit, libero ut volutpat egestas, risus nisl varius nulla, sit amet pellentesque felis tellus adipiscing felis. Phasellus dictum tortor sapien, nec iaculis orci semper et.</p>
+		<h3>Step 2: Do Something Else</h3>
+		<p>Sed non tincidunt quam. Donec tempus placerat erat, sit amet ornare dui congue quis. Donec vel magna nec augue laoreet luctus vel non arcu. Donec sapien nisi, eleifend nec ornare et, molestie a quam. Suspendisse ultricies ipsum quis odio vestibulum, quis condimentum quam viverra. Mauris venenatis laoreet turpis. Duis in nisi aliquam, laoreet tellus porta, posuere enim. Pellentesque dignissim orci a ligula ullamcorper, non rutrum libero gravida. Curabitur vehicula consequat orci nec adipiscing. Suspendisse sem mauris, aliquam vel facilisis vel, fermentum sit amet tortor. Donec eget aliquam mauris, a elementum arcu. Maecenas condimentum sapien sed fringilla aliquet. Sed sapien lectus, mollis at elementum vel, dignissim mollis purus. Ut et suscipit urna. Fusce mollis elit et felis pellentesque, nec fringilla nulla convallis.</p>
+		<p>Sed posuere purus eleifend lobortis accumsan. Nulla vel sapien nec lacus scelerisque venenatis. Duis lacinia volutpat ante eu tempus. In nec lectus dui. Fusce ultricies sem eu ante mollis malesuada. In quis risus vulputate, cursus diam ac, fermentum eros. Ut nulla mauris, tempus vitae quam at, sodales luctus nulla. Quisque molestie lobortis nisi vel lacinia.</p>
+		<h3>Step 3: Finish Doing Something</h3>
+		<p>Sed posuere purus eleifend lobortis accumsan. Nulla vel sapien nec lacus scelerisque venenatis. Duis lacinia volutpat ante eu tempus. In nec lectus dui. Fusce ultricies sem eu ante mollis malesuada. In quis risus vulputate, cursus diam ac, fermentum eros. Ut nulla mauris, tempus vitae quam at, sodales luctus nulla. Quisque molestie lobortis nisi vel lacinia.</p>
+		<p>Vivamus convallis porta purus at placerat. Cras at dapibus enim, quis hendrerit orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ac sem congue, volutpat leo quis, commodo nibh. Sed volutpat cursus dui, ac vehicula metus sodales eu. Nam iaculis molestie felis, et convallis turpis aliquam ac. Ut scelerisque a leo at rhoncus. Nunc egestas, justo non eleifend ultrices, magna orci pretium augue, a suscipit arcu nisi ac elit. Phasellus feugiat adipiscing lacinia. Integer tempus mi eget mauris tincidunt, quis pretium arcu luctus. Sed et dignissim risus. Etiam at justo vel justo tempor vulputate.</p>
+		<hr/>
+		<h2>Summary</h2>
+		<p>Sed posuere purus eleifend lobortis accumsan. Nulla vel sapien nec lacus scelerisque venenatis. Duis lacinia volutpat ante eu tempus. In nec lectus dui. Fusce ultricies sem eu ante mollis malesuada. In quis risus vulputate, cursus diam ac, fermentum eros. Ut nulla mauris, tempus vitae quam at, sodales luctus nulla. Quisque molestie lobortis nisi vel lacinia.</p>
+	</div>
+	<div id="footer">
+
+	</div>
+</body>
+</html>

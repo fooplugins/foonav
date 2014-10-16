@@ -17,14 +17,58 @@
 			after: null,
 			/** @type {(string|HTMLElement|Array|jQuery)} - A DOM element, array of elements, HTML string, or jQuery object to insert before the generated menu. */
 			before: null,
+			/**
+			 * A PlainObject containing any additional buttons to create, these can be either just the href or
+			 * an object of attributes, events, and methods to call on the newly-created button.
+			 * The name used must match an icon defined in the icons object.
+			 * @example <caption>A string</caption>
+			 * buttons: {
+			 * 	[name]: [string]
+			 * }
+			 * @example <caption>An object of attributes, events, and methods.</caption>
+			 * buttons: {
+			 * 	[name]: [object]
+			 * }
+			 * @see {@link http://api.jquery.com/jQuery/#jQuery-html-attributes|jQueryAPI} for more information on the html attributes object.
+			 */
+			buttons: null,
 			/** @type {string} - A string of space separated class names to add to the navigation element. */
 			classes: null,
-			/** @type {boolean} - Whether or not to display the 'To Top' button. */
-			top: true,
+			/** @namespace - Contains all the icon class information. */
+			icons: {
+				back: { family: 'fon-icon', icon: 'fon-icon-back' },
+				expand: { family: 'fon-icon', icon: 'fon-icon-expand' },
+				home: { family: 'fon-icon', icon: 'fon-icon-home' },
+				menu: { family: 'fon-icon', icon: 'fon-icon-menu' },
+				top: { family: 'fon-icon', icon: 'fon-icon-top' }
+			},
+			/**
+			 * Items can be either a PlainObject defining the container and item selector, just the container selector or an array of items.
+			 * @example <caption>Example PlainObject</caption>
+			 * items: {
+			 * 	container: [string],
+			 * 	selector: [string]
+			 * }
+			 * @example <caption>Example string</caption>
+			 * items: [string]
+			 * @example <caption>Example item array</caption>
+			 * items: [{
+			 * 	href: [string],
+			 * 	text: [string],
+			 * 	children: [array]
+			 * }]
+			 */
+			items: null,
 			/** @type {string} - The class name of the position for the navigation element. */
 			position: 'fon-top-right',
 			/** @type {string} - The class name of the theme for the navigation element. */
 			theme: 'fon-light',
+			/** @type {string} - A string to display above the root menu items. This is replaced by the back button text on child menus. */
+			title: 'FooNav',
+			/** @type {boolean} - Whether or not to display the 'To Top' button. */
+			top: true,
+			/** @type {string} - A string specifying the type of transition to use on the menu. Possible values are 'slide' and 'fade' */
+			transition: 'slide',
 			/** @type {number} - The distance the scroll bars must travel before displaying the navigation element. */
 			scroll: 0,
 			/** @type {number} - The speed the navigation element is shown/hidden and the speed the menus are transitioned between. */
@@ -45,51 +89,7 @@
 				scroll: true,
 				/** @type {boolean} - Whether or not to parse the current url for a hash value. If a hash is found and it matches an item the menu is set to display that item. */
 				url: true
-			},
-			/** @type {string} - A string to display above the root menu items. This is replaced by the back button text on child menus. */
-			title: 'FooNav',
-			/** @type {string} - A string specifying the type of transition to use on the menu. Possible values are 'slide' and 'fade' */
-			transition: 'slide',
-			/** @namespace - Contains all the icon class information. */
-			icons: {
-				back: { family: 'fon-icon', icon: 'fon-icon-back' },
-				expand: { family: 'fon-icon', icon: 'fon-icon-expand' },
-				home: { family: 'fon-icon', icon: 'fon-icon-home' },
-				menu: { family: 'fon-icon', icon: 'fon-icon-menu' },
-				top: { family: 'fon-icon', icon: 'fon-icon-top' }
-			},
-			/**
-			 * A PlainObject containing any additional buttons to create, these can be either just the href or
-			 * an object of attributes, events, and methods to call on the newly-created button.
-			 * The name used must match an icon defined in the icons object.
-			 * @example <caption>A string</caption>
-		 	 * buttons: {
-			 * 	[name]: [string]
-			 * }
-			 * @example <caption>An object of attributes, events, and methods.</caption>
-			 * buttons: {
-			 * 	[name]: [object]
-			 * }
-			 * @see {@link http://api.jquery.com/jQuery/#jQuery-html-attributes|jQueryAPI} for more information on the html attributes object.
-			 */
-			buttons: null,
-			/**
-			 * Items can be either a PlainObject defining the container and item selector, just the container selector or an array of items.
-			 * @example <caption>Example PlainObject</caption>
-			 * items: {
-			 * 	container: [string],
-			 * 	selector: [string]
-			 * }
-			 * @example <caption>Example string</caption>
-			 * items: [string]
-			 * @example <caption>Example item array</caption>
-			 * items: [{
-			 * 	href: [string],
-			 * 	text: [string],
-			 * 	children: [array]
-			 * }]
-			 */
-			items: null
+			}
 		},
 		/**
 		 * Contains all instantiated instances of FooNav.
@@ -147,7 +147,7 @@
 		selector = selector || 'h1,h2,h3,h4,h5,h6';
 		var items = [];
 		var structure = selector.split(',');
-		var item = null, el = null, pel = null, parentSelector = null;
+		var item = null, el = null, pel = null, parentSelector = null, $el = null;
 
 		//find the index of the el in the provided structure.
 		function _indexOf(el){
@@ -174,17 +174,18 @@
 			return null;
 		}
 
+		//generates a unique ID
 		function _generateID(){
 			return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 		}
 
 		$(container).find(selector).each(function(){
-			el = this;
+			el = this; $el = $(el);
 			if (el.id == '' || el.id == null) el.id = _generateID();
-			item = { text: el.innerText, href: '#' + el.id };
+			item = { text: $el.text(), href: '#' + el.id };
 			parentSelector = _parentSelector(_indexOf(el));
 			if (parentSelector != null && parentSelector != ''){
-				pel = $(el).prevAll(parentSelector).first();
+				pel = $el.prevAll(parentSelector).first();
 				if (pel.length > 0){
 					var parent = _find(pel.attr('id'), items);
 					if (parent != null){
@@ -283,7 +284,7 @@
 			_.b.buttons();
 			_.b.menu();
 			_.b.extra();
-			_.m.position();
+			_.m.position(false);
 
 			if (_.o.smart.enable){
 				if (_.o.smart.url){ _.m.set(location.href, _.o.smart.open); }
@@ -294,8 +295,9 @@
 			$(window).on('scroll', _.w.scrolled);
 
 			//if the scroll position is set to zero show the nav
-			if (_.o.scroll != 0){ return; }
+			if (_.o.scroll != 0){ return _; }
 			_.nav.show();
+			return _;
 		};
 
 		/**
@@ -388,6 +390,29 @@
 				}
 				no();
 				return false;
+			},
+			/**
+			 * @property {(boolean|null)} - Variable to hold the supportsTransitions result so we don't have to run the code multiple times.
+			 */
+			_supportsTransitions: null,
+			/**
+			 * Checks if the current browser supports CSS3 transitions.
+			 * @returns {boolean} - True if the browser supports CSS3 transitions.
+			 */
+			supportsTransitions: function() {
+				if (_.u._supportsTransitions != null) { return _.u._supportsTransitions; }
+				var b = document.body || document.documentElement;
+				var s = b.style;
+				var p = 'transition', v;
+				if(typeof s[p] == 'string') { return true; }
+
+				// Tests for vendor specific prop
+				v = ['Moz', 'Webkit', 'Khtml', 'O', 'ms'];
+				p = p.charAt(0).toUpperCase() + p.substr(1);
+				for(var i=0; i<v.length; i++) {
+					if(typeof s[v[i] + p] == 'string') { return _.u._supportsTransitions = true; }
+				}
+				return _.u._supportsTransitions = false;
 			}
 		};
 
@@ -430,7 +455,7 @@
 				}
 
 				// the top and toggle buttons have extra functionality so hold a reference to them for later use
-				_.top = $('<a></a>', { 'class': 'fon-button', href: '#top', css: { display: 'none' }, on: { click: _.w.top }})
+				_.top = $('<a></a>', { 'class': 'fon-button fon-button-top', href: '#top', on: { click: _.w.top }})
 					.append(_icon('top'))
 					.appendTo(_.buttons);
 
@@ -533,7 +558,7 @@
 		this.m = {
 			/**
 			 * Positions the menu on the page in either the open or closed state depending on the supplied visible parameter.
-			 * @param {boolean} [visible] - Whether or not the menu is visible.
+			 * @param {boolean} visible - Whether or not the menu is visible.
 			 */
 			position: function(visible){
 				visible = visible || false;
@@ -595,11 +620,11 @@
 					$nav = $('<div></div>',{ 'class': 'fon-nav-size'	}).appendTo('body');
 					$('<div></div>',{ 'class': 'fon-nav-inner' }).appendTo($nav);
 				}
-				$nav.removeClass().addClass(_.u.concat('fon-nav-size', _.o.theme, _.o.classes));
+				$nav.removeClass().addClass(_.u.concat('fon-nav-size', _.o.theme, _.o.classes, _.o.position));
 				var $inner = $nav.find('.fon-nav-inner').empty().append(menu.clone());
 				return {
 					height: $inner.height(),
-					width: $inner.width() + 10 //The reason for this is the negative margin-left in .fon-icon-expand (a child) causes IE & FireFox to miscalculate by the value of the margin...
+					width: $inner.width()
 				};
 			},
 			/**
@@ -687,20 +712,22 @@
 					start = 0, end = 0,	o = {};
 
 				if (active){ start = -(w); }
-				else { end = -(w);	}
+				else { end = -(w); }
 
 				o[pos.h] = end;
 
 				if (active){ _.nav.removeClass('fon-closed fon-user-closed'); }
+				else { _.nav.addClass('fon-closing'); }
+
 				_.nav.css(pos.h, start).animate(o, _.o.speed, function(){
 					if (!active && _.nav != null){
 						if (_.o.smart.enable && !_.o.smart.remember){
 							var	$next = _.menu.clone(),
 								ns = _.m.size($next);
 							_.inner.empty().css(ns).append($next);
-							_.m.position();
+							_.m.position(false);
 						}
-						_.nav.addClass('fon-closed fon-user-closed');
+						_.nav.removeClass('fon-closing').addClass('fon-closed fon-user-closed');
 					}
 				});
 			},
@@ -806,27 +833,27 @@
 			 * Performs the actual visibility check on any tracked anchors and updates the menu accordingly.
 			 */
 			check: function(){
-				_.a._check.start(function(){
+				_.a._check.start(function () {
 					var st = $(window).scrollTop();
-					if (st <= _.o.scroll){
+					if (st <= _.o.scroll) {
 						_.m.set(null, _.nav.hasClass('fon-open'));
 					} else {
 						var tracked = _.a.tracked.get(), i, visible = [], top = 0, el, final = $(), offset, id;
 						//check all tracked anchors and push those that are visible into another array.
-						for (i = 0; i < tracked.length; i++){
-							if (!_.a.visible(tracked[i].get(0))){ continue; }
+						for (i = 0; i < tracked.length; i++) {
+							if (!_.a.visible(tracked[i].get(0))) { continue; }
 							visible.push(tracked[i]);
 						}
 						//loop through all visible anchors and get the one closest to the top of the viewport.
-						for (i = 0; i < visible.length; i++){
+						for (i = 0; i < visible.length; i++) {
 							el = visible[i];
 							offset = el.offset();
-							if (top == 0 || offset.top < top){
+							if (top == 0 || offset.top < top) {
 								top = offset.top;
 								final = el;
 							}
 						}
-						if (final.length == 0){ return; }
+						if (final.length == 0) { return; }
 						id = final.attr('id');
 						_.m.set('#' + id, _.nav.hasClass('fon-open') || (!_.nav.hasClass('fon-user-closed') && _.o.smart.open));
 					}
@@ -874,8 +901,12 @@
 				_.w._scrolled.start(function(){
 					var st = $(window).scrollTop();
 					if (_.o.top){
-						if (st > 0){ _.top.slideDown(500); }
-						else { _.top.slideUp(500); }
+						if (st > 0){ _.top.addClass('fon-show'); }
+						else { _.top.removeClass('fon-show'); }
+						if (!_.u.supportsTransitions()){
+							if (st > 0){ _.top.slideDown(500); }
+							else { _.top.slideUp(500); }
+						}
 					}
 
 					if (_.o.scroll != 0){
@@ -892,7 +923,7 @@
 			 * @param {jQuery.Event} e - The jQuery event object.
 			 */
 			clicked: function(e){
-				if (_.nav.hasClass('fon-open') && !$(e.target).is('fon-nav') && $(e.target).closest('.fon-nav').length == 0){
+				if (_.nav.hasClass('fon-open') && !_.nav.hasClass('fon-closing') && !$(e.target).is('fon-nav') && $(e.target).closest('.fon-nav').length == 0){
 					e.allow = true;
 					_.m.toggle.call(_.toggle.get(0), e);
 				}
@@ -913,8 +944,8 @@
 				}
 			}
 		};
-		this.init(options);
-		return this;
+
+		return this.init(options);
 	};
 
 })(jQuery, window);

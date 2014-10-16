@@ -4,17 +4,17 @@
 	<meta charset="UTF-8">
 	<meta name="description" content="A simple menu to help users navigate either your site or a single pages content">
 	<title>FooNav.js - Simple Navigation Plugin</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+	<link rel="stylesheet" href="docs/css/prism.css">
 	<link href="http://fonts.googleapis.com/css?family=Merriweather:400,900|PT+Sans:700|PT+Sans+Narrow:700|Oswald:700|PT+Mono" rel="stylesheet" type="text/css">
 	<link href="docs/css/index.css" rel="stylesheet" type="text/css" />
 	<link href="dist/foonav.min.css" rel="stylesheet" type="text/css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+	<script src="docs/js/jquery.min.js"></script>
+	<script src="docs/js/prism.js"></script>
 	<script src="dist/foonav.min.js"></script>
 	<script>
 		jQuery(function(){
 			FooNav.init({
-				classes: 'fon-shadow fon-full-height',
+				classes: 'fon-shadow',
 				items: '#content',
 				position: 'fon-top-right',
 				theme: 'fon-dark'
@@ -23,30 +23,32 @@
 	</script>
 </head>
 <body>
-	<header id="links">
-
-	</header>
-	<header id="main">
+	<div id="links">
+		<a href="http://fooplugins.com" target="_blank">FooPlugins</a>
+		<a href="https://github.com/fooplugins/foonav">GitHub Repo</a>
+		<a href="docs/playground.html">Playground</a>
+	</div>
+	<div id="header">
 		<h1>FooNav.js</h1>
 		<h2>Simple Navigation Plugin</h2>
 		<h3>by FooPlugins</h3>
-	</header>
-	<article id="content">
+	</div>
+	<div id="content">
 		<hr/>
 		<p>FooNav.js is a free plugin built on jQuery that let's you make a simple menu to help users navigate either your site or a single pages content. You can create your own custom menu links or let the plugin crawl your page for headers and build up a simple navigation menu itself. There are multiple themes to choose from to suite your site, or if you are so inclined you can create your own with a little custom CSS. There are also multiple demos to get you up and running in no time at all.</p>
 		<hr/>
 		<h1>Demos</h1>
-		<h2>Main</h2>
+		<h2>Playground</h2>
 		<ul>
-			<li><a href="docs/demo.html">A Demo Page Showing Most of the Features</a></li>
+			<li><a href="docs/playground.html">A Demo Page Showing Most of the Features</a></li>
 		</ul>
 		<h2>Item Creation</h2>
 		<ul>
-			<li><a href="docs/demo.html">Auto-Generated Menu Items from Headers</a></li>
-			<li><a href="docs/demo.html">Custom Menu Items</a></li>
+			<li><a href="docs/playground.html">Auto-Generated Menu Items from Headers</a></li>
+			<li><a href="docs/playground.html">Custom Menu Items</a></li>
 		</ul>
 		<h2>Positioning</h2>
-		<p>The menu can be positioned at six different points around the window viewport, these are listed below and you can see them in action in <a href="docs/demo.html">this demo page</a> by selecting them from the drop down.</p>
+		<p>The menu can be positioned at six different points around the window viewport, these are listed below and you can see them in action in <a href="docs/playground.html">this demo page</a> by selecting them from the drop down.</p>
 		<ul>
 			<li>Top Left</li>
 			<li>Top Right</li>
@@ -56,7 +58,7 @@
 			<li>Bottom Right</li>
 		</ul>
 		<h2>Themes</h2>
-		<p>There are multiple themes available by default, the below lists them all individually however you can check them all out using <a href="docs/demo.html">this demo page</a> by simply selecting them from the drop down.</p>
+		<p>There are multiple themes available by default, the below lists them all individually however you can check them all out using <a href="docs/playground.html">this demo page</a> by simply selecting them from the drop down.</p>
 		<h3>Default</h3>
 		<ul>
 			<li>Blue</li>
@@ -132,6 +134,9 @@ fnav.reinit({
 	position: 'fon-top-left',
 	theme: 'fon-dark'
 }); // Reinitializes FooNav with the new options</code></pre>
-	</article>
+	</div>
+	<div id="footer">
+
+	</div>
 </body>
 </html>
