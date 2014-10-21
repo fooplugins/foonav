@@ -58,7 +58,7 @@
 			 * 	children: [array]
 			 * }]
 			 */
-			items: null,
+			items: 'body',
 			/** @type {string} - The class name of the position for the navigation element. */
 			position: 'fon-top-right',
 			/** @type {string} - The class name of the theme for the navigation element. */
@@ -82,7 +82,7 @@
 				/** @type {boolean} - Whether or not to close the menu when losing focus. If set to true when a user clicks anywhere on the page that is not within a navigation element, this instance will close. */
 				close: true,
 				/** @type {boolean} - Whether or not to auto open the navigation element on page load. If set to true and the page is scrolled past the scroll option value and a tracked anchor is visible the navigation element will be displayed. */
-				open: true,
+				open: false,
 				/** @type {boolean} - Whether or not to remember menu position on toggle. If set to true the menu will remember it's current position while being toggled. If set to false when the menu is displayed or redisplayed it is reset to the root. */
 				remember: true,
 				/** @type {boolean} - Whether or not to enable smart scrolling. If set to true and a user clicks on an anchored item the page will smoothly scroll to the anchor from it's current position. */
@@ -134,6 +134,16 @@
 	 */
 	FooNav.destroy = function(index){
 		FooNav.fetch(index).destroy();
+	};
+
+	/**
+	 * Destroys all instances of FooNav on the page.
+	 */
+	FooNav.destroyAll = function(){
+		for(var i = 0; i < FooNav.instances.length; i++){
+			var instance = FooNav.instances[i];
+			if (instance != null) instance.destroy();
+		}
 	};
 
 	/**
@@ -772,10 +782,13 @@
 						_.m.active(href, $next, true);
 					});
 				}
-				if (anchored && _.o.smart.enable && _.o.smart.scroll) {
+				if (anchored && _.o.smart.enable && _.o.smart.scroll) { // if it's anchored and we have smooth scroll enabled
 					e.preventDefault();
 					e.stopPropagation();
 					_.w.scroll(href);
+				} else if (href.substring(0,1) == '#' && _.o.smart.enable && _.o.smart.scroll) { // if it's not anchored but smooth scroll is enabled eat the default behaviour
+					e.preventDefault();
+					e.stopPropagation();
 				}
 			}
 		};

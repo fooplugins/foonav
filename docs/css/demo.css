@@ -35,40 +35,88 @@ html, body {
 #header > h2 {
 	font: normal 14px/16px "pt mono";
 }
+.demo,
 #content {
 	width: 80%;
 	margin: 0 auto;
 }
+.demo-content {
+	width: 100%;
+}
+.demo-content.hidden {
+	display: none;
+}
+.demo > h1,
+.demo-content > h1,
 #content > h1 {
 	font: 700 30px/34px "pt sans narrow";
 }
+.demo > h2,
+.demo-content > h2,
 #content > h2 {
 	font: 700 30px/34px "pt sans narrow";
 }
+.demo > h3,
+.demo-content > h3,
 #content > h3 {
 	font: 700 22px/26px "pt sans";
 }
+.demo > h4,
+.demo-content > h4,
 #content > h4 {
 	font: 700 18px/22px "pt sans";
 }
+.demo > ul,
+.demo-content > ul,
 #content > ul {
 	list-style-type: disc;
 }
+.demo > h1 > a {
+	display: inline-block;
+	padding: 5px 10px;
+	background-color: #65998F;
+	color: #ffffff;
+	border-radius: 6px;
+	font-size: 18px;
+	line-height: 22px;
+	margin-left: 20px;
+	vertical-align: bottom;
+	text-decoration: none;
+	transition: background-color 0.2s ease-in;
+}
+.demo > h1 > a:hover {
+	background-color: #16A085;
+	text-decoration: none;
+}
+.demo a,
+.demo-content a,
 #content a {
 	text-decoration: none;
 	color: #525986;
 }
+.demo a:hover,
+.demo-content a:hover,
 #content a:hover {
 	text-decoration: underline;
 }
+.demo pre,
+.demo-content pre,
 #content pre {
 	background-color: #ffffff;
 	padding: 0;
 	border-radius: 6px;
 }
+.demo pre > code,
+.demo-content pre > code,
 #content pre > code {
 	padding: 10px;
 }
+.demo pre > code > .token.tab:not(:empty):before,
+.demo pre > code > .token.cr:before,
+.demo pre > code > .token.lf:before,
+.demo-content pre > code > .token.tab:not(:empty):before,
+.demo-content pre > code > .token.cr:before,
+.demo-content pre > code > .token.lf:before,
 #content pre > code > .token.tab:not(:empty):before,
 #content pre > code > .token.cr:before,
 #content pre > code > .token.lf:before {

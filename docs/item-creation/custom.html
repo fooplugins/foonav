@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="description" content="Shows how to auto-generate items from header elements using FooNav.js">
+	<title>FooNav.js - Item Creation - Auto Generation</title>
+	<link rel="stylesheet" href="../css/prism.css">
+	<link href="http://fonts.googleapis.com/css?family=Merriweather:400,900|PT+Sans:700|PT+Sans+Narrow:700|Oswald:700|PT+Mono" rel="stylesheet" type="text/css">
+	<link href="../css/demo.css" rel="stylesheet" type="text/css" />
+	<link href="../../dist/foonav.min.css" rel="stylesheet" type="text/css" />
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/prism.js"></script>
+	<script src="../../dist/foonav.min.js"></script>
+	<script>
+		$(function(){
+			FooNav.init({
+				classes: 'fon-shadow',
+				theme: 'fon-dark',
+				items: [{
+					href: 'http://fooplugins.github.io/foonav',
+					text: 'Home'
+				},{
+					href: '#playground',
+					text: 'Playground',
+					children: [{
+						href: 'http://fooplugins.github.io/foonav/docs/playground.html#options',
+						text: 'Options'
+					}]
+				},{
+					href: 'https://github.com/fooplugins/foonav',
+					text: 'GitHub Repo'
+				}]
+			});
+		});
+	</script>
+</head>
+<body>
+<div id="links">
+	<a href="http://fooplugins.com" target="_blank">FooPlugins</a>
+	<a href="https://github.com/fooplugins/foonav">GitHub Repo</a>
+	<a href="../../index.html">Home</a>
+</div>
+<div id="header" class="demo">
+	<h1>Item Creation - Custom</h1>
+</div>
+<div class="demo">
+	<hr/>
+	<h1>Custom Menu Items</h1>
+	<p>FooNav.js can also have custom menu items passed to it rather than having it auto-generate them from page content. To do this you must supply each item to the initializer and it will build the menus from them.</p>
+	<hr/>
+	<p>The JavaScript</p>
+	<pre><code class="language-javascript">FooNav.init({
+	items: [{
+		href: 'http://fooplugins.github.io/foonav',
+		text: 'Home'
+	},{
+		href: '#playground',
+		text: 'Playground',
+		children: [{
+			href: 'http://fooplugins.github.io/foonav/docs/playground.html#options',
+			text: 'Options'
+		}]
+	},{
+		href: 'https://github.com/fooplugins/foonav',
+		text: 'GitHub Repo'
+	}]
+});</code></pre>
+	<hr/>
+</div>
+<div id="footer">
+
+</div>
+</body>
+</html>

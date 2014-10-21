@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="description" content="Shows how to auto-generate items from header elements using FooNav.js">
+	<title>FooNav.js - Item Creation - Auto Generation</title>
+	<link rel="stylesheet" href="../css/prism.css">
+	<link href="http://fonts.googleapis.com/css?family=Merriweather:400,900|PT+Sans:700|PT+Sans+Narrow:700|Oswald:700|PT+Mono" rel="stylesheet" type="text/css">
+	<link href="../css/demo.css" rel="stylesheet" type="text/css" />
+	<link href="../../dist/foonav.min.css" rel="stylesheet" type="text/css" />
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/prism.js"></script>
+	<script src="../../dist/foonav.min.js"></script>
+	<script>
+		var demos = {
+			defaults: function(){
+				FooNav.destroyAll();
+				FooNav.init({
+					classes: 'fon-shadow',
+					items: '#default_content',
+					theme: 'fon-dark'
+				});
+			},
+			selector: function(){
+				FooNav.destroyAll();
+				FooNav.init({
+					classes: 'fon-shadow',
+					items: '#selector_content',
+					theme: 'fon-dark'
+				});
+			},
+			selector_custom: function(){
+				FooNav.destroyAll();
+				FooNav.init({
+					classes: 'fon-shadow',
+					items: {
+						container: '#selector_custom_content',
+						selector: '.root,.child,.child-child'
+					},
+					theme: 'fon-dark'
+				});
+			}
+		};
+		$(function(){
+			$('h1 > a').on('click', function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				var href = $(e.target).attr('href'), exec = href.substring(1, href.length);
+				demos[exec]();
+			});
+		});
+	</script>
+</head>
+<body>
+<div id="links">
+	<a href="http://fooplugins.com" target="_blank">FooPlugins</a>
+	<a href="https://github.com/fooplugins/foonav">GitHub Repo</a>
+	<a href="../../index.html">Home</a>
+</div>
+<div id="header" class="demo">
+	<h1>Item Creation - Auto Generation</h1>
+</div>
+<div class="demo">
+	<hr/>
+	<h1>Using the Defaults<a href="#defaults">Run</a></h1>
+	<p>FooNav.js can auto-generate menu items from elements in your page. By default it will look within the BODY of the page for header elements (H1,H2,H3,H4,H5,H6) but this can be changed using the options.</p>
+	<hr/>
+	<p>The JavaScript</p>
+	<pre><code class="language-javascript">FooNav.init()</code></pre>
+	<p>The HTML</p>
+	<pre><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+...
+&lt;body&gt;
+	&lt;h1&gt;Top Level Menu Item&lt;/h1&gt;
+	&lt;p&gt;Some content...&lt;/p&gt;
+	&lt;h2&gt;A Child Menu Item&lt;/h2&gt;
+	&lt;p&gt;Some more content...&lt;/p&gt;
+	&lt;h3&gt;A Child's Child Menu Item&lt;/h3&gt;
+	&lt;p&gt;Some more content...&lt;/p&gt;
+	&lt;h1&gt;Another Top Level Menu Item&lt;/h1&gt;
+	&lt;p&gt;Some content...&lt;/p&gt;
+	&lt;h2&gt;Another Child Menu Item&lt;/h2&gt;
+	&lt;p&gt;Some more content...&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+	<div id="default_content" class="demo-content hidden">
+		<h1>Top Level Menu Item</h1>
+		<p>Some content...</p>
+		<h2>A Child Menu Item</h2>
+		<p>Some more content...</p>
+		<h3>A Child's Child Menu Item</h3>
+		<p>Some more content...</p>
+		<h1>Another Top Level Menu Item</h1>
+		<p>Some content...</p>
+		<h2>Another Child Menu Item</h2>
+		<p>Some more content...</p>
+	</div>
+	<hr/>
+</div>
+<div class="demo">
+	<h1>Using a Custom Container<a href="#selector">Run</a></h1>
+	<p>To change the container FooNav searches for elements you can simply change the <i>items</i> option and specify the jQuery selector that targets your content.</p>
+	<hr/>
+	<p>The JavaScript</p>
+	<pre><code class="language-javascript">FooNav.init({items: '#my_content'})</code></pre>
+	<p>The HTML</p>
+	<pre><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+...
+&lt;body&gt;
+	...
+	&lt;div id="my_content"&gt;
+		&lt;h1&gt;Top Level Menu Item&lt;/h1&gt;
+		&lt;p&gt;Some content...&lt;/p&gt;
+		&lt;h2&gt;A Child Menu Item&lt;/h2&gt;
+		&lt;p&gt;Some more content...&lt;/p&gt;
+		&lt;h3&gt;A Child's Child Menu Item&lt;/h3&gt;
+		&lt;p&gt;Some more content...&lt;/p&gt;
+		&lt;h1&gt;Another Top Level Menu Item&lt;/h1&gt;
+		&lt;p&gt;Some content...&lt;/p&gt;
+		&lt;h2&gt;Another Child Menu Item&lt;/h2&gt;
+		&lt;p&gt;Some more content...&lt;/p&gt;
+	&lt;/div&gt;
+	...
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+	<div id="selector_content" class="demo-content hidden">
+		<h1>Top Level Menu Item</h1>
+		<p>Some content...</p>
+		<h2>A Child Menu Item</h2>
+		<p>Some more content...</p>
+		<h3>A Child's Child Menu Item</h3>
+		<p>Some more content...</p>
+		<h1>Another Top Level Menu Item</h1>
+		<p>Some content...</p>
+		<h2>Another Child Menu Item</h2>
+		<p>Some more content...</p>
+	</div>
+	<hr/>
+</div>
+<div class="demo">
+	<h1>Using a Custom Container & Selector<a href="#selector_custom">Run</a></h1>
+	<p>To change the container and selector FooNav uses to search for elements you can simply change the <i>items</i> option to an object that specifies the two options. The order of the selector determines the hierarchy of the menu items, so when creating a custom selector the root level item selectors should be first (on the left) proceeding any child selectors.</p>
+	<hr/>
+	<p>The JavaScript</p>
+	<pre><code class="language-javascript">FooNav.init({
+	items: {
+		container: '#my_container',
+		selector: '.root,.child,.child-child'
+	}
+})</code></pre>
+	<p>The HTML</p>
+	<pre><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+...
+&lt;body&gt;
+	&lt;label class="root"&gt;Top Level Menu Item&lt;/label&gt;
+	&lt;p&gt;Some content...&lt;/p&gt;
+	&lt;label class="child"&gt;A Child Menu Item&lt;/label&gt;
+	&lt;p&gt;Some more content...&lt;/p&gt;
+	&lt;label class="child-child"&gt;A Child's Child Menu Item&lt;/label&gt;
+	&lt;p&gt;Some more content...&lt;/p&gt;
+	&lt;label class="root"&gt;Another Top Level Menu Item&lt;/label&gt;
+	&lt;p&gt;Some content...&lt;/p&gt;
+	&lt;label class="child"&gt;Another Child Menu Item&lt;/label&gt;
+	&lt;p&gt;Some more content...&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+	<div id="selector_custom_content" class="demo-content hidden">
+		<label class="root">Top Level Menu Item</label>
+		<p>Some content...</p>
+		<label class="child">A Child Menu Item</label>
+		<p>Some more content...</p>
+		<label class="child-child">A Child's Child Menu Item</label>
+		<p>Some more content...</p>
+		<label class="root">Another Top Level Menu Item</label>
+		<p>Some content...</p>
+		<label class="child">Another Child Menu Item</label>
+		<p>Some more content...</p>
+	</div>
+	<hr/>
+</div>
+<div id="footer">
+
+</div>
+</body>
+</html>
