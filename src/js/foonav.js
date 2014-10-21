@@ -336,6 +336,13 @@
 			FooNav.instances[_.index] = null;
 		};
 
+		/**
+		 * Toggles FooNav between an open and closed state.
+		 */
+		this.toggle = function(){
+			_.m.toggle({allow:true});
+		};
+
 		/** @namespace - Contains all util type functions. */
 		this.u = {
 			/**
@@ -708,7 +715,7 @@
 			},
 			/**
 			 * Handles the jQuery click event of the menu/toggle button.
-			 * @param {jQuery.Event} e - The jQuery event object.
+			 * @param {*} e - The jQuery event object.
 			 */
 			toggle: function(e){
 				if (!e.allow){
