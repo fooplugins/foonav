@@ -6,18 +6,18 @@ FooNav.js is a free plugin built on jQuery that let's you make a simple menu to 
 
 ## Demos ##
 
-### Main ###
+### Playground ###
 
-- A Demo Page Showing Most of the Features
+- [A Demo Page Showing Most of the Features](http://fooplugins.github.io/foonav/docs/playground.html)
 
 ### Item Creation ###
 
-- Auto-Generated Menu Items from Headers
-- Custom Menu Items
+- [Auto-Generated Menu Items from Headers](http://fooplugins.github.io/foonav/docs/item-creation/auto-generation.html)
+- [Custom Menu Items](http://fooplugins.github.io/foonav/docs/item-creation/custom.html)
 
 ### Positioning ###
 
-The menu can be positioned at six different points around the window viewport, these are listed below and you can see them in action in this demo page by selecting them from the drop down.
+The menu can be positioned at six different points around the window viewport, these are listed below and you can see them in action in [this demo page](http://fooplugins.github.io/foonav/docs/playground.html) by selecting them from the drop down.
 
 - Top Left
 - Top Right
@@ -28,7 +28,7 @@ The menu can be positioned at six different points around the window viewport, t
 
 ### Themes ###
 
-There are multiple themes available by default, the below lists them all individually however you can check them all out using this demo page and simply selecting each from the drop down.
+There are multiple themes available by default, the below lists them all individually however you can check them all out using [this demo page](http://fooplugins.github.io/foonav/docs/playground.html) and simply selecting each from the drop down.
 
 **Default**
 - Blue
