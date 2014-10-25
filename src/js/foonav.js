@@ -64,7 +64,7 @@
 			/** @type {string} - The class name of the theme for the navigation element. */
 			theme: 'fon-light',
 			/** @type {string} - A string to display above the root menu items. This is replaced by the back button text on child menus. */
-			title: 'FooNav',
+			title: null,
 			/** @type {boolean} - Whether or not to display the 'To Top' button. */
 			top: true,
 			/** @type {string} - A string specifying the type of transition to use on the menu. Possible values are 'slide' and 'fade' */
