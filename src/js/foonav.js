@@ -296,7 +296,6 @@
 			_.b.buttons();
 			_.b.menu();
 			_.b.extra();
-			_.m.position(false);
 
 			if (_.o.smart.enable){
 				if (_.o.smart.url){ _.m.set(location.href, _.o.smart.open); }
@@ -305,6 +304,9 @@
 			}
 
 			$(window).on('scroll', _.w.scrolled);
+
+			// depending on page content load the initial size of the menu can be mis-calculated. This small delay is here to allow additional content to load/perform layout before calculating.
+			setTimeout(function(){_.m.position(false);}, 500);
 
 			//if the scroll position is set to zero show the nav
 			if (_.o.scroll != 0){ return _; }

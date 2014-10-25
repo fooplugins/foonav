@@ -15,6 +15,9 @@
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
+	line-height: 22px;
+	word-spacing: normal;
+	letter-spacing: normal;
 	position: fixed;
 	overflow: visible;
 	min-height: 180px;
