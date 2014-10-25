@@ -34,6 +34,8 @@
 			buttons: null,
 			/** @type {string} - A string of space separated class names to add to the navigation element. */
 			classes: null,
+			/** @type {boolean} - Whether or not to enable deeplinking. If set to true and the selected menu item corresponds to an anchor in the page the hash will be updated. */
+			deeplinking: false,
 			/** @namespace - Contains all the icon class information. */
 			icons: {
 				back: { family: 'fon-icon', icon: 'fon-icon-back' },
@@ -763,6 +765,7 @@
 					e.preventDefault();
 					e.stopPropagation();
 					_.w.scroll(href);
+					_.d.set(href.substring(1, href.length));
 				}
 			},
 			/**
@@ -789,9 +792,35 @@
 					e.preventDefault();
 					e.stopPropagation();
 					_.w.scroll(href);
+					_.d.set(href.substring(1, href.length));
 				} else if (href.substring(0,1) == '#' && _.o.smart.enable && _.o.smart.scroll) { // if it's not anchored but smooth scroll is enabled eat the default behaviour
 					e.preventDefault();
 					e.stopPropagation();
+				}
+			}
+		};
+
+		/** @namespace - Contains all the functions used for deeplinking. */
+		this.d = {
+			/**
+			 * Sets the url hash value to the provided value using the history API where applicable.
+			 * @param {string} hash - The hash to set.
+			 */
+			set: function(hash){
+				if (window.history && window.history.pushState){
+					window.history.replaceState(null, document.title, window.location.pathname + '#' + hash);
+				} else {
+					window.location.replace(('' + window.location).split('#')[0] + '#' + hash);
+				}
+			},
+			/**
+			 * Clears the hash value from the url using the history API where applicable.
+			 */
+			clear: function(){
+				if (window.history && window.history.pushState){
+					window.history.replaceState(null, document.title, window.location.pathname);
+				} else {
+					window.location.replace(('' + window.location).split('#')[0] + '#/');
 				}
 			}
 		};
@@ -872,6 +901,7 @@
 						if (final.length == 0) { return; }
 						id = final.attr('id');
 						_.m.set('#' + id, _.nav.hasClass('fon-open') || (!_.nav.hasClass('fon-user-closed') && _.o.smart.open));
+						_.d.set(id);
 					}
 				}, 100);
 			}
