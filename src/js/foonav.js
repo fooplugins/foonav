@@ -562,12 +562,8 @@
 			 * Create the additional extras defined by the options.
 			 */
 			extra: function(){
-				if (typeof _.o.after == 'string'){
-					_.nav.append($('<div></div>', { 'class': 'fon-after' }).html(_.o.after));
-				}
-				if (typeof _.o.before == 'string'){
-					_.nav.prepend($('<div></div>', { 'class': 'fon-before' }).html(_.o.before));
-				}
+				if (_.o.before != null) _.nav.prepend($('<div></div>', { 'class': 'fon-before' }).append(_.o.before));
+				if (_.o.after != null) _.nav.append($('<div></div>', { 'class': 'fon-after' }).append(_.o.after));
 			}
 		};
 
