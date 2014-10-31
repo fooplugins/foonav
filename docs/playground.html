@@ -42,6 +42,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td>deeplinking</td>
+					<td>
+						<label><input type="checkbox" id="deeplinking" />Whether or not to enable the deeplinking feature.</label>
+					</td>
+				</tr>
+				<tr>
 					<td>position</td>
 					<td>
 						<label><input type="radio" name="position" value="fon-top-left" />Top Left</label>
@@ -78,7 +84,7 @@
 				<tr>
 					<td>title</td>
 					<td>
-						<label><input type="text" id="title" value="FooNav" />A string to display above the root menu items. This is replaced by the back button text on child menus.</label>
+						<label><input type="text" id="title" value="" />A string to display above the root menu items. This is replaced by the back button text on child menus.</label>
 					</td>
 				</tr>
 				<tr>
@@ -149,28 +155,28 @@
 			</tbody>
 		</table>
 		<hr/>
-		<h1>Additional Content</h1>
+		<h1 id="additional_content">Additional Content</h1>
 		<p>The below is just some additional content so FooNav can build up some items from the headers.</p>
 		<hr/>
-		<h2>Introduction</h2>
+		<h2 id="intro">Introduction</h2>
 		<p>Sed non tincidunt quam. Donec tempus placerat erat, sit amet ornare dui congue quis. Donec vel magna nec augue laoreet luctus vel non arcu. Donec sapien nisi, eleifend nec ornare et, molestie a quam. Suspendisse ultricies ipsum quis odio vestibulum, quis condimentum quam viverra. Mauris venenatis laoreet turpis. Duis in nisi aliquam, laoreet tellus porta, posuere enim. Pellentesque dignissim orci a ligula ullamcorper, non rutrum libero gravida. Curabitur vehicula consequat orci nec adipiscing. Suspendisse sem mauris, aliquam vel facilisis vel, fermentum sit amet tortor. Donec eget aliquam mauris, a elementum arcu. Maecenas condimentum sapien sed fringilla aliquet. Sed sapien lectus, mollis at elementum vel, dignissim mollis purus. Ut et suscipit urna. Fusce mollis elit et felis pellentesque, nec fringilla nulla convallis.</p>
 		<p>Sed posuere purus eleifend lobortis accumsan. Nulla vel sapien nec lacus scelerisque venenatis. Duis lacinia volutpat ante eu tempus. In nec lectus dui. Fusce ultricies sem eu ante mollis malesuada. In quis risus vulputate, cursus diam ac, fermentum eros. Ut nulla mauris, tempus vitae quam at, sodales luctus nulla. Quisque molestie lobortis nisi vel lacinia.</p>
 		<p>Vivamus convallis porta purus at placerat. Cras at dapibus enim, quis hendrerit orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ac sem congue, volutpat leo quis, commodo nibh. Sed volutpat cursus dui, ac vehicula metus sodales eu. Nam iaculis molestie felis, et convallis turpis aliquam ac. Ut scelerisque a leo at rhoncus. Nunc egestas, justo non eleifend ultrices, magna orci pretium augue, a suscipit arcu nisi ac elit. Phasellus feugiat adipiscing lacinia. Integer tempus mi eget mauris tincidunt, quis pretium arcu luctus. Sed et dignissim risus. Etiam at justo vel justo tempor vulputate.</p>
 		<p>Cras et sollicitudin arcu. Maecenas non faucibus neque. Sed ut diam tellus. Sed feugiat posuere nisi, eu ornare nulla varius id. Sed leo odio, pulvinar a placerat ut, dapibus sit amet turpis. Integer ultrices sem in ipsum cursus fermentum. Curabitur bibendum, risus tempor vulputate aliquam, felis enim eleifend ipsum, ac mattis magna tellus quis velit. Quisque blandit, libero ut volutpat egestas, risus nisl varius nulla, sit amet pellentesque felis tellus adipiscing felis. Phasellus dictum tortor sapien, nec iaculis orci semper et.</p>
 		<hr/>
-		<h2>Guide</h2>
+		<h2 id="guide">Guide</h2>
 		<p>Sed posuere purus eleifend lobortis accumsan. Nulla vel sapien nec lacus scelerisque venenatis. Duis lacinia volutpat ante eu tempus. In nec lectus dui. Fusce ultricies sem eu ante mollis malesuada. In quis risus vulputate, cursus diam ac, fermentum eros. Ut nulla mauris, tempus vitae quam at, sodales luctus nulla. Quisque molestie lobortis nisi vel lacinia.</p>
-		<h3>Step 1: Start Something</h3>
+		<h3 id="step_1">Step 1: Start Something</h3>
 		<p>Vivamus convallis porta purus at placerat. Cras at dapibus enim, quis hendrerit orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ac sem congue, volutpat leo quis, commodo nibh. Sed volutpat cursus dui, ac vehicula metus sodales eu. Nam iaculis molestie felis, et convallis turpis aliquam ac. Ut scelerisque a leo at rhoncus. Nunc egestas, justo non eleifend ultrices, magna orci pretium augue, a suscipit arcu nisi ac elit. Phasellus feugiat adipiscing lacinia. Integer tempus mi eget mauris tincidunt, quis pretium arcu luctus. Sed et dignissim risus. Etiam at justo vel justo tempor vulputate.</p>
 		<p>Cras et sollicitudin arcu. Maecenas non faucibus neque. Sed ut diam tellus. Sed feugiat posuere nisi, eu ornare nulla varius id. Sed leo odio, pulvinar a placerat ut, dapibus sit amet turpis. Integer ultrices sem in ipsum cursus fermentum. Curabitur bibendum, risus tempor vulputate aliquam, felis enim eleifend ipsum, ac mattis magna tellus quis velit. Quisque blandit, libero ut volutpat egestas, risus nisl varius nulla, sit amet pellentesque felis tellus adipiscing felis. Phasellus dictum tortor sapien, nec iaculis orci semper et.</p>
-		<h3>Step 2: Do Something Else</h3>
+		<h3 id="step_2">Step 2: Do Something Else</h3>
 		<p>Sed non tincidunt quam. Donec tempus placerat erat, sit amet ornare dui congue quis. Donec vel magna nec augue laoreet luctus vel non arcu. Donec sapien nisi, eleifend nec ornare et, molestie a quam. Suspendisse ultricies ipsum quis odio vestibulum, quis condimentum quam viverra. Mauris venenatis laoreet turpis. Duis in nisi aliquam, laoreet tellus porta, posuere enim. Pellentesque dignissim orci a ligula ullamcorper, non rutrum libero gravida. Curabitur vehicula consequat orci nec adipiscing. Suspendisse sem mauris, aliquam vel facilisis vel, fermentum sit amet tortor. Donec eget aliquam mauris, a elementum arcu. Maecenas condimentum sapien sed fringilla aliquet. Sed sapien lectus, mollis at elementum vel, dignissim mollis purus. Ut et suscipit urna. Fusce mollis elit et felis pellentesque, nec fringilla nulla convallis.</p>
 		<p>Sed posuere purus eleifend lobortis accumsan. Nulla vel sapien nec lacus scelerisque venenatis. Duis lacinia volutpat ante eu tempus. In nec lectus dui. Fusce ultricies sem eu ante mollis malesuada. In quis risus vulputate, cursus diam ac, fermentum eros. Ut nulla mauris, tempus vitae quam at, sodales luctus nulla. Quisque molestie lobortis nisi vel lacinia.</p>
-		<h3>Step 3: Finish Doing Something</h3>
+		<h3 id="step_3">Step 3: Finish Doing Something</h3>
 		<p>Sed posuere purus eleifend lobortis accumsan. Nulla vel sapien nec lacus scelerisque venenatis. Duis lacinia volutpat ante eu tempus. In nec lectus dui. Fusce ultricies sem eu ante mollis malesuada. In quis risus vulputate, cursus diam ac, fermentum eros. Ut nulla mauris, tempus vitae quam at, sodales luctus nulla. Quisque molestie lobortis nisi vel lacinia.</p>
 		<p>Vivamus convallis porta purus at placerat. Cras at dapibus enim, quis hendrerit orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ac sem congue, volutpat leo quis, commodo nibh. Sed volutpat cursus dui, ac vehicula metus sodales eu. Nam iaculis molestie felis, et convallis turpis aliquam ac. Ut scelerisque a leo at rhoncus. Nunc egestas, justo non eleifend ultrices, magna orci pretium augue, a suscipit arcu nisi ac elit. Phasellus feugiat adipiscing lacinia. Integer tempus mi eget mauris tincidunt, quis pretium arcu luctus. Sed et dignissim risus. Etiam at justo vel justo tempor vulputate.</p>
 		<hr/>
-		<h2>Summary</h2>
+		<h2 id="summary">Summary</h2>
 		<p>Sed posuere purus eleifend lobortis accumsan. Nulla vel sapien nec lacus scelerisque venenatis. Duis lacinia volutpat ante eu tempus. In nec lectus dui. Fusce ultricies sem eu ante mollis malesuada. In quis risus vulputate, cursus diam ac, fermentum eros. Ut nulla mauris, tempus vitae quam at, sodales luctus nulla. Quisque molestie lobortis nisi vel lacinia.</p>
 	</div>
 	<div id="footer">
@@ -181,6 +187,7 @@
 			function init(){
 
 				var classes = getClasses(),
+						deeplinking = $('#deeplinking').is(':checked'),
 						position = $('input[name=position]:checked').val(),
 						theme = $('#theme').val(),
 						title = $('#title').val(),
@@ -201,6 +208,7 @@
 
 				FooNav.init({
 					classes: classes,
+					deeplinking: deeplinking,
 					items: '#content',
 					position: position,
 					theme: theme,
