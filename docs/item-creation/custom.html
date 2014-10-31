@@ -8,31 +8,6 @@
 	<link href="http://fonts.googleapis.com/css?family=Merriweather:400,900|PT+Sans:700|PT+Sans+Narrow:700|Oswald:700|PT+Mono" rel="stylesheet" type="text/css">
 	<link href="../css/demo.css" rel="stylesheet" type="text/css" />
 	<link href="../../dist/foonav.min.css" rel="stylesheet" type="text/css" />
-	<script src="../js/jquery.min.js"></script>
-	<script src="../js/prism.js"></script>
-	<script src="../../dist/foonav.min.js"></script>
-	<script>
-		$(function(){
-			FooNav.init({
-				classes: 'fon-shadow',
-				theme: 'fon-dark',
-				items: [{
-					href: 'http://fooplugins.github.io/foonav',
-					text: 'Home'
-				},{
-					href: '#playground',
-					text: 'Playground',
-					children: [{
-						href: 'http://fooplugins.github.io/foonav/docs/playground.html#options',
-						text: 'Options'
-					}]
-				},{
-					href: 'https://github.com/fooplugins/foonav',
-					text: 'GitHub Repo'
-				}]
-			});
-		});
-	</script>
 </head>
 <body>
 <div id="links">
@@ -68,7 +43,39 @@
 	<hr/>
 </div>
 <div id="footer">
-
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/prism.js"></script>
+	<script src="../../dist/foonav.min.js"></script>
+	<script>
+		$(function(){
+			FooNav.init({
+				classes: 'fon-shadow',
+				theme: 'fon-dark',
+				items: [{
+					href: 'http://fooplugins.github.io/foonav',
+					text: 'Home'
+				},{
+					href: '#playground',
+					text: 'Playground',
+					children: [{
+						href: 'http://fooplugins.github.io/foonav/docs/playground.html#options',
+						text: 'Options'
+					}]
+				},{
+					href: 'https://github.com/fooplugins/foonav',
+					text: 'GitHub Repo'
+				}]
+			});
+		});
+	</script>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-274447-68', 'auto');
+		ga('send', 'pageview');
+	</script>
 </div>
 </body>
 </html>

@@ -8,19 +8,6 @@
 	<link href="http://fonts.googleapis.com/css?family=Merriweather:400,900|PT+Sans:700|PT+Sans+Narrow:700|Oswald:700|PT+Mono" rel="stylesheet" type="text/css">
 	<link href="docs/css/index.css" rel="stylesheet" type="text/css" />
 	<link href="dist/foonav.min.css" rel="stylesheet" type="text/css" />
-	<script src="docs/js/jquery.min.js"></script>
-	<script src="docs/js/prism.js"></script>
-	<script src="dist/foonav.min.js"></script>
-	<script>
-		jQuery(function(){
-			FooNav.init({
-				classes: 'fon-shadow',
-				items: '#content',
-				position: 'fon-top-right',
-				theme: 'fon-dark'
-			});
-		});
-	</script>
 </head>
 <body>
 	<div id="links">
@@ -136,7 +123,27 @@ fnav.reinit({
 }); // Reinitializes FooNav with the new options</code></pre>
 	</div>
 	<div id="footer">
-
+		<script src="docs/js/jquery.min.js"></script>
+		<script src="docs/js/prism.js"></script>
+		<script src="dist/foonav.min.js"></script>
+		<script>
+			jQuery(function(){
+				FooNav.init({
+					classes: 'fon-shadow',
+					items: '#content',
+					position: 'fon-top-right',
+					theme: 'fon-dark'
+				});
+			});
+		</script>
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+					m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-274447-68', 'auto');
+			ga('send', 'pageview');
+		</script>
 	</div>
 </body>
 </html>
