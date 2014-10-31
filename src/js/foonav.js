@@ -809,6 +809,7 @@
 			 * @param {string} hash - The hash to set.
 			 */
 			set: function(hash){
+				if (!_.o.deeplinking) return;
 				if (window.history && window.history.pushState){
 					window.history.replaceState(null, document.title, window.location.pathname + '#' + hash);
 				} else {
@@ -819,6 +820,7 @@
 			 * Clears the hash value from the url using the history API where applicable.
 			 */
 			clear: function(){
+				if (!_.o.deeplinking) return;
 				if (window.history && window.history.pushState){
 					window.history.replaceState(null, document.title, window.location.pathname);
 				} else {
