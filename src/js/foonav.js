@@ -2,12 +2,9 @@
 /**!
  * FooNav - A jQuery navigation menu.
  * @version 0.0.1
- * @link TODO
+ * @link http://fooplugins.github.io/foonav/
  * @copyright Steven Usher & Brad Vincent 2014
  * @license Released under the MIT license.
- * You are free to use FooNav jQuery in personal projects (excluding WordPress plugins and themes) as long as this copyright header is left intact.
- * Restriction 1: you may not create a WordPress plugin that bundles FooNav jQuery (rather use TODO).
- * Restriction 2: you may only bundle FooNav jQuery within a WordPress theme if you have a developer license.
  */
 (function($, window){
 
