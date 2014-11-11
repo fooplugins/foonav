@@ -272,14 +272,20 @@
 		/** @property {jQuery} - The top button jQuery object. */
 		this.top = null;
 		/** @property {jQuery} - The menu/toggle button jQuery object. */
-		this.toggle = null;
+		this.toggle_button = null;
 		/** @property {jQuery} - The menu jQuery object. */
 		this.menu = null;
+		/** @property {boolean} - A boolean value indicating if the FooNav instance is initialized. */
+		this.initialized = false;
 
 		/** @field {FooNav.Instance} - Hold a reference to this object to use within functions to avoid scoping issues. */
 		var _ = this,
+			__ = {},
 			/** @field {function} - An empty function used for to perform no operation. */
 			noop = function(){};
+
+		/** @property {function} - Holds a reference to the callback function supplied as the first parameter to the ready method. */
+		__.ready = null;
 
 		/**
 		 * The initialize function for the plugin.
@@ -302,12 +308,16 @@
 
 			$(window).on('scroll', _.w.scrolled);
 
-			// depending on page content load the initial size of the menu can be mis-calculated. This small delay is here to allow additional content to load/perform layout before calculating.
-			setTimeout(function(){_.m.position(false);}, 500);
-
 			//if the scroll position is set to zero show the nav
-			if (_.o.scroll != 0){ return _; }
-			_.nav.show();
+			if (_.o.scroll == 0) _.nav.show();
+
+			// depending on page content load the initial size of the menu can be mis-calculated. This small delay is here to allow additional content to load/perform layout before calculating.
+			setTimeout(function(){
+				_.m.position(false);
+				_.initialized = true;
+				if ($.isFunction(__.ready)) __.ready.call(_, _);
+			}, 500);
+
 			return _;
 		};
 
@@ -325,16 +335,27 @@
 		 * @param {boolean} [partial] - Used internally when reinitializing the plugin.
 		 */
 		this.destroy = function(partial){
+			_.initialized = false;
 			partial = partial || false;
 			_.nav.remove();
 			_.o = $.extend(true, {}, FooNav.defaults);
-			_.nav = _.inner = _.back = _.top = _.toggle = _.menu = null;
+			_.nav = _.inner = _.back = _.top = _.toggle_button = _.menu = null;
 			$(window)
 				.off('scroll', _.a.check)
 				.off('scroll', _.w.scrolled)
 				.off('click', _.w.clicked);
 			if (partial){ return; }
 			FooNav.instances[_.index] = null;
+		};
+
+		/**
+		 * A ready function which is executed once FooNav is fully initialized.
+		 * @param {function} callback - The callback function to execute on initialization.
+		 */
+		this.ready = function(callback){
+			if (!$.isFunction(callback)) return;
+			if (_.initialized == true) callback.call(_, _);
+			else __.ready = callback;
 		};
 
 		/**
@@ -477,7 +498,7 @@
 					.append(_icon('top'))
 					.appendTo(_.buttons);
 
-				_.toggle = $('<a></a>', { 'class': 'fon-button', href: '#toggle', on: { click: _.m.toggle }})
+				_.toggle_button = $('<a></a>', { 'class': 'fon-button', href: '#toggle', on: { click: _.m.toggle }})
 					.append(_icon('menu'))
 					.appendTo(_.buttons);
 
@@ -508,7 +529,7 @@
 					}
 				}
 				//adjust the minimum height to accommodate all the buttons
-				var bh = _.toggle.outerHeight() * _.buttons.children().length;
+				var bh = _.toggle_button.outerHeight() * _.buttons.children().length;
 				// adjust for button offset defined in '.fon-[top|bottom]-[left|right] > .fon-buttons' classes
 				var t = parseInt(_.buttons.css('top'), 0),
 					b = parseInt(_.buttons.css('bottom'), 0),
@@ -972,7 +993,7 @@
 			clicked: function(e){
 				if (_.nav.hasClass('fon-open') && !_.nav.hasClass('fon-closing') && !$(e.target).is('fon-nav') && $(e.target).closest('.fon-nav').length == 0){
 					e.allow = true;
-					_.m.toggle.call(_.toggle.get(0), e);
+					_.m.toggle.call(_.toggle_button.get(0), e);
 				}
 			},
 			/**
