@@ -242,6 +242,9 @@
 					init();
 				});
 				$('#preset_1,#preset_2,#preset_3,#preset_4').on('click', function(e){
+					e.preventDefault();
+					e.stopPropagation();
+
 					var options = {};
 					switch(e.target.id){
 						case 'preset_1':
@@ -326,7 +329,9 @@
 							break;
 					}
 					FooNav.destroyAll();
-					FooNav.init(options);
+					FooNav.init(options).ready(function(nav){
+						nav.toggle();
+					});
 				});
 			});
 		</script>
