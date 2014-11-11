@@ -22,6 +22,12 @@
 		<hr/>
 		<p>Welcome to the FooNav.js playground. On this page you will be able to change the majority of FooNav.js' options so that you can see what they do for yourself. The options not available here are those that require some customization to work, like creating a CSS class or HTML markup.</p>
 		<hr/>
+		<h1 id="presets">Presets</h1>
+		<p>Instead of playing around with the options below you can try some presets using the buttons.</p>
+		<a id="preset_1" href="#preset-1" class="demo-btn">Preset 1</a>
+		<a id="preset_2" href="#preset-2" class="demo-btn">Preset 2</a>
+		<a id="preset_3" href="#preset-3" class="demo-btn">Preset 3</a>
+		<a id="preset_4" href="#preset-4" class="demo-btn">Preset 4</a>
 		<h1 id="options">Options</h1>
 		<p>Simply select the available options from below and the menu on this page will change accordingly.</p>
 		<table id="playground_options">
@@ -234,6 +240,93 @@
 				init();
 				$('#playground_options :input').change(function(){
 					init();
+				});
+				$('#preset_1,#preset_2,#preset_3,#preset_4').on('click', function(e){
+					var options = {};
+					switch(e.target.id){
+						case 'preset_1':
+							options = {
+								classes: 'fon-border fon-rounded',
+								items: '#content',
+								position: 'fon-top-left',
+								theme: 'fon-blue',
+								title: 'Preset 1',
+								top: true,
+								transition: 'slide',
+								scroll: 0,
+								smart: {
+									enable: true,
+									anchors: true,
+									close: true,
+									open: true,
+									remember: true,
+									scroll: true
+								}
+							};
+							break;
+						case 'preset_2':
+							options = {
+								classes: 'fon-border fon-full-height',
+								items: '#content',
+								position: 'fon-top-right',
+								theme: 'fon-green',
+								title: 'Preset 2',
+								top: false,
+								transition: 'fade',
+								scroll: 0,
+								smart: {
+									enable: false,
+									anchors: true,
+									close: true,
+									open: true,
+									remember: true,
+									scroll: true
+								}
+							};
+							break;
+						case 'preset_3':
+							options = {
+								classes: 'fon-border fon-shadow',
+								items: '#content',
+								position: 'fon-bottom-right',
+								theme: 'fon-dark',
+								title: 'Preset 3',
+								top: true,
+								transition: 'slide',
+								scroll: 0,
+								smart: {
+									enable: true,
+									anchors: true,
+									close: true,
+									open: true,
+									remember: true,
+									scroll: true
+								}
+							};
+							break;
+						case 'preset_4':
+							options = {
+								classes: 'fon-border fon-rounded fon-full-height fon-shadow',
+								items: '#content',
+								position: 'fon-bottom-left',
+								theme: 'fon-light',
+								title: 'Preset 4',
+								top: true,
+								transition: 'slide',
+								scroll: 0,
+								smart: {
+									enable: true,
+									anchors: true,
+									close: true,
+									open: true,
+									remember: true,
+									scroll: true
+								}
+							};
+							break;
+					}
+					FooNav.destroyAll();
+					FooNav.init(options);
 				});
 			});
 		</script>
