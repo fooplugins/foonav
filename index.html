@@ -16,8 +16,9 @@
 		<a href="docs/playground.html">Playground</a>
 	</div>
 	<div id="header">
+		<img src="docs/content/foonav_logo.png" />
 		<h1>FooNav.js</h1>
-		<h2>Simple Navigation Plugin</h2>
+		<h2>A Simple Navigation Plugin for jQuery</h2>
 		<h3>by FooPlugins</h3>
 	</div>
 	<div id="content">
@@ -133,6 +134,8 @@ fnav.reinit({
 					items: '#content',
 					position: 'fon-top-right',
 					theme: 'fon-dark'
+				}).ready(function(nav){
+					nav.buttons.append('<span class="demo-arrow"></span>');
 				});
 			});
 		</script>

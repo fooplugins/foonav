@@ -25,13 +25,16 @@ html, body {
 }
 #header {
 	width: 100%;
-	height: 300px;
+	height: 565px;
 	text-align: center;
 }
 #header.demo {
 	width: 100%;
 	height: 100px;
 	text-align: center;
+}
+#header > img {
+	margin-top: 40px;
 }
 #header > h1 {
 	font: bold 100px/1 "oswald";
@@ -89,4 +92,13 @@ html, body {
 	background-color: #2C3E50;
 	margin-top: 100px;
 	color: #ffffff;
+}
+.demo-arrow {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -150px;
+	width: 150px;
+	height: 142px;
+	background: url("../content/arrow_smaller.png") no-repeat center center;
 }
