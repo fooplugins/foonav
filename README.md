@@ -4,6 +4,8 @@
 
 FooNav.js is a free plugin built on jQuery that let's you make a simple menu to help users navigate either your site or a single pages content. You can create your own custom menu links or let the plugin crawl your page for headers and build up a simple navigation menu itself. There are multiple themes to choose from to suite your site, or if you are so inclined you can create your own with a little custom CSS. There are also multiple demos to get you up and running in no time at all.
 
+![FooNav](https://github.com/fooplugins/foonav/raw/master/screenshot.png "FooNav")
+
 ## Demos ##
 
 ### Playground ###
