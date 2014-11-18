@@ -1,0 +1,23 @@
+{
+  "name": "foonav",
+  "version": "0.0.1",
+  "homepage": "https://github.com/fooplugins/foonav",
+  "authors": [
+    "Steven Usher <steveush@gmail.com>"
+  ],
+  "description": "A Simple Navigation Plugin for jQuery",
+  "main": "src/js/foonav.js",
+  "keywords": [
+    "jquery",
+    "navigation",
+    "menu"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
