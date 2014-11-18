@@ -116,22 +116,24 @@
 		<pre><code class="language-markup">&lt;script src="http://example.com/js/foonav.min.js"&gt;&lt;/script&gt;</code></pre>
 		<h2>Step 2: Initialize and Configure</h2>
 		<p>In either a JavaScript file or inline, initalize FooNav. This has to be below the foonav.js file. Some of the following settings below are defaults, and are only added for demonstration purposes.</p>
-		<pre><code class="language-javascript">var fnav = FooNav.init({
+		<pre><code class="language-javascript">FooNav.init({
 	classes: 'fon-full-height fon-border fon-rounded fon-shadow', // Any additional classes to add to FooNav
 	items: '#content', // The selector where FooNav looks for the header elements
 	position: 'fon-top-right', // The position in the viewport
 	theme: 'fon-light' // The theme to use
 });</code></pre>
 		<h2>Step 3: Use the FooNav Instance</h2>
-		<p>You can now use the FooNav API to control the plugin, binding it to whatever events you want.</p>
-		<pre><code class="language-javascript">fnav.toggle(); // Toggles FooNav between open and closed states
-fnav.destroy(); // Completely destroys FooNav removing it from the DOM
-fnav.reinit({
-	classes: 'fon-shadow',
-	items: '#content',
-	position: 'fon-top-left',
-	theme: 'fon-dark'
-}); // Reinitializes FooNav with the new options</code></pre>
+		<p>FooNav has it's own ready event to use to avoid asynchronous loading issues. You can see it below allowing you to use the FooNav API to control the plugin, binding it to whatever events you want.</p>
+		<pre><code class="language-javascript">FooNav.init({...configuration...}).ready(function(fnav){
+	fnav.toggle(); // Toggles FooNav between open and closed states
+	fnav.destroy(); // Completely destroys FooNav removing it from the DOM
+	fnav.reinit({
+		classes: 'fon-shadow',
+		items: '#content',
+		position: 'fon-top-left',
+		theme: 'fon-dark'
+	}); // Reinitializes FooNav with the new options
+});</code></pre>
 	</div>
 	<div id="footer">
 		<script src="docs/js/jquery.min.js"></script>
