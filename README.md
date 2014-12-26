@@ -69,6 +69,10 @@ There are a number of different ways to change to behaviour of the menu, from on
 
 ----------
 
+## Getting Started Bower ##
+
+Install using [Bower](http://bower.io): `bower install foonav`
+
 ## Getting Started Simple ##
 
 ### Step 1: Include the required files ###
