@@ -7,6 +7,9 @@
   ],
   "description": "A Simple Navigation Plugin for jQuery",
   "main": "src/js/foonav.js",
+  "dependencies": {
+    "jquery": ">=1.8 <2"
+  },
   "keywords": [
     "jquery",
     "navigation",
