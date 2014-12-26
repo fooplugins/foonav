@@ -19,7 +19,12 @@
   "ignore": [
     "docs/",
     "src/",
-    "**/.*",
+    "Gruntfile.js",
+    "bower.json",
+    "package.json",
+    "screenshot.png",
+    "index.html",
+    "README.md",
     "node_modules",
     "bower_components"
   ]
