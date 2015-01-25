@@ -1,7 +1,7 @@
 /*jslint devel: true, browser: true, unparam: true, debug: false, es5: true, white: false, maxerr: 1000 */
 /**!
  * FooNav - A jQuery navigation menu.
- * @version 0.0.1
+ * @version 0.0.2
  * @link http://fooplugins.github.io/foonav/
  * @copyright Steven Usher & Brad Vincent 2014
  * @license Released under the MIT license.
@@ -829,7 +829,7 @@
 			set: function(hash){
 				if (!_.o.deeplinking) return;
 				if (window.history && window.history.pushState){
-					window.history.replaceState(null, document.title, window.location.pathname + '#' + hash);
+					window.history.replaceState(null, document.title, window.location.pathname + window.location.search + '#' + hash);
 				} else {
 					window.location.replace(('' + window.location).split('#')[0] + '#' + hash);
 				}
@@ -840,7 +840,7 @@
 			clear: function(){
 				if (!_.o.deeplinking) return;
 				if (window.history && window.history.pushState){
-					window.history.replaceState(null, document.title, window.location.pathname);
+					window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
 				} else {
 					window.location.replace(('' + window.location).split('#')[0] + '#/');
 				}
