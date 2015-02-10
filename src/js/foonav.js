@@ -42,10 +42,11 @@
 				top: { family: 'fon-icon', icon: 'fon-icon-top' }
 			},
 			/**
-			 * Items can be either a PlainObject defining the container and item selector, just the container selector or an array of items.
+			 * Items can be either a PlainObject defining the container, item and exclude selectors, just the container selector or an array of items.
 			 * @example <caption>Example PlainObject</caption>
 			 * items: {
 			 * 	container: [string],
+			 * 	exclude: [string],
 			 * 	selector: [string]
 			 * }
 			 * @example <caption>Example string</caption>
@@ -146,14 +147,16 @@
 	};
 
 	/**
-	 * Generates FooNav items from the header elements within the element matched by the selector.
+	 * Generates FooNav items from the elements matching the selector within the container.
 	 * @param {string} [container] - The jQuery selector for the container of the items.
 	 * @param {string} [selector] - The jQuery selector for the items.
+	 * @param {string} [excludes] - The jQuery selector that specifies the elements to exclude.
 	 * @returns {Array}
 	 */
-	FooNav.items = function(container, selector){
+	FooNav.items = function(container, selector, excludes){
 		container = container || 'body';
 		selector = selector || 'h1,h2,h3,h4,h5,h6';
+		excludes = excludes || '';
 		var items = [];
 		var structure = selector.split(',');
 		var item = null, el = null, pel = null, parentSelector = null, $el = null;
@@ -183,12 +186,18 @@
 			return null;
 		}
 
+		//determine whether or not to exclude an element.
+		function _exclude(i, el){
+			if (excludes == null || excludes == '') return true;
+			return $(el).closest(excludes).length == 0;
+		}
+
 		//generates a unique ID
 		function _generateID(){
 			return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 		}
 
-		$(container).find(selector).each(function(){
+		$(container).find(selector).filter(_exclude).each(function(){
 			el = this; $el = $(el);
 			if (el.id == '' || el.id == null) el.id = _generateID();
 			item = { text: $el.text(), href: '#' + el.id };
@@ -466,7 +475,7 @@
 				if (type == 'string'){ //if just a string is provided assume it's the container selector.
 					_.o.items = FooNav.items(_.o.items);
 				} else if (type == 'object'){ //if an object is provided use the selectors in it.
-					_.o.items = FooNav.items(_.o.items.container, _.o.items.selector);
+					_.o.items = FooNav.items(_.o.items.container, _.o.items.selector, _.o.items.exclude);
 				}
 			},
 			/**

@@ -134,16 +134,27 @@
 		theme: 'fon-dark'
 	}); // Reinitializes FooNav with the new options
 });</code></pre>
+		<div id="comments">
+			<h2>Should Be Ignored</h2>
+			<p>These headers should be ignored by FooNav as on this page the <code>items.exclude</code> option is set to <code>#comments</code>.</p>
+			<h3>Should Be Ignored Too</h3>
+			<p>The exclude option allows you to specify a comma separated string of jQuery selectors that will be excluded from the auto-generated items.</p>
+		</div>
 	</div>
 	<div id="footer">
 		<script src="docs/js/jquery.min.js"></script>
 		<script src="docs/js/prism.js"></script>
-		<script src="dist/foonav.min.js"></script>
+		<!--<script src="dist/foonav.min.js"></script>-->
+		<script src="src/js/foonav.js"></script>
 		<script>
 			jQuery(function(){
 				FooNav.init({
 					classes: 'fon-shadow',
-					items: '#content',
+					items: {
+						container: '#content',
+						selector: 'h1,h2,h3,h4,h5,h6',
+						exclude: '#comments'
+					},
 					position: 'fon-top-right',
 					theme: 'fon-dark'
 				}).ready(function(nav){
