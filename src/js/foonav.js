@@ -1,7 +1,7 @@
 /*jslint devel: true, browser: true, unparam: true, debug: false, es5: true, white: false, maxerr: 1000 */
 /**!
  * FooNav - A jQuery navigation menu.
- * @version 0.0.2
+ * @version 0.0.3
  * @link http://fooplugins.github.io/foonav/
  * @copyright Steven Usher & Brad Vincent 2014
  * @license Released under the MIT license.
