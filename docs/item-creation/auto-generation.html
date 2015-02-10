@@ -138,6 +138,17 @@
 		<p>Some more content...</p>
 	</div>
 	<hr/>
+	<h2>Excluding Elements</h2>
+	<p>To exclude elements there is a third property of the <i>items</i> option, <b>exclude</b>, which is simply a jQuery selector of elements that must be ignored. Note that the element matching the selector and all of it's children will be ignored.</p>
+	<hr/>
+	<p>The JavaScript</p>
+	<pre><code class="language-javascript">FooNav.init({
+	items: {
+		container: '#my_container',
+		selector: '.root,.child,.child-child',
+		exclude: '.ignore-this-class,.and-this-one'
+	}
+})</code></pre>
 </div>
 <div id="footer">
 	<script src="../js/jquery.min.js"></script>
