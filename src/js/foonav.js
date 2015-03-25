@@ -315,7 +315,9 @@
 				if (_.o.smart.anchors){ $(window).on('scroll', _.a.check); }
 			}
 
-			$(window).on('scroll', _.w.scrolled);
+			$(window)
+				.on('scroll', _.w.scrolled)
+				.on('resize', _.w.resized);
 
 			//if the scroll position is set to zero show the nav
 			if (_.o.scroll == 0) _.nav.show();
@@ -672,6 +674,15 @@
 				};
 			},
 			/**
+			 * Forces FooNav to recalculate it's size.
+			 */
+			resize: function(){
+				var $menu = _.inner.children('.fon-menu:first');
+				if ($menu.length == 0) { return; }
+				var ns = _.m.size($menu);
+				_.inner.css(ns);
+			},
+			/**
 			 * Gets the menu that contains the supplied href.
 			 * @param {string} href - The href to search for.
 			 * @param {boolean} [back] -  Whether or not to search back links.
@@ -951,6 +962,11 @@
 			 */
 			_scrolled: new FooNav.Timer(),
 			/**
+			 * @property {FooNav.Timer} - An internal timer used to prevent excessive checks when resizing.
+			 * @private
+			 */
+			_resized: new FooNav.Timer(),
+			/**
 			 * Scrolls to the specified target element.
 			 * @param {HTMLElement} target - The element to scroll into view.
 			 */
@@ -1019,6 +1035,11 @@
 				} else {
 					$('html, body').scrollTop(0);
 				}
+			},
+			resized: function(){
+				_.w._resized.start(function(){
+					_.m.resize();
+				}, 100);
 			}
 		};
 
