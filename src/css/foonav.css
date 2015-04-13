@@ -301,6 +301,14 @@
 		width: calc(100% - 88px);
 		height: calc(100% - 100px);
 	}
+	.fon-nav.fon-top-left,
+	.fon-nav.fon-top-right,
+	.fon-nav.fon-center-left,
+	.fon-nav.fon-center-right,
+	.fon-nav.fon-bottom-left,
+	.fon-nav.fon-bottom-right {
+		top: 30px !important;
+	}
 	.fon-nav-inner {
 		overflow-y: auto;
 		max-width: 100%;

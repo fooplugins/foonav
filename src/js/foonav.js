@@ -348,13 +348,14 @@
 		this.destroy = function(partial){
 			_.initialized = false;
 			partial = partial || false;
-			_.nav.remove();
-			_.o = $.extend(true, {}, FooNav.defaults);
-			_.nav = _.inner = _.back = _.top = _.toggle_button = _.menu = null;
 			$(window)
 				.off('scroll', _.a.check)
 				.off('scroll', _.w.scrolled)
-				.off('click', _.w.clicked);
+				.off('click', _.w.clicked)
+				.off('resize', _.w.resized);
+			_.nav.remove();
+			_.o = $.extend(true, {}, FooNav.defaults);
+			_.nav = _.inner = _.back = _.top = _.toggle_button = _.menu = null;
 			if (partial){ return; }
 			FooNav.instances[_.index] = null;
 		};
