@@ -443,6 +443,17 @@
 				return false;
 			},
 			/**
+			 * Retrieves the viewport size
+			 * @returns {{}}
+			 */
+			viewportSize: function () {
+				var ratio = typeof window.devicePixelRatio !== 'undefined' ? window.devicePixelRatio : 1;
+				return {
+					width: (window.innerWidth || document.documentElement.clientWidth || (document.body ? document.body.offsetWidth : 0)) / ratio,
+					height: (window.innerHeight || document.documentElement.clientHeight || (document.body ? document.body.offsetHeight : 0)) / ratio
+				};
+			},
+			/**
 			 * @property {(boolean|null)} - Variable to hold the supportsTransitions result so we don't have to run the code multiple times.
 			 */
 			_supportsTransitions: null,
@@ -662,7 +673,9 @@
 			 * @returns {{height: number, width: number}}
 			 */
 			size: function(menu){
-				var $nav = $('.fon-nav-size');
+				var $nav = $('.fon-nav-size'),
+					$before = _.nav.find('.fon-before'),
+					$after = _.nav.find('.fon-after');
 				if ($nav.length == 0){
 					$nav = $('<div></div>',{ 'class': 'fon-nav-size'	}).appendTo('body');
 					$('<div></div>',{ 'class': 'fon-nav-inner' }).appendTo($nav);
@@ -671,7 +684,15 @@
 				var $inner = $nav.find('.fon-nav-inner').empty().append(menu.clone());
 				return {
 					height: $inner.height(),
-					width: $inner.width()
+					width: $inner.width(),
+					before: {
+						height: $before.height(),
+						width: $before.width()
+					},
+					after: {
+						height: $after.height(),
+						width: $after.width()
+					}
 				};
 			},
 			/**
@@ -680,8 +701,14 @@
 			resize: function(){
 				var $menu = _.inner.children('.fon-menu:first');
 				if ($menu.length == 0) { return; }
-				var ns = _.m.size($menu);
-				_.inner.css(ns);
+				_.m.setSize(_.m.size($menu));
+			},
+			setSize: function(size){
+				if (typeof size.width !== 'number' || typeof size.height !== 'number') return;
+				var vs = _.u.viewportSize(), nh = _.nav.height(),
+					bah = (size.before.height ? size.before.height : 0) + (size.after.height ? size.after.height : 0) + 7;
+				if (vs.width < 640) size.height = nh - bah;
+				_.inner.css({ width: size.width, height: size.height });
 			},
 			/**
 			 * Gets the menu that contains the supplied href.
@@ -704,8 +731,9 @@
 				visible = visible || false;
 				var $menu = _.m.get(href, true);
 				if ($menu.length == 0) { return; }
-				var ns = _.m.size($menu);
-				_.inner.empty().css(ns).append($menu);
+				_.inner.empty();
+				_.m.setSize(_.m.size($menu));
+				_.inner.append($menu);
 				_.m.active(href, $menu, true);
 				_.m.position(visible);
 			},
@@ -721,8 +749,14 @@
 
 				var ns = _.m.size(next), //new size
 					cs = { height: _.inner.height(), width: _.inner.width() }, //current size
-					s = ns.width != cs.width || ns.height != cs.height ? _.o.speed : 0,//if there's no change in size set the animation speed of the adjustment to zero, we don't need it.
-					start = {}, prep = {}, end = {}, remove = {}, name;
+					start = {}, prep = {}, end = {}, remove = {}, name,
+					vs = _.u.viewportSize(), nh = _.nav.height(),
+					bah = (ns.before.height ? ns.before.height : 0) + (ns.after.height ? ns.after.height : 0) + 7;
+
+				if (vs.width < 640) ns.height = nh - bah;
+
+				//if there's no change in size set the animation speed of the adjustment to zero, we don't need it.
+				var s = ns.width != cs.width || ns.height != cs.height ? _.o.speed : 0;
 
 				switch(_.o.transition){
 					case 'fade':
@@ -778,9 +812,10 @@
 				_.nav.css(pos.h, start).animate(o, _.o.speed, function(){
 					if (!active && _.nav != null){
 						if (_.o.smart.enable && !_.o.smart.remember){
-							var	$next = _.menu.clone(),
-								ns = _.m.size($next);
-							_.inner.empty().css(ns).append($next);
+							var	$next = _.menu.clone();
+							_.inner.empty();
+							_.m.setSize(_.m.size($next));
+							_.inner.append($next);
 							_.m.position(false);
 						}
 						_.nav.removeClass('fon-closing').addClass('fon-closed fon-user-closed');

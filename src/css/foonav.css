@@ -6,6 +6,14 @@
  * @license Released under the MIT license.
  */
 .fon-nav,
+.fon-nav-size,
+.fon-nav *,
+.fon-nav-size * {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.fon-nav,
 .fon-nav-size {
 	font-family: "Segoe UI", "Helvetica", "Arial", sans-serif;
 	font-size: 16px;
@@ -68,7 +76,7 @@
 	position: relative;
 	list-style-type: none;
 	padding: 0;
-	margin: 0;
+	margin: 0 3px;
 }
 
 .fon-menu > li > .fon-menu {
@@ -78,7 +86,7 @@
 .fon-item {
 	display: block;
 	padding: 9px 12px;
-	margin: 3px;
+	margin: 3px 0;
 	position: relative;
 	text-decoration: none;
 	text-align: left;
