@@ -89,7 +89,9 @@
 				scroll: true,
 				/** @type {boolean} - Whether or not to parse the current url for a hash value. If a hash is found and it matches an item the menu is set to display that item. */
 				url: true
-			}
+			},
+			/** @type {number} - the distance to remove to the reach position of the selected anchor. Useful in the case of scrollable pages containing a fixed top header who could mask the selected anchor. */
+			anchorDistance: 0
 		},
 		/**
 		 * Contains all instantiated instances of FooNav.
@@ -1009,7 +1011,7 @@
 			scroll: function(target){
 				_.a._check.stop();
 				var $target = $(target),
-					top = $target.offset().top;
+					top = $target.offset().top - _.o.anchorDistance;
 
 				$(window).off('scroll', _.a.check);
 				_.w._scroll.stop();
